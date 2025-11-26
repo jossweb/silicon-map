@@ -1,0 +1,10 @@
+bin/
+*.class
+.settings/
+.metadata/
+.recommenders/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp
