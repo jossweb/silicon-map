@@ -9,7 +9,7 @@ public class SingleConnection {
     private static Connection instance = null;
     private SingleConnection() {
         try {
-            String url = "jdbc:mysql://localhost:3306/absences?useSSL=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://localhost:8889/siliconmap?useSSL=false&serverTimezone=UTC";
             String user = "root";
             String password = "root";
 

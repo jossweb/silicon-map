@@ -5,6 +5,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public abstract class DAO<T> {
+	
+	// =============================
+	// TODO : 
+	// Change all console output to English
+	// =============================
 
     protected Connection connect;
     protected Statement stmt;
@@ -15,9 +20,12 @@ public abstract class DAO<T> {
 
     public void open() {
         try {
-            connect = SingleConnection.getInstance();
-
-            stmt = connect.createStatement();
+        	if(this.connect.isClosed()) {
+        		//TODO : let see if we need to use only one connection or 
+        		// if we can open multiple connections
+        		connect = SingleConnection.getInstance();
+                stmt = connect.createStatement();
+        	}
 
         } catch (SQLException e) {
             System.err.println("Erreur lors de l'ouverture du DAO : " + e.getMessage());
