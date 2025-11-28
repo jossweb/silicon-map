@@ -1,10 +1,10 @@
-package Dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class DAO<T> {
+public abstract class Dao<T> {
 	
 	// =============================
 	// TODO : 
