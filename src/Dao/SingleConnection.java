@@ -6,34 +6,32 @@ import java.sql.SQLException;
 
 public class SingleConnection {
 
-    private static Connection instance = null;
+    private static Connection connection = null;
     private SingleConnection() {
         try {
             String url = "jdbc:mysql://localhost:8889/siliconmap?useSSL=false&serverTimezone=UTC";
             String user = "root";
             String password = "root";
 
-            instance = DriverManager.getConnection(url, user, password);
-            System.out.println("Connexion à la base de données établie !");
+            connection = DriverManager.getConnection(url, user, password);
             
         } catch (SQLException e) {
-            System.err.println("Erreur de connexion : " + e.getMessage());
+        	throw new RuntimeException(e);
         }
     }
-    public static Connection getInstance() {
-        if (instance == null) {
+    public static Connection GetConnection() {
+        if (connection == null) {
             new SingleConnection();
         }
-        return instance;
+        return connection;
     }
     public static void close() {
-        if (instance != null) {
+        if (connection != null) {
             try {
-                instance.close();
-                instance = null;
-                System.out.println("Connexion fermée.");
+            	connection.close();
+                System.out.println("Connection closed");
             } catch (SQLException e) {
-                System.err.println("Erreur lors de la fermeture : " + e.getMessage());
+            	throw new RuntimeException(e);
             }
         }
     }

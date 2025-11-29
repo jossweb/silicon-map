@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : jeu. 27 nov. 2025 à 11:19
+-- Généré le : sam. 29 nov. 2025 à 20:47
 -- Version du serveur : 8.0.40
 -- Version de PHP : 8.3.14
 
@@ -103,7 +103,8 @@ CREATE TABLE `staff` (
   `first_name` varchar(40) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `role` enum('admin','technician') NOT NULL,
-  `available` tinyint NOT NULL DEFAULT '0'
+  `available` tinyint NOT NULL DEFAULT '0',
+  `hashpass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

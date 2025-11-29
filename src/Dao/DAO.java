@@ -4,31 +4,19 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class Dao<T> {
-	
-	// =============================
-	// TODO : 
-	// Change all console output to English
-	// =============================
-
-    protected Connection connect;
-    protected Statement stmt;
-    
-    public abstract T create(T obj);
-    public abstract T update(T obj);
-    public abstract void delete(T obj);
+public abstract class Dao{
+    private Connection connect;
+    private Statement stmt;
 
     public void open() {
         try {
         	if(this.connect.isClosed()) {
-        		//TODO : let see if we need to use only one connection or 
-        		// if we can open multiple connections
-        		connect = SingleConnection.getInstance();
+        		connect = SingleConnection.GetConnection();
                 stmt = connect.createStatement();
         	}
 
         } catch (SQLException e) {
-            System.err.println("Erreur lors de l'ouverture du DAO : " + e.getMessage());
+        	throw new RuntimeException(e);
         }
     }
     public void close() {
@@ -37,7 +25,7 @@ public abstract class Dao<T> {
                 stmt.close();
             }
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la fermeture du Statement : " + e.getMessage());
+        	throw new RuntimeException(e);
         }
 
         SingleConnection.close();
