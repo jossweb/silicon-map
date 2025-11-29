@@ -10,10 +10,4 @@ public abstract class Component {
 		this.model = model;
 		this.machine = m;
 	}
-	
-	// =============================
-	// TODO : 
-	// Implement methods and add daughter 
-	// class 'cpu', 'gpu, 'ram', '...'
-	// =============================
 }
