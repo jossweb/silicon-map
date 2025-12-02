@@ -41,7 +41,13 @@ public abstract class Staff {
 	public String getHashpass() {
 		return hashpass;
 	}
-	public static void AddMemberToDb(Staff s) {
-		System.out.print(StaffDao.createStaffMember(s));
+	public int getId() {
+		return id;
+	}
+	public void AddMemberToDb() {
+		StaffDao.createStaffMember(this);
+	}
+	public void DeleteMemberInDb() {
+		StaffDao.deleteStaffFromDb(this);
 	}
 }
