@@ -2,7 +2,10 @@ package domain;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import dao.StaffDao;
+import Dao.StaffDao;
+import error.LoginError;
+import error.UserNotFound;
+import error.BadPassword;
 
 public abstract class Staff {
 	private int id;
@@ -21,13 +24,17 @@ public abstract class Staff {
 	public static String hashpass(String pass) {
 		return BCrypt.hashpw(pass, BCrypt.gensalt(12));
 	}
-	public static Staff checkPass(String username, String pass) {
+	public static Staff checkPass(String username, String pass) throws LoginError{
 		//return the staff member if pass and username are correct 
 		// else null
 		Staff userFromDb = StaffDao.getStaffMember(username);
-		if(BCrypt.checkpw(pass, userFromDb.hashpass))
-			return userFromDb;
-		return null;
+		if(userFromDb != null){
+			if(BCrypt.checkpw(pass, userFromDb.hashpass))
+				return userFromDb;
+
+			throw new BadPassword();
+		}
+		throw new UserNotFound();
 	}
 	public String getName() {
 		return name;

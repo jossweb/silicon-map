@@ -1,4 +1,4 @@
-package dao;
+package Dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +13,14 @@ public abstract class StaffDao {
 	public static Staff getStaffMember(String username) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
-			PreparedStatement stmt = conn.prepareStatement("SELECT staff.name, staff.first_name, staff.role, staff.hashpass, staff.available FROM staff WHERE staff.user_name=?;");
+			PreparedStatement stmt = conn.prepareStatement("SELECT staff.id, staff.name, staff.first_name, staff.role, staff.hashpass, staff.available, staff.user_name FROM staff WHERE staff.user_name=?;");
 			stmt.setString(1, username);
 			ResultSet result = stmt.executeQuery();
 			
 			if(result.next()) {
-				if(result.getString("id")=="admin")
+				if(result.getString("role").equals("admin"))
 					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
-				else if(result.getString("id")=="technician")
+				else if(result.getString("role").equals("technician"))
 					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
 			}
 		} catch(SQLException e) {
@@ -37,10 +37,12 @@ public abstract class StaffDao {
 			ResultSet result = stmt.executeQuery();
 			
 			if(result.next()) {
-				if(result.getString("id")=="admin")
+				if(result.getString("role").equals("admin")){
 					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
-				else if(result.getString("id")=="technician")
+				}
+				else if(result.getString("role").equals("technician")){
 					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
+				}
 			}
 		} catch(SQLException e) {
 			System.out.println("SQL ERROR ! /n explains :" + e);

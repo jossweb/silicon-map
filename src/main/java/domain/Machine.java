@@ -1,6 +1,6 @@
 package domain;
 
-import dao.MachineDao;
+import Dao.MachineDao;
 
 public abstract class Machine {
 	private int id;

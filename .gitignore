@@ -9,3 +9,7 @@ Desktop.ini
 *.log
 *.tmp
 /target/
+.classpath
+.project
+.vscode/
+*.code-workspace

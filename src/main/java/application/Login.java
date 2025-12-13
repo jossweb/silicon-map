@@ -4,6 +4,8 @@ import domain.Admin;
 import domain.Compute;
 import domain.Machine;
 import domain.Staff;
+import error.BadPassword;
+import error.UserNotFound;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -56,15 +58,57 @@ public class Login extends Application {
         btnLogin.setMaxWidth(Double.MAX_VALUE);
         btnLogin.setId("login-button");
 
+        Label errorIndication = new Label("");
+        errorIndication.setVisible(false);
+
+
         btnLogin.setOnAction(e -> {
-            System.out.println("Login: " + userField.getText());
+            //don't use a different thread here!
+            String username = userField.getText();
+            String pass = passField.getText();
+            if(username.length() > 0 && pass.length() > 0){
+                try{
+                    Staff s = Staff.checkPass(username, pass);
+                    if(s!=null){
+                        //get actual stage
+                        Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+
+                        UserInterface nextPage = new UserInterface();
+                        nextPage.Dashboard(currentStage, s);
+
+                    }else{
+                        System.out.print("Error verification");
+                    }
+                }catch(UserNotFound unfe){
+                    errorIndication.setText("Can't find your user name in database!");
+                    errorIndication.setVisible(true);
+                }catch(BadPassword bpe){
+                    errorIndication.setText("Bad password");
+                    errorIndication.setVisible(true);
+                }catch(Exception ex){
+                    errorIndication.setText("unexpected error");
+                    errorIndication.setVisible(true);
+                }finally{
+                    //reset password field
+                    passField.setText("");
+                    //-------------
+                    //TODO
+                    // Add anti spam system 
+                    // maybe disable the login button for 1 second
+                    //-------------
+                }
+
+            }else{
+                errorIndication.setText("Please fill in the fields");
+                errorIndication.setVisible(true);
+            }
         });
 
-        loginBox.getChildren().addAll(loginTitle, userLabel, userField, passLabel, passField, btnLogin);
+        loginBox.getChildren().addAll(loginTitle, userLabel, userField, passLabel, passField, btnLogin, errorIndication);
 
         root.setCenter(loginBox);
 
-        Scene scene = new Scene(root, 1000, 800);
+        Scene scene = new Scene(root, 1920, 1080);
         scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
         primaryStage.setScene(scene);
@@ -72,6 +116,6 @@ public class Login extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
