@@ -2,6 +2,7 @@ package application;
 
 import domain.Admin;
 import domain.Staff;
+import domain.Statistics;
 import domain.Technician;
 
 public class AppLauncher {
