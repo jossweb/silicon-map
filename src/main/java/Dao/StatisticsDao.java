@@ -11,7 +11,6 @@ import java.sql.SQLException;
 
 public class StatisticsDao {
     public static HashMap<Integer, Tuple<Integer, LocalDateTime>> getRecentTemp(){
-        System.out.print("\n Hello temp \n");
         try {
 			Connection conn = SingleConnection.GetConnection();
 			PreparedStatement stmt = conn.prepareStatement("SELECT machine_id, temperature, date_time FROM ( SELECT machine_id, temperature, date_time, ROW_NUMBER() OVER (PARTITION BY machine_id ORDER BY date_time DESC) AS rn FROM temperature ) AS sub WHERE rn = 1;");

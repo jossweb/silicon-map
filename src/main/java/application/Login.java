@@ -29,7 +29,7 @@ public class Login extends Application {
         root.setId("main-pane");
 
         Label titleLabel = new Label("Silicon map");
-        titleLabel.setId("siliconmap-text");
+        titleLabel.getStyleClass().add("siliconmap-logo");
         BorderPane.setMargin(titleLabel, new Insets(20));
         root.setTop(titleLabel);
 

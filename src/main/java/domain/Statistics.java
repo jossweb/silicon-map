@@ -15,14 +15,26 @@ public class Statistics {
         this.temp = new HashMap<>();
         this.load = new HashMap<>();
     }
-    public void updateTemp(){
+    public synchronized void updateTemp(){
         this.temp = StatisticsDao.getRecentTemp();
     }
-    public void updateLoad(){
+    public synchronized void updateLoad(){
         this.load = StatisticsDao.getRecentLoad();
     }
-    public void testClass(int idMachine, int component_id){
+    public synchronized void testClass(int idMachine, int component_id){
         System.out.print("\n--temp : " + this.temp.get(idMachine).getFirst() + "\n");
         System.out.print("--load : " + this.load.get(idMachine).getFirst() + "\n");
+    }
+    public synchronized Double GetAvgLoad(){
+        return this.load.values().stream()
+            .mapToInt(Tuple::getFirst)
+            .average()
+            .orElse(0);
+    }
+    public synchronized Double GetAvgTemp(){
+        return this.temp.values().stream()
+            .mapToInt(Tuple::getFirst)
+            .average()
+            .orElse(0);
     }
 }
