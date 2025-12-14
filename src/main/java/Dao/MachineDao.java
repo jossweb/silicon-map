@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import domain.Compute;
 import domain.Firewall;
@@ -59,6 +60,28 @@ public class MachineDao {
 				}
 			}
 			return null;
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public static ArrayList<Machine> getAllMachines(){
+		ArrayList<Machine> list = new ArrayList<Machine>();
+		try {
+			Connection conn = SingleConnection.GetConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT id, hostname, ip_address, mac_address, os, status, type, rack FROM machines");
+			ResultSet result = stmt.executeQuery();
+			
+			while(result.next()) {
+				switch (result.getString("type")) {
+					case "Compute" : list.add(new Compute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "Storage" : list.add(new Storage(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "GPU_Compute" : list.add(new GpuCompute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "switch" : list.add(new Switch(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "router" : list.add(new Router(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "firewall" : list.add(new Firewall(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+				}
+			}
+			return list;
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}

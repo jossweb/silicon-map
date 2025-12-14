@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import domain.Admin;
 import domain.Staff;
 import domain.Statistics;
+import domain.Compute;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -214,11 +216,29 @@ class UserInterface{
         b.getChildren().add(new Label("compute gpu"));
         return b;
     }
-    private VBox computePart(Statistics statistics){
-        VBox b = new VBox();
-        b.getChildren().add(new Label("compute"));
-        return b;
+private VBox computePart(Statistics statistics){
+    statistics.updateMachinesList();
+    ArrayList<Compute> computeList = Compute.GetComputeFromStats(statistics);
+
+    VBox b = new VBox();
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    int row = 0;
+    int col = 0;
+    for (Compute c : computeList) {
+        VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+        grid.add(box, col, row);
+        col++;
+        if (col >= 5) {
+            col = 0;
+            row++;
+        }
     }
+
+    b.getChildren().add(grid);
+    return b;
+}
     private HBox MainStatSummary(Statistics statistics){
         HBox container = new HBox();
         container.setSpacing(10);
@@ -226,6 +246,24 @@ class UserInterface{
         
         return container;
 
+    }
+    private VBox createMachineButton(String hostname, String os, String status, String ip_address){
+        VBox b = new VBox();
+        b.setAlignment(Pos.CENTER);
+
+        Label l = new Label(hostname);
+        l.getStyleClass().add("bubble-title");
+        Label ip = new Label(ip_address);
+
+        if(status.equals("Online")){
+            b.getStyleClass().add("machine-bubble-normal");
+        }else if(status.equals("Maintenance")){
+            b.getStyleClass().add("machine-bubble-warning");
+        }else if(status.equals("Offline")){
+            b.getStyleClass().add("machine-bubble-error");
+        }
+        b.getChildren().addAll(l, ip);
+        return b;
     }
     private VBox createStatBuble(String status, String labelContent, String ValueContent){
         VBox bubble = new VBox();
