@@ -64,6 +64,15 @@
 .head{
     -fx-padding: 20 0 50 0;
 }
+.navbar-button{
+    -fx-background-color: #fff;
+    -fx-font-family: estate;
+    -fx-font-weight: bold;
+    -fx-font-size:18;
+}
+.navbar-button-is-selected{
+    -fx-text-fill: #0169FF;
+}
 .dashview{
     -fx-background-color: #fff;
     -fx-background-radius: 12px;

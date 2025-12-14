@@ -1,5 +1,6 @@
 package application;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -10,12 +11,14 @@ import domain.Statistics;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 
@@ -93,7 +96,7 @@ class UserInterface{
             }
             dashview.getChildren().add(box);
 			root.setCenter(dashview);
-			Scene scene = new Scene(root,1920,1080);
+			Scene scene = new Scene(root,1100,700);
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			s.setScene(scene);
 			s.show();
@@ -101,16 +104,86 @@ class UserInterface{
     private VBox admin(Staff logUser, Statistics statistics){
         //admin dashboard interface
         VBox div = new VBox();
-        div.setAlignment(Pos.TOP_LEFT); 
+        div.setAlignment(Pos.TOP_LEFT);
+
+        // Navbar
+        GridPane navbar = new GridPane();
+        navbar.getStyleClass().add("navbar");
+        navbar.setHgap(20);
+
+        ColumnConstraints left = new ColumnConstraints();
+        left.setHgrow(Priority.ALWAYS);
+
+        ColumnConstraints right = new ColumnConstraints();
+        right.setHgrow(Priority.ALWAYS);
+
+        navbar.getColumnConstraints().addAll(left, right);
+
         Label welcomeText = new Label("Welcome " + logUser.getFirst_name());
-		welcomeText.getStyleClass().add("subtitle");
+        welcomeText.getStyleClass().add("subtitle");
+        GridPane.setHalignment(welcomeText, HPos.LEFT);
+
+        HBox navButtons = new HBox();
+        navButtons.setAlignment(Pos.CENTER_RIGHT);
+
+        Button mainNavButton = new Button("Main");
+        Button computeNavButton = new Button("Compute");
+        Button gpuComputeNavButton = new Button("GPU Compute");
+        Button storageNavButton = new Button("Storage");
+        Button networkNavButton = new Button("Network");
+
+        mainNavButton.getStyleClass().addAll("navbar-button", "navbar-button-is-selected");
+        computeNavButton.getStyleClass().addAll("navbar-button");
+        gpuComputeNavButton.getStyleClass().addAll("navbar-button");
+        storageNavButton.getStyleClass().addAll("navbar-button");
+        networkNavButton.getStyleClass().addAll("navbar-button");
+
+        navButtons.getChildren().addAll(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton);
+
+        navbar.add(welcomeText, 0, 0);
+        navbar.add(navButtons, 1, 0);
 
         Label statTitle = new Label("Global statistiques ");
 		statTitle.getStyleClass().add("subsubtitle");
 
-        div.getChildren().addAll(welcomeText, statTitle, MainStatSummay(statistics));
+        StackPane contentPanel = new StackPane();
+
+        div.getChildren().addAll(navbar, statTitle, contentPanel);
+        contentPanel.getChildren().setAll(MainStatSummary(statistics));
+
+        List<Button> navButtonsList = List.of(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton);
+
+        //button handler navbar
+        mainNavButton.setOnAction(s->{
+            contentPanel.getChildren().setAll(MainStatSummary(statistics));
+            selectNavButton(mainNavButton, navButtonsList);
+        });
+
+        computeNavButton.setOnAction(s->{
+            contentPanel.getChildren().setAll(computePart(statistics));
+            selectNavButton(computeNavButton, navButtonsList);
+        });
+
+        gpuComputeNavButton.setOnAction(s->{
+            contentPanel.getChildren().setAll(computeGpuPart(statistics));
+            selectNavButton(gpuComputeNavButton, navButtonsList);
+        });
+
+        storageNavButton.setOnAction(s->{
+            contentPanel.getChildren().setAll(storagePart(statistics));
+            selectNavButton(storageNavButton, navButtonsList);
+        });
+
+        networkNavButton.setOnAction(s->{
+            contentPanel.getChildren().setAll(networkPart(statistics));
+            selectNavButton(networkNavButton, navButtonsList);
+        });
 
         return div;
+    }
+    private void selectNavButton(Button selected, List<Button> buttons) {
+        buttons.forEach(b -> b.getStyleClass().remove("navbar-button-is-selected"));
+        selected.getStyleClass().add("navbar-button-is-selected");
     }
     private VBox technician(Staff logUser){
         //technician dashboard interface
@@ -126,10 +199,30 @@ class UserInterface{
 
         return div;
     }
-    private HBox MainStatSummay(Statistics statistics){
+    private VBox networkPart(Statistics statistics){
+        VBox b = new VBox();
+        b.getChildren().add(new Label("network"));
+        return b;
+    } 
+    private VBox storagePart(Statistics statistics){
+        VBox b = new VBox();
+        b.getChildren().add(new Label("storage"));
+        return b;
+    }
+    private VBox computeGpuPart(Statistics statistics){
+        VBox b = new VBox();
+        b.getChildren().add(new Label("compute gpu"));
+        return b;
+    }
+    private VBox computePart(Statistics statistics){
+        VBox b = new VBox();
+        b.getChildren().add(new Label("compute"));
+        return b;
+    }
+    private HBox MainStatSummary(Statistics statistics){
         HBox container = new HBox();
         container.setSpacing(10);
-        container.getChildren().addAll(createStatBuble("normal", "Average load", statistics.GetAvgLoad().toString()), createStatBuble("warning", "Average temp", statistics.GetAvgTemp().toString()), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
+        container.getChildren().addAll(createStatBuble("normal", "Average load", statistics.GetAvgLoad().toString() + "%"), createStatBuble("warning", "Average temp", statistics.GetAvgTemp().toString() + "°"), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
         
         return container;
 
