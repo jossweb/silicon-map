@@ -28,13 +28,13 @@ public class Statistics {
     public synchronized void updateMachinesList(){
         this.listMachine=MachineDao.getAllMachines();
     }
-    public synchronized Double GetAvgLoad(){
+    public synchronized Double getAvgLoad(){
         return this.load.values().stream()
             .mapToInt(Tuple::getFirst)
             .average()
             .orElse(0);
     }
-    public synchronized Double GetAvgTemp(){
+    public synchronized Double getAvgTemp(){
         return this.temp.values().stream()
             .mapToInt(Tuple::getFirst)
             .average()

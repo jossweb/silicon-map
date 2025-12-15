@@ -9,12 +9,16 @@ import java.util.concurrent.TimeUnit;
 import domain.Admin;
 import domain.Staff;
 import domain.Statistics;
+import domain.Storage;
 import domain.Compute;
+import domain.GpuCompute;
+import domain.Network;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -145,12 +149,9 @@ class UserInterface{
         navbar.add(welcomeText, 0, 0);
         navbar.add(navButtons, 1, 0);
 
-        Label statTitle = new Label("Global statistiques ");
-		statTitle.getStyleClass().add("subsubtitle");
-
         StackPane contentPanel = new StackPane();
 
-        div.getChildren().addAll(navbar, statTitle, contentPanel);
+        div.getChildren().addAll(navbar, contentPanel);
         contentPanel.getChildren().setAll(MainStatSummary(statistics));
 
         List<Button> navButtonsList = List.of(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton);
@@ -202,54 +203,133 @@ class UserInterface{
         return div;
     }
     private VBox networkPart(Statistics statistics){
+        statistics.updateMachinesList();
+        ArrayList<Network> computeList = Network.GetNetworkFromStats(statistics);
+
         VBox b = new VBox();
-        b.getChildren().add(new Label("network"));
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int row = 0;
+        int col = 0;
+        for (Network c : computeList) {
+            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            grid.add(box, col, row);
+            col++;
+            if (col >= 5) {
+                col = 0;
+                row++;
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);  
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.getStyleClass().add("scroll-pane");
+
+        b.getChildren().add(scrollPane);
         return b;
     } 
     private VBox storagePart(Statistics statistics){
+        statistics.updateMachinesList();
+        ArrayList<Storage> computeList = Storage.GetStorageFromStats(statistics);
+
         VBox b = new VBox();
-        b.getChildren().add(new Label("storage"));
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int row = 0;
+        int col = 0;
+        for (Storage c : computeList) {
+            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            grid.add(box, col, row);
+            col++;
+            if (col >= 5) {
+                col = 0;
+                row++;
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);  
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.getStyleClass().add("scroll-pane");
+
+        b.getChildren().add(scrollPane);
         return b;
     }
     private VBox computeGpuPart(Statistics statistics){
+        statistics.updateMachinesList();
+        ArrayList<GpuCompute> computeList = GpuCompute.GetGpuComputeFromStats(statistics);
+
         VBox b = new VBox();
-        b.getChildren().add(new Label("compute gpu"));
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int row = 0;
+        int col = 0;
+        for (GpuCompute c : computeList) {
+            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            grid.add(box, col, row);
+            col++;
+            if (col >= 5) {
+                col = 0;
+                row++;
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);  
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.getStyleClass().add("scroll-pane");
+
+        b.getChildren().add(scrollPane);
         return b;
     }
-private VBox computePart(Statistics statistics){
-    statistics.updateMachinesList();
-    ArrayList<Compute> computeList = Compute.GetComputeFromStats(statistics);
+    private VBox computePart(Statistics statistics){
+        statistics.updateMachinesList();
+        ArrayList<Compute> computeList = Compute.GetComputeFromStats(statistics);
 
-    VBox b = new VBox();
-    GridPane grid = new GridPane();
-    grid.setHgap(10);
-    grid.setVgap(10);
-    int row = 0;
-    int col = 0;
-    for (Compute c : computeList) {
-        VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
-        grid.add(box, col, row);
-        col++;
-        if (col >= 5) {
-            col = 0;
-            row++;
+        VBox b = new VBox();
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int row = 0;
+        int col = 0;
+        for (Compute c : computeList) {
+            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            grid.add(box, col, row);
+            col++;
+            if (col >= 5) {
+                col = 0;
+                row++;
+            }
         }
-    }
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);  
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.getStyleClass().add("scroll-pane");
 
-    b.getChildren().add(grid);
-    return b;
-}
-    private HBox MainStatSummary(Statistics statistics){
+        b.getChildren().add(scrollPane);
+        return b;
+    }
+    private VBox MainStatSummary(Statistics statistics){
+        VBox box = new VBox();
+        Label statTitle = new Label("Global statistiques ");
+		statTitle.getStyleClass().add("subsubtitle");
         HBox container = new HBox();
         container.setSpacing(10);
-        container.getChildren().addAll(createStatBuble("normal", "Average load", statistics.GetAvgLoad().toString() + "%"), createStatBuble("warning", "Average temp", statistics.GetAvgTemp().toString() + "°"), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
+        container.getChildren().addAll(createStatBuble("normal", "Average load", String.format("%.1f", statistics.getAvgLoad()) + "%"), createStatBuble("warning", "Average temp", String.format("%.1f", statistics.getAvgTemp()) + "°"), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
         
-        return container;
-
+        box.getChildren().addAll(statTitle, container);
+        return box;
     }
     private VBox createMachineButton(String hostname, String os, String status, String ip_address){
         VBox b = new VBox();
         b.setAlignment(Pos.CENTER);
+        b.setMinSize(200, 100);
+        b.setMaxSize(200, 100);
 
         Label l = new Label(hostname);
         l.getStyleClass().add("bubble-title");
@@ -267,27 +347,27 @@ private VBox computePart(Statistics statistics){
     }
     private VBox createStatBuble(String status, String labelContent, String ValueContent){
         VBox bubble = new VBox();
-            bubble.setSpacing(5);
-            bubble.getStyleClass().add("stats"); 
-            bubble.setAlignment(Pos.CENTER);
-            HBox.setHgrow(bubble, Priority.ALWAYS);  
-            bubble.setMaxWidth(Double.MAX_VALUE);
+        bubble.setSpacing(5);
+        bubble.getStyleClass().add("stats"); 
+        bubble.setAlignment(Pos.CENTER);
+        HBox.setHgrow(bubble, Priority.ALWAYS);  
+        bubble.setMaxWidth(Double.MAX_VALUE);
 
-            Label num = new Label(ValueContent);
-            num.getStyleClass().addAll("stats-num");
-            Label label = new Label(labelContent);
-            if(status == "warning"){
-                num.getStyleClass().addAll("Status-warning");
-                label.getStyleClass().addAll("Status-warning");
-            }else if(status == "error"){
-                num.getStyleClass().addAll("Status-error");
-                label.getStyleClass().addAll("Status-error");
-            }else if(status == "normal"){
-                 num.getStyleClass().addAll("Status-normal");
-                label.getStyleClass().addAll("Status-normal");
-            }
-            bubble.getChildren().addAll(num, label);
+        Label num = new Label(ValueContent);
+        num.getStyleClass().addAll("stats-num");
+        Label label = new Label(labelContent);
+        if(status == "warning"){
+            num.getStyleClass().addAll("Status-warning");
+            label.getStyleClass().addAll("Status-warning");
+        }else if(status == "error"){
+            num.getStyleClass().addAll("Status-error");
+            label.getStyleClass().addAll("Status-error");
+        }else if(status == "normal"){
+                num.getStyleClass().addAll("Status-normal");
+            label.getStyleClass().addAll("Status-normal");
+        }
+        bubble.getChildren().addAll(num, label);
 
-            return bubble;
+        return bubble;
     }
 }

@@ -132,3 +132,12 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
+.scroll-pane{
+    -fx-background-color: #fff;
+    -fx-background-insets: 0;
+
+}
+/*default class of viewport of scroll pane !!*/
+.viewport {
+    -fx-background-color: transparent;
+}

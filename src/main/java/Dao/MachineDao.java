@@ -57,6 +57,7 @@ public class MachineDao {
 					case "switch" : return new Switch(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
 					case "router" : return new Router(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
 					case "firewall" : return new Firewall(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
+					default : return null;
 				}
 			}
 			return null;
@@ -74,11 +75,18 @@ public class MachineDao {
 			while(result.next()) {
 				switch (result.getString("type")) {
 					case "Compute" : list.add(new Compute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					break;
 					case "Storage" : list.add(new Storage(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					break;
 					case "GPU_Compute" : list.add(new GpuCompute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					break;
 					case "switch" : list.add(new Switch(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					break;
 					case "router" : list.add(new Router(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					break;
 					case "firewall" : list.add(new Firewall(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					break;
+					default : return null;
 				}
 			}
 			return list;
