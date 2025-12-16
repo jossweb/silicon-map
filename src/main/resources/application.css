@@ -3,6 +3,7 @@
     -fx-background-color: #EFEFF5;
     -fx-padding: 0 20 20 20;
     -fx-font-family: estate;
+    -fx-font-size: 14;
 }
 #welcome-text {
     -fx-text-fill: #0169FF;
@@ -21,7 +22,7 @@
     -fx-text-fill: #0169FF;
     -fx-font-family: estate;
     -fx-font-weight: bold;
-    -fx-font-size: 35px;
+    -fx-font-size: 35;
 }
 
 .submit-button {
@@ -40,7 +41,7 @@
     -fx-pref-height: 35px;
 }
 .Status{
-    -fx-font-size: 28px;
+    -fx-font-size: 28;
     -fx-font-family: estate;
     -fx-font-weight: bold;
 }
@@ -155,4 +156,25 @@
 }
 .need-gap-y{
     -fx-padding: 10 0 10 0;
+}
+.gold-text{
+    -fx-text-fill: #D3AF37;
+}
+.gold-icon{
+    -fx-fill: transparent;
+    -fx-stroke: #D3AF37;
+    -fx-stroke-width: 3;
+}
+.green-dot{
+    -fx-fill: #01ff16;
+    -fx-stroke: #01ff16;
+}
+.red-dot{
+    -fx-fill: #ff0101;
+    -fx-stroke: #ff0101;
+}
+.staff-bubble{
+    -fx-background-color: #EFEFF5;
+    -fx-padding: 20;
+    -fx-background-radius: 12px;
 }

@@ -33,8 +33,8 @@ class UserInterface{
 	public void Dashboard(Stage s, Staff logUser) {
 
             boolean isadmin = logUser instanceof Admin; 
-
             Statistics statistics = new Statistics();
+            logUser.setAvailable(true);
             ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
                 Thread t = new Thread(r);
                 t.setDaemon(true);
@@ -107,6 +107,10 @@ class UserInterface{
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			s.setScene(scene);
 			s.show();
+
+            s.setOnCloseRequest(event -> {
+                logUser.setAvailable(false);
+            });
     }
     private VBox admin(Staff logUser, Statistics statistics, Stage stage){
         //admin dashboard interface
@@ -221,12 +225,13 @@ class UserInterface{
         addStaffMember.getStyleClass().add("addButton");
 
         head.getChildren().addAll(subTitle, midpart, addStaffMember);
-        box.getChildren().addAll(head);
+        box.getChildren().addAll(head, staffMembersBubbles());
 
         addStaffMember.setOnAction(e -> {
             InterfaceAddNewStaff form = new InterfaceAddNewStaff(primaryStage);
             form.show();
         });
+
 
         return box;
     }
@@ -372,6 +377,35 @@ class UserInterface{
         }
         b.getChildren().addAll(l, ip);
         return b;
+    }
+    private ScrollPane staffMembersBubbles(){
+        GridPane container = new GridPane(10, 10);
+        Statistics s = new Statistics();
+        s.updateStaffMembersList();
+
+        int row = 0;
+        int col = 0;
+        for(int i = 0; i<s.getListStaffMembers().size(); i++){
+            container.add(s.getListStaffMembers().get(i).staffBubble(), col, row);
+
+            if(col==1){
+                col=0;
+                row++;
+            }else{
+                col++;
+            }
+        }
+        ColumnConstraints constraint = new ColumnConstraints();
+        constraint.setHgrow(Priority.ALWAYS);
+        constraint.setFillWidth(true);
+        container.getColumnConstraints().addAll(constraint, constraint);
+
+        ScrollPane scroll = new ScrollPane(container);
+        scroll.setFitToWidth(true);  
+        scroll.setFitToHeight(false);
+        scroll.setPannable(true);
+        return scroll;
+
     }
     private VBox createStatBuble(String status, String labelContent, String ValueContent){
         VBox bubble = new VBox();

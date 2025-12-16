@@ -70,9 +70,9 @@ public class InterfaceAddNewStaff extends Stage {
                 String newPassword = new RandomString(32).getString();
                 Staff newMember;
                 if(checkBox.isSelected()){
-                    newMember = new Admin(0, name, firstname, Staff.hashpass(newPassword), newUserName);
+                    newMember = new Admin(0, name, firstname, Staff.hashpass(newPassword), newUserName, false);
                 }else{
-                    newMember = new Technician(0, name, firstname, Staff.hashpass(newPassword), newUserName);
+                    newMember = new Technician(0, name, firstname, Staff.hashpass(newPassword), newUserName, false);
                 }
                 newMember.AddMemberToDb();
 

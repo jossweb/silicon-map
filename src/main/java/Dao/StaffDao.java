@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import domain.Admin;
 import domain.Staff;
@@ -19,9 +20,9 @@ public abstract class StaffDao {
 			
 			if(result.next()) {
 				if(result.getString("role").equals("admin"))
-					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
+					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
 				else if(result.getString("role").equals("technician"))
-					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
+					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
 			}
 		} catch(SQLException e) {
 			System.out.println("SQL ERROR ! /n explains :" + e);
@@ -32,16 +33,16 @@ public abstract class StaffDao {
 	public static Staff getStaffMember(int id) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
-			PreparedStatement stmt = conn.prepareStatement("SELECT staff.name, staff.first_name, staff.role, staff.hashpass, staff.available FROM staff WHERE staff.id=?;");
+			PreparedStatement stmt = conn.prepareStatement("SELECT staff.id, staff.name, staff.user_name, staff.first_name, staff.role, staff.hashpass, staff.available FROM staff WHERE staff.id=?;");
 			stmt.setInt(1, id);
 			ResultSet result = stmt.executeQuery();
 			
 			if(result.next()) {
 				if(result.getString("role").equals("admin")){
-					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
+					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
 				}
 				else if(result.getString("role").equals("technician")){
-					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"));
+					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
 				}
 			}
 		} catch(SQLException e) {
@@ -49,6 +50,27 @@ public abstract class StaffDao {
 		}
 		return null;
 		
+	}
+	public static ArrayList<Staff> getAllStaffMembers(){
+		try {
+			ArrayList<Staff> membersList = new ArrayList<Staff>();
+			Connection conn = SingleConnection.GetConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT staff.id, staff.user_name, staff.name, staff.first_name, staff.role, staff.hashpass, staff.available FROM staff");
+			ResultSet result = stmt.executeQuery();
+			
+			while(result.next()) {
+				if(result.getString("role").equals("admin")){
+					membersList.add(new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available")));
+				}
+				else if(result.getString("role").equals("technician")){
+					membersList.add(new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available")));
+				}
+			}
+			return membersList;
+		} catch(SQLException e) {
+			System.out.println("SQL ERROR ! /n explains :" + e);
+		}
+		return null;
 	}
 	public static String createStaffMember(Staff s) {
 		try {
@@ -115,6 +137,25 @@ public abstract class StaffDao {
 			
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
+		}
+	}
+	public static void changeStatus(boolean status, int id){
+		try {
+			Connection conn = SingleConnection.GetConnection();
+			PreparedStatement stmt = conn.prepareStatement("UPDATE staff SET available = ? WHERE id = ?;");
+			if(status){
+				stmt.setInt(1, 1);
+			}else{
+				stmt.setInt(1, 0);
+			}
+			stmt.setInt(2, id);
+			
+			if(stmt.executeUpdate()!=1){
+				throw new RuntimeException("error");
+			}
+			
+		}catch(SQLException e) {
+			System.out.print(e);
 		}
 	}
 }

@@ -7,17 +7,20 @@ import java.util.Map;
 
 import Dao.MachineDao;
 import Dao.StatisticsDao;
+import Dao.StaffDao;
 import type.Tuple;
 
 public class Statistics {
     private Map<Integer, Tuple<Integer, LocalDateTime>> temp; // <Machine id, <temp °, date>
     private Map<Integer, Tuple<Integer, LocalDateTime>> load; // <Component id, <load %, date>>
     private ArrayList<Machine> listMachine;
+    private ArrayList<Staff> listStaffMembers;
 
     public Statistics(){
         this.temp = new HashMap<>();
         this.load = new HashMap<>();
         this.listMachine = new ArrayList<>();
+        this.listStaffMembers = new ArrayList<>();
     }
     public synchronized void updateTemp(){
         this.temp = StatisticsDao.getRecentTemp();
@@ -27,6 +30,9 @@ public class Statistics {
     }
     public synchronized void updateMachinesList(){
         this.listMachine=MachineDao.getAllMachines();
+    }
+    public void updateStaffMembersList(){
+        this.listStaffMembers = StaffDao.getAllStaffMembers();
     }
     public synchronized Double getAvgLoad(){
         return this.load.values().stream()
@@ -43,4 +49,8 @@ public class Statistics {
     public ArrayList<Machine> getMachines(){
         return this.listMachine;
     }
+    public ArrayList<Staff> getListStaffMembers(){
+        return this.listStaffMembers;
+   }
+
 }
