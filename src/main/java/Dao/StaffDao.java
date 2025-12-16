@@ -20,9 +20,9 @@ public abstract class StaffDao {
 			
 			if(result.next()) {
 				if(result.getString("role").equals("admin"))
-					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
+					return new Admin(result);
 				else if(result.getString("role").equals("technician"))
-					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
+					return new Technician(result);
 			}
 		} catch(SQLException e) {
 			System.out.println("SQL ERROR ! /n explains :" + e);
@@ -39,10 +39,10 @@ public abstract class StaffDao {
 			
 			if(result.next()) {
 				if(result.getString("role").equals("admin")){
-					return new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
+					return new Admin(result);
 				}
 				else if(result.getString("role").equals("technician")){
-					return new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available"));
+					return new Technician(result);
 				}
 			}
 		} catch(SQLException e) {
@@ -60,15 +60,15 @@ public abstract class StaffDao {
 			
 			while(result.next()) {
 				if(result.getString("role").equals("admin")){
-					membersList.add(new Admin(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available")));
+					membersList.add(new Admin(result));
 				}
 				else if(result.getString("role").equals("technician")){
-					membersList.add(new Technician(result.getInt("id"), result.getString("name"), result.getString("first_name"), result.getString("hashpass"), result.getString("user_name"), result.getBoolean("available")));
+					membersList.add(new Technician(result));
 				}
 			}
 			return membersList;
 		} catch(SQLException e) {
-			System.out.println("SQL ERROR ! /n explains :" + e);
+			System.out.println("ERROR : Sql error /n explains :" + e);
 		}
 		return null;
 	}

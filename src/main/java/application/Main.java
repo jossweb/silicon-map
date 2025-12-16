@@ -1,9 +1,5 @@
 package application;
-	
-import domain.Admin;
-import domain.Compute;
-import domain.Machine;
-import domain.Staff;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;

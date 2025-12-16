@@ -1,6 +1,12 @@
 package domain;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import Dao.MachineDao;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public abstract class Machine {
 	private int id;
@@ -24,6 +30,18 @@ public abstract class Machine {
 		this.mac_adress=mac_adress;
 		this.os=os;
 		this.status=status;
+	}
+	public Machine(ResultSet sqlResult){
+		try{
+			this.id = sqlResult.getInt("id");
+			this.hostname = sqlResult.getString("hostname");
+			this.ip_address = sqlResult.getString("ip_address");
+			this.mac_adress = sqlResult.getString("mac_address");
+			this.os = sqlResult.getString("os");
+			this.status = sqlResult.getString("status");
+		}catch(SQLException e){
+			System.out.print("\nERROR : Can't create Machine with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
+		}
 	}
 	public String getHostname() {
 		return hostname;
@@ -71,4 +89,30 @@ public abstract class Machine {
 	public void deleteMachine() {
 		MachineDao.deleteMachine(this);
 	}
+	public VBox createMachineButton(){
+        VBox b = new VBox();
+        b.setAlignment(Pos.CENTER);
+        b.setMinSize(200, 100);
+        b.setMaxSize(200, 100);
+
+        Label l = new Label(this.hostname);
+        l.getStyleClass().add("bubble-title");
+        Label ip = new Label(this.ip_address);
+
+        if(this.status.equals("Online")){
+            b.getStyleClass().add("machine-bubble-normal");
+            l.getStyleClass().add("Status-normal");
+            ip.getStyleClass().add("Status-normal");
+        }else if(this.status.equals("Maintenance")){
+            b.getStyleClass().add("machine-bubble-warning");
+            l.getStyleClass().add("Status-warning");
+            ip.getStyleClass().add("Status-warning");
+        }else if(this.status.equals("Offline")){
+            b.getStyleClass().add("machine-bubble-error");
+            l.getStyleClass().add("Status-error");
+            ip.getStyleClass().add("Status-error");
+        }
+        b.getChildren().addAll(l, ip);
+        return b;
+    }
 }

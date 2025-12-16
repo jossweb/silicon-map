@@ -1,8 +1,5 @@
 package application;
 
-import domain.Admin;
-import domain.Compute;
-import domain.Machine;
 import domain.Staff;
 import error.BadPassword;
 import error.UserNotFound;

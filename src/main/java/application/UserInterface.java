@@ -32,86 +32,89 @@ import javafx.scene.layout.VBox;
 class UserInterface{
 	public void Dashboard(Stage s, Staff logUser) {
 
-            boolean isadmin = logUser instanceof Admin; 
-            Statistics statistics = new Statistics();
-            logUser.setAvailable(true);
-            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
-                Thread t = new Thread(r);
-                t.setDaemon(true);
-                return t;
-            });
+        boolean isadmin = logUser instanceof Admin; 
+        Statistics statistics = new Statistics();
+        logUser.setAvailable(true);
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread t = new Thread(r);
+            t.setDaemon(true);
+            return t;
+        });
 
-            executor.scheduleAtFixedRate(() -> {
-                statistics.updateTemp();
-                statistics.updateLoad();
+        executor.scheduleAtFixedRate(() -> {
+            statistics.updateTemp();
+            statistics.updateLoad();
 
-            }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 5, TimeUnit.SECONDS);
 
-            BorderPane root = new BorderPane();
-			root.setId("main-pane");
-            
-            //head
-            GridPane head = new GridPane();
-            head.getStyleClass().add("head");
+        BorderPane root = new BorderPane();
+        root.setId("main-pane");
+        
+        //head
+        GridPane head = new GridPane();
+        head.getStyleClass().add("head");
 
-            ColumnConstraints left = new ColumnConstraints();
-            left.setHgrow(Priority.ALWAYS);
+        ColumnConstraints left = new ColumnConstraints();
+        left.setHgrow(Priority.ALWAYS);
 
-            ColumnConstraints center = new ColumnConstraints();
-            center.setHalignment(HPos.CENTER);
+        ColumnConstraints center = new ColumnConstraints();
+        center.setHalignment(HPos.CENTER);
 
-            ColumnConstraints right = new ColumnConstraints();
-            right.setHgrow(Priority.ALWAYS);
+        ColumnConstraints right = new ColumnConstraints();
+        right.setHgrow(Priority.ALWAYS);
 
-            head.getColumnConstraints().addAll(left, center, right);
+        head.getColumnConstraints().addAll(left, center, right);
 
-            Label leftLabel = new Label("Silicon Map");
-            Label centerLabel = new Label("Status : All good!");
-            Label rightLabel = new Label("Technician dashboard");
+        Label leftLabel = new Label("Silicon Map");
+        Label centerLabel = new Label("Status : All good!");
+        Label rightLabel = new Label("Technician dashboard");
 
-            if(isadmin){
-                rightLabel.setText("Admin dashboard");
-            }
+        if(isadmin){
+            rightLabel.setText("Admin dashboard");
+        }
 
-            GridPane.setHalignment(leftLabel, HPos.LEFT);
-            GridPane.setHalignment(centerLabel, HPos.CENTER);
-            GridPane.setHalignment(rightLabel, HPos.RIGHT);
+        GridPane.setHalignment(leftLabel, HPos.LEFT);
+        GridPane.setHalignment(centerLabel, HPos.CENTER);
+        GridPane.setHalignment(rightLabel, HPos.RIGHT);
 
-            head.add(leftLabel, 0, 0);
-            head.add(centerLabel, 1, 0);
-            head.add(rightLabel, 2, 0);
+        head.add(leftLabel, 0, 0);
+        head.add(centerLabel, 1, 0);
+        head.add(rightLabel, 2, 0);
 
-            leftLabel.getStyleClass().addAll("siliconmap-logo");
-            centerLabel.getStyleClass().addAll("Status", "Status-normal");
-            rightLabel.getStyleClass().addAll("space-type");
+        leftLabel.getStyleClass().addAll("siliconmap-logo");
+        centerLabel.getStyleClass().addAll("Status", "Status-normal");
+        rightLabel.getStyleClass().addAll("space-type");
 
-            root.setTop(head);
+        root.setTop(head);
 
-            VBox dashview = new VBox();
-            dashview.getStyleClass().add("dashview");
+        VBox dashview = new VBox();
+        dashview.getStyleClass().add("dashview");
 
-            dashview.setFillWidth(true);
-            VBox.setVgrow(dashview, Priority.ALWAYS);
+        dashview.setFillWidth(true);
+        VBox.setVgrow(dashview, Priority.ALWAYS);
 
+        VBox box; 
+        
+        if(isadmin){
+            box = admin(logUser, statistics, s);
+        }
+        else{
+            box = technician(logUser);
+        }
+        dashview.getChildren().add(box);
+        root.setCenter(dashview);
+        Scene scene = new Scene(root,1100,700);
+        scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+        s.setScene(scene);
+        s.show();
 
-			VBox box; 
-            if(isadmin){
-                box = admin(logUser, statistics, s);
-            }
-            else{
-                box = technician(logUser);
-            }
-            dashview.getChildren().add(box);
-			root.setCenter(dashview);
-			Scene scene = new Scene(root,1100,700);
-			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
-			s.setScene(scene);
-			s.show();
-
-            s.setOnCloseRequest(event -> {
-                logUser.setAvailable(false);
-            });
+        s.setOnCloseRequest(event -> {
+            logUser.setAvailable(false);
+        });
     }
+    // ----------
+    // ADMIN DASHBOARD
+    // ----------
     private VBox admin(Staff logUser, Statistics statistics, Stage stage){
         //admin dashboard interface
         VBox div = new VBox();
@@ -195,10 +198,9 @@ class UserInterface{
 
         return div;
     }
-    private void selectNavButton(Button selected, List<Button> buttons) {
-        buttons.forEach(b -> b.getStyleClass().remove("navbar-button-is-selected"));
-        selected.getStyleClass().add("navbar-button-is-selected");
-    }
+    // ----------
+    // TECHNICIAN DASHBOARD
+    // ----------
     private VBox technician(Staff logUser){
         //technician dashboard interface
         VBox div = new VBox();
@@ -213,6 +215,9 @@ class UserInterface{
 
         return div;
     }
+    // ----------
+    // ADMIN DASHBOARD DYNAMIC PARTS
+    // ----------
     private VBox staffPart(Statistics statistics, Stage primaryStage){
         VBox box = new VBox();
         HBox head = new HBox();
@@ -246,7 +251,7 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (Network c : computeList) {
-            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            VBox box = c.createMachineButton();
             grid.add(box, col, row);
             col++;
             if (col >= 5) {
@@ -274,7 +279,7 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (Storage c : computeList) {
-            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            VBox box = c.createMachineButton();
             grid.add(box, col, row);
             col++;
             if (col >= 5) {
@@ -302,7 +307,7 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (GpuCompute c : computeList) {
-            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            VBox box = c.createMachineButton();
             grid.add(box, col, row);
             col++;
             if (col >= 5) {
@@ -330,7 +335,7 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (Compute c : computeList) {
-            VBox box = createMachineButton(c.getHostname(), c.getOs(), c.getStatus(), c.getIp_address());
+            VBox box = c.createMachineButton();
             grid.add(box, col, row);
             col++;
             if (col >= 5) {
@@ -358,25 +363,9 @@ class UserInterface{
         box.getChildren().addAll(statTitle, container);
         return box;
     }
-    private VBox createMachineButton(String hostname, String os, String status, String ip_address){
-        VBox b = new VBox();
-        b.setAlignment(Pos.CENTER);
-        b.setMinSize(200, 100);
-        b.setMaxSize(200, 100);
-
-        Label l = new Label(hostname);
-        l.getStyleClass().add("bubble-title");
-        Label ip = new Label(ip_address);
-
-        if(status.equals("Online")){
-            b.getStyleClass().add("machine-bubble-normal");
-        }else if(status.equals("Maintenance")){
-            b.getStyleClass().add("machine-bubble-warning");
-        }else if(status.equals("Offline")){
-            b.getStyleClass().add("machine-bubble-error");
-        }
-        b.getChildren().addAll(l, ip);
-        return b;
+    private void selectNavButton(Button selected, List<Button> buttons) {
+        buttons.forEach(b -> b.getStyleClass().remove("navbar-button-is-selected"));
+        selected.getStyleClass().add("navbar-button-is-selected");
     }
     private ScrollPane staffMembersBubbles(){
         GridPane container = new GridPane(10, 10);

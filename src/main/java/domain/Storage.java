@@ -1,5 +1,6 @@
 package domain;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,5 +14,8 @@ public class Storage extends Machine{
 							.map(e-> (Storage) e)
             				.toList();
 		return new ArrayList<Storage>(l);
+	}
+	public Storage(ResultSet sqlResult){
+		super(sqlResult);
 	}
 }

@@ -1,5 +1,8 @@
 package domain;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import Dao.StaffDao;
@@ -27,6 +30,19 @@ public abstract class Staff {
 		this.user_name = username;
 		this.hashpass = hashpass;
 		this.available = available;
+	}
+	public Staff(ResultSet sqlResult){
+		try{
+			this.id = sqlResult.getInt("id");
+			this.name = sqlResult.getString("name");
+			this.first_name = sqlResult.getString("first_name");
+			this.user_name = sqlResult.getString("user_name");
+			this.hashpass = sqlResult.getString("hashpass");
+			this.available = sqlResult.getBoolean("available");
+		}catch(SQLException e){
+			System.out.print("\nERROR : Can't create Staff with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
+		}
+
 	}
 	public static String hashpass(String pass) {
 		return BCrypt.hashpw(pass, BCrypt.gensalt(12));

@@ -51,12 +51,12 @@ public class MachineDao {
 			
 			if(result.next()) {
 				switch (result.getString("type")) {
-					case "Compute" : return new Compute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
-					case "Storage" : return new Storage(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
-					case "GPU_Compute" : return new GpuCompute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
-					case "switch" : return new Switch(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
-					case "router" : return new Router(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
-					case "firewall" : return new Firewall(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status"));
+					case "Compute" : return new Compute(result);
+					case "Storage" : return new Storage(result);
+					case "GPU_Compute" : return new GpuCompute(result);
+					case "switch" : return new Switch(result);
+					case "router" : return new Router(result);
+					case "firewall" : return new Firewall(result);
 					default : return null;
 				}
 			}
@@ -74,17 +74,17 @@ public class MachineDao {
 			
 			while(result.next()) {
 				switch (result.getString("type")) {
-					case "Compute" : list.add(new Compute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "Compute" : list.add(new Compute(result));
 					break;
-					case "Storage" : list.add(new Storage(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "Storage" : list.add(new Storage(result));
 					break;
-					case "GPU_Compute" : list.add(new GpuCompute(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "GPU_Compute" : list.add(new GpuCompute(result));
 					break;
-					case "switch" : list.add(new Switch(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "switch" : list.add(new Switch(result));
 					break;
-					case "router" : list.add(new Router(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "router" : list.add(new Router(result));
 					break;
-					case "firewall" : list.add(new Firewall(result.getInt("id"), result.getString("hostname"), result.getString("ip_address"), result.getString("mac_address"), result.getString("os"), result.getString("status")));
+					case "firewall" : list.add(new Firewall(result));
 					break;
 					default : return null;
 				}

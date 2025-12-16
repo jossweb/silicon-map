@@ -110,21 +110,21 @@
     -fx-font-size:40;
 }
 .machine-bubble-normal{
-    -fx-background-color: #E6F0FF;
+    -fx-background-color: #EFEFF5;
     -fx-padding: 25 15 25 15;
     -fx-font-family: estate;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
 .machine-bubble-warning{
-    -fx-background-color: #FFF7E6;
+    -fx-background-color: #EFEFF5;
     -fx-padding: 25 15 25 15;
     -fx-font-family: estate;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
 .machine-bubble-error{
-    -fx-background-color: #FFE6E6;
+    -fx-background-color: #EFEFF5;
     -fx-padding: 25 15 25 15;
     -fx-font-family: estate;
     -fx-font-size: 16;
