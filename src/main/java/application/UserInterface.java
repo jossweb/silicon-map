@@ -24,6 +24,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
@@ -95,7 +96,7 @@ class UserInterface{
 
 			VBox box; 
             if(isadmin){
-                box = admin(logUser, statistics);
+                box = admin(logUser, statistics, s);
             }
             else{
                 box = technician(logUser);
@@ -107,7 +108,7 @@ class UserInterface{
 			s.setScene(scene);
 			s.show();
     }
-    private VBox admin(Staff logUser, Statistics statistics){
+    private VBox admin(Staff logUser, Statistics statistics, Stage stage){
         //admin dashboard interface
         VBox div = new VBox();
         div.setAlignment(Pos.TOP_LEFT);
@@ -137,14 +138,18 @@ class UserInterface{
         Button gpuComputeNavButton = new Button("GPU Compute");
         Button storageNavButton = new Button("Storage");
         Button networkNavButton = new Button("Network");
+        Button staffnavButton = new Button("Staff");
 
         mainNavButton.getStyleClass().addAll("navbar-button", "navbar-button-is-selected");
         computeNavButton.getStyleClass().addAll("navbar-button");
         gpuComputeNavButton.getStyleClass().addAll("navbar-button");
         storageNavButton.getStyleClass().addAll("navbar-button");
         networkNavButton.getStyleClass().addAll("navbar-button");
+        staffnavButton.getStyleClass().addAll("navbar-button");
 
-        navButtons.getChildren().addAll(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton);
+        List<Button> navButtonsList = List.of(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton, staffnavButton);
+
+        navButtons.getChildren().addAll(navButtonsList);
 
         navbar.add(welcomeText, 0, 0);
         navbar.add(navButtons, 1, 0);
@@ -153,8 +158,6 @@ class UserInterface{
 
         div.getChildren().addAll(navbar, contentPanel);
         contentPanel.getChildren().setAll(MainStatSummary(statistics));
-
-        List<Button> navButtonsList = List.of(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton);
 
         //button handler navbar
         mainNavButton.setOnAction(s->{
@@ -181,6 +184,10 @@ class UserInterface{
             contentPanel.getChildren().setAll(networkPart(statistics));
             selectNavButton(networkNavButton, navButtonsList);
         });
+        staffnavButton.setOnAction(s->{
+            contentPanel.getChildren().setAll(staffPart(statistics, stage));
+            selectNavButton(staffnavButton, navButtonsList);
+        });
 
         return div;
     }
@@ -201,6 +208,27 @@ class UserInterface{
         div.getChildren().addAll(welcomeText, statTitle);
 
         return div;
+    }
+    private VBox staffPart(Statistics statistics, Stage primaryStage){
+        VBox box = new VBox();
+        HBox head = new HBox();
+        Label subTitle = new Label("Staff members");
+        Button addStaffMember = new Button("+");
+        Region midpart = new Region();
+        HBox.setHgrow(midpart, Priority.ALWAYS);
+
+        subTitle.getStyleClass().add("subsubtitle");
+        addStaffMember.getStyleClass().add("addButton");
+
+        head.getChildren().addAll(subTitle, midpart, addStaffMember);
+        box.getChildren().addAll(head);
+
+        addStaffMember.setOnAction(e -> {
+            InterfaceAddNewStaff form = new InterfaceAddNewStaff(primaryStage);
+            form.show();
+        });
+
+        return box;
     }
     private VBox networkPart(Statistics statistics){
         statistics.updateMachinesList();

@@ -46,24 +46,23 @@ public class Login extends Application {
         userLabel.setMaxWidth(Double.MAX_VALUE);
         
         TextField userField = new TextField();
-        userField.setId("text-field");
+        userField.getStyleClass().add("text-field");
 
         Label passLabel = new Label("Password");
         passLabel.setMaxWidth(Double.MAX_VALUE);
         
         PasswordField passField = new PasswordField();
-        passField.setId("text-field");
+        passField.getStyleClass().add("text-field");
 
         Button btnLogin = new Button("Login");
         btnLogin.setMaxWidth(Double.MAX_VALUE);
-        btnLogin.setId("login-button");
+        btnLogin.getStyleClass().add("submit-button");
 
         Label errorIndication = new Label("");
         errorIndication.setVisible(false);
 
 
         btnLogin.setOnAction(e -> {
-            //don't use a different thread here!
             String username = userField.getText();
             String pass = passField.getText();
             if(username.length() > 0 && pass.length() > 0){

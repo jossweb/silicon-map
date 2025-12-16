@@ -2,6 +2,7 @@
 #main-pane {
     -fx-background-color: #EFEFF5;
     -fx-padding: 0 20 20 20;
+    -fx-font-family: estate;
 }
 #welcome-text {
     -fx-text-fill: #0169FF;
@@ -23,7 +24,7 @@
     -fx-font-size: 35px;
 }
 
-#login-button {
+.submit-button {
     -fx-background-color: #0169FF;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -32,7 +33,7 @@
     -fx-cursor: hand;
 }
 
-#text-field {
+.text-field {
     -fx-background-radius: 5px;
     -fx-background-color: white;
     -fx-border-color: transparent;
@@ -109,21 +110,21 @@
 }
 .machine-bubble-normal{
     -fx-background-color: #E6F0FF;
-    -fx-padding: 25, 15, 25, 15;
+    -fx-padding: 25 15 25 15;
     -fx-font-family: estate;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
 .machine-bubble-warning{
     -fx-background-color: #FFF7E6;
-    -fx-padding: 25, 15, 25, 15;
+    -fx-padding: 25 15 25 15;
     -fx-font-family: estate;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
 .machine-bubble-error{
     -fx-background-color: #FFE6E6;
-    -fx-padding: 25, 15, 25, 15;
+    -fx-padding: 25 15 25 15;
     -fx-font-family: estate;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
@@ -140,4 +141,18 @@
 /*default class of viewport of scroll pane !!*/
 .viewport {
     -fx-background-color: transparent;
+}
+.addButton{
+    -fx-background-color: #fff;
+    -fx-background-insets: 0;
+    -fx-font-family: estate;
+    -fx-font-size: 25;
+    -fx-cursor: hand;
+}
+.text-area{
+    -fx-background-color: #EFEFF5;
+    -fx-background-insets: 0;
+}
+.need-gap-y{
+    -fx-padding: 10 0 10 0;
 }
