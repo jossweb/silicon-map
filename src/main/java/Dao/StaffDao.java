@@ -90,9 +90,9 @@ public abstract class StaffDao {
 			if(stmt.executeUpdate()==1) 
 				return "Créé avec succès";
 			else
-				return "Erreur : impossible de créer ce nouveau membre";
+				return "Error : can't create this member";
 		}catch(java.sql.SQLIntegrityConstraintViolationException e){
-			return "Erreur : ce username est déjà utilisé par un autre membre";
+			return "Error : username already used";
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -114,12 +114,12 @@ public abstract class StaffDao {
 			stmt.setInt(7, s.getId());
 			
 			if(stmt.executeUpdate()==1) 
-				return "Mis à jour !";
+				return "Update !";
 			else
-				return "Erreur : impossible de modifier ce membre";
+				return "Error : can't update in db";
 			
 		}catch(java.sql.SQLIntegrityConstraintViolationException e){
-			return "Erreur : ce username est déjà utilisé par un autre membre";
+			return "Error : username already used";
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}

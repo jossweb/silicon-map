@@ -146,6 +146,7 @@ class UserInterface{
         Button storageNavButton = new Button("Storage");
         Button networkNavButton = new Button("Network");
         Button staffnavButton = new Button("Staff");
+        Button ticketNavButton = new Button("Ticket");
 
         mainNavButton.getStyleClass().addAll("navbar-button", "navbar-button-is-selected");
         computeNavButton.getStyleClass().addAll("navbar-button");
@@ -153,8 +154,9 @@ class UserInterface{
         storageNavButton.getStyleClass().addAll("navbar-button");
         networkNavButton.getStyleClass().addAll("navbar-button");
         staffnavButton.getStyleClass().addAll("navbar-button");
+        ticketNavButton.getStyleClass().addAll("navbar-button");
 
-        List<Button> navButtonsList = List.of(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton, staffnavButton);
+        List<Button> navButtonsList = List.of(mainNavButton, computeNavButton, gpuComputeNavButton, storageNavButton, networkNavButton, staffnavButton, ticketNavButton);
 
         navButtons.getChildren().addAll(navButtonsList);
 
@@ -195,7 +197,10 @@ class UserInterface{
             contentPanel.getChildren().setAll(staffPart(statistics, stage));
             selectNavButton(staffnavButton, navButtonsList);
         });
-
+        ticketNavButton.setOnAction((s->{
+            contentPanel.getChildren().setAll(TicketPart(statistics));
+            selectNavButton(ticketNavButton, navButtonsList);
+        }));
         return div;
     }
     // ----------
@@ -218,6 +223,31 @@ class UserInterface{
     // ----------
     // ADMIN DASHBOARD DYNAMIC PARTS
     // ----------
+    private VBox TicketPart(Statistics s){
+        VBox box = new VBox();
+        s.updateTicketList();
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int col = 0;
+        int row = 0;
+        for(int i = 0; i < s.getListTickets().size(); i++){
+            grid.add(s.getListTickets().get(i).TicketBubble(), col, row);
+            if(col == 1){
+                col = 0;
+                row ++;
+            }else{
+                col ++;
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);  
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.getStyleClass().add("scroll-pane");
+        box.getChildren().add(scrollPane);
+        return box;
+    }
     private VBox staffPart(Statistics statistics, Stage primaryStage){
         VBox box = new VBox();
         HBox head = new HBox();

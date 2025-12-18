@@ -7,6 +7,7 @@ import java.util.Map;
 
 import Dao.MachineDao;
 import Dao.StatisticsDao;
+import Dao.TicketDao;
 import Dao.StaffDao;
 import type.Tuple;
 
@@ -15,6 +16,7 @@ public class Statistics {
     private Map<Integer, Tuple<Integer, LocalDateTime>> load; // <Component id, <load %, date>>
     private ArrayList<Machine> listMachine;
     private ArrayList<Staff> listStaffMembers;
+    private ArrayList<Ticket> listTickets;
 
     public Statistics(){
         this.temp = new HashMap<>();
@@ -34,6 +36,9 @@ public class Statistics {
     public void updateStaffMembersList(){
         this.listStaffMembers = StaffDao.getAllStaffMembers();
     }
+    public void updateTicketList(){
+        this.listTickets = TicketDao.getAllTicket();
+    }
     public synchronized Double getAvgLoad(){
         return this.load.values().stream()
             .mapToInt(Tuple::getFirst)
@@ -52,5 +57,7 @@ public class Statistics {
     public ArrayList<Staff> getListStaffMembers(){
         return this.listStaffMembers;
    }
-
+   public ArrayList<Ticket> getListTickets(){
+        return this.listTickets;
+   }
 }
