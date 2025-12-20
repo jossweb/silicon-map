@@ -14,7 +14,7 @@ import domain.Router;
 import domain.Storage;
 import domain.Switch;
 
-public class MachineDao {
+public abstract class MachineDao {
 	public static boolean CreateMachineInDb(Machine m) {
 		try {
 			Connection conn = SingleConnection.GetConnection();

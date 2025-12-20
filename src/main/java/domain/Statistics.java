@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import Dao.ComponentDao;
 import Dao.MachineDao;
 import Dao.StatisticsDao;
 import Dao.TicketDao;
@@ -17,12 +18,14 @@ public class Statistics {
     private ArrayList<Machine> listMachine;
     private ArrayList<Staff> listStaffMembers;
     private ArrayList<Ticket> listTickets;
+    private ArrayList<Component> listComponents;
 
     public Statistics(){
         this.temp = new HashMap<>();
         this.load = new HashMap<>();
         this.listMachine = new ArrayList<>();
         this.listStaffMembers = new ArrayList<>();
+        this.listComponents = new ArrayList<>();
     }
     public synchronized void updateTemp(){
         this.temp = StatisticsDao.getRecentTemp();
@@ -38,6 +41,9 @@ public class Statistics {
     }
     public void updateTicketList(){
         this.listTickets = TicketDao.getAllTicket();
+    }
+    public void updateComponentList(){
+        this.listComponents = ComponentDao.getAllComponents();
     }
     public synchronized Double getAvgLoad(){
         return this.load.values().stream()
@@ -59,5 +65,8 @@ public class Statistics {
    }
    public ArrayList<Ticket> getListTickets(){
         return this.listTickets;
+   }
+   public ArrayList<Component> getListComponents(){
+        return this.listComponents;
    }
 }

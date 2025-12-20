@@ -9,7 +9,7 @@ import type.Tuple;
 import java.sql.Timestamp;
 import java.sql.SQLException;
 
-public class StatisticsDao {
+public abstract class StatisticsDao {
     public static HashMap<Integer, Tuple<Integer, LocalDateTime>> getRecentTemp(){
         try {
 			Connection conn = SingleConnection.GetConnection();

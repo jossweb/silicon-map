@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import domain.Ticket;
 
-public class TicketDao {
+public abstract class TicketDao {
     public static Ticket getTicket(int id){
         try{
             Connection conn = SingleConnection.GetConnection();
