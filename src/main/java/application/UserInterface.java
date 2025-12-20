@@ -198,7 +198,7 @@ class UserInterface{
             selectNavButton(staffnavButton, navButtonsList);
         });
         ticketNavButton.setOnAction((s->{
-            contentPanel.getChildren().setAll(TicketPart(statistics));
+            contentPanel.getChildren().setAll(TicketPart(statistics, stage));
             selectNavButton(ticketNavButton, navButtonsList);
         }));
         return div;
@@ -223,29 +223,25 @@ class UserInterface{
     // ----------
     // ADMIN DASHBOARD DYNAMIC PARTS
     // ----------
-    private VBox TicketPart(Statistics s){
+    private VBox TicketPart(Statistics s, Stage primaryStage){
         VBox box = new VBox();
-        s.updateTicketList();
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        int col = 0;
-        int row = 0;
-        for(int i = 0; i < s.getListTickets().size(); i++){
-            grid.add(s.getListTickets().get(i).TicketBubble(), col, row);
-            if(col == 1){
-                col = 0;
-                row ++;
-            }else{
-                col ++;
-            }
-        }
-        ScrollPane scrollPane = new ScrollPane(grid);
-        scrollPane.setFitToWidth(true);  
-        scrollPane.setFitToHeight(true);
-        scrollPane.setPannable(true);
-        scrollPane.getStyleClass().add("scroll-pane");
-        box.getChildren().add(scrollPane);
+        HBox head = new HBox();
+        Label subTitle = new Label("All tickets");
+        Button addStaffMember = new Button("+");
+        Region midpart = new Region();
+        HBox.setHgrow(midpart, Priority.ALWAYS);
+        subTitle.getStyleClass().add("subsubtitle");
+        addStaffMember.getStyleClass().add("addButton");
+
+        head.getChildren().addAll(subTitle, midpart, addStaffMember);
+        box.getChildren().addAll(head, ticketsBubbles(s));
+
+        addStaffMember.setOnAction(e -> {
+            InterfaceAddNewTicket form = new InterfaceAddNewTicket(primaryStage, s);
+            form.show();
+        });
+
+
         return box;
     }
     private VBox staffPart(Statistics statistics, Stage primaryStage){
@@ -260,7 +256,7 @@ class UserInterface{
         addStaffMember.getStyleClass().add("addButton");
 
         head.getChildren().addAll(subTitle, midpart, addStaffMember);
-        box.getChildren().addAll(head, staffMembersBubbles());
+        box.getChildren().addAll(head, staffMembersBubbles(statistics));
 
         addStaffMember.setOnAction(e -> {
             InterfaceAddNewStaff form = new InterfaceAddNewStaff(primaryStage);
@@ -397,9 +393,31 @@ class UserInterface{
         buttons.forEach(b -> b.getStyleClass().remove("navbar-button-is-selected"));
         selected.getStyleClass().add("navbar-button-is-selected");
     }
-    private ScrollPane staffMembersBubbles(){
+    private ScrollPane ticketsBubbles(Statistics s){
+        s.updateTicketList();
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int col = 0;
+        int row = 0;
+        for(int i = 0; i < s.getListTickets().size(); i++){
+            grid.add(s.getListTickets().get(i).TicketBubble(), col, row);
+            if(col == 1){
+                col = 0;
+                row ++;
+            }else{
+                col ++;
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);  
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.getStyleClass().add("scroll-pane");
+        return scrollPane;
+    }
+    private ScrollPane staffMembersBubbles(Statistics s){
         GridPane container = new GridPane(10, 10);
-        Statistics s = new Statistics();
         s.updateStaffMembersList();
 
         int row = 0;
