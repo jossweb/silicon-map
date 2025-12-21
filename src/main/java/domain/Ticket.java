@@ -2,9 +2,9 @@ package domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import Dao.TicketDao;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -19,8 +19,9 @@ public class Ticket {
 	private LocalDateTime open_at;
 	private LocalDateTime closed_at;
 	
-	public Ticket(int id, Admin creator, Technician technician, String title, String description, String status, LocalDateTime open_at, LocalDateTime closed_at) {
+	public Ticket(int id, Machine m, Admin creator, Technician technician, String title, String description, String status, LocalDateTime open_at, LocalDateTime closed_at) {
 		this.id = id;
+		this.machine = m;
 		this.creator = creator;
 		this.technician = technician;
 		this.title = title;
@@ -51,6 +52,9 @@ public class Ticket {
 		}catch(SQLException e){
 			System.out.print("\nERROR : Can't create Staff with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
+	}
+	public void createTicket(){
+		this.id = TicketDao.createTicketInDb(this);
 	}
 	public void SetStatus(String newStatus) {
 		if(newStatus == "open" || newStatus == "in_progress" || newStatus == "closed") {

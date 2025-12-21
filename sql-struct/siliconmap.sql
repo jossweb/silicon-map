@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : sam. 13 déc. 2025 à 23:07
+-- Généré le : dim. 21 déc. 2025 à 17:31
 -- Version du serveur : 8.0.40
 -- Version de PHP : 8.3.14
 
@@ -35,62 +35,108 @@ CREATE TABLE `components` (
   `spec_value_primary` int DEFAULT NULL,
   `spec_value_secondary` int DEFAULT NULL,
   `type` enum('CPU','GPU','RAM','DISK','Power_supply','Chassis') DEFAULT NULL,
-  `status` enum('actually_use','ready','maintenance','issue') DEFAULT NULL
+  `status` enum('actually_use','ready','maintenance','issue') DEFAULT NULL,
+  `ticket` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `components`
 --
 
-INSERT INTO `components` (`id`, `brand`, `model`, `machine_id`, `spec_value_primary`, `spec_value_secondary`, `type`, `status`) VALUES
-(1, 'AMD', 'EPYC 7313', 2, 16, 512, 'CPU', 'actually_use'),
-(2, 'Kingston', 'DDR4 ECC', 2, 128, 4, 'RAM', 'actually_use'),
-(3, 'Seagate', 'Exos X18', 2, 18000, NULL, 'DISK', 'actually_use'),
-(4, 'Seasonic', 'Prime TX-1000', 2, 1000, NULL, 'Power_supply', 'actually_use'),
-(5, 'Supermicro', '4U Storage Chassis', 2, 4, NULL, 'Chassis', 'actually_use'),
-(6, 'AMD', 'EPYC 7282', 3, 16, 512, 'CPU', 'maintenance'),
-(7, 'Kingston', 'DDR4 ECC', 3, 96, 4, 'RAM', 'actually_use'),
-(8, 'Seagate', 'Exos X16', 3, 16000, NULL, 'DISK', 'actually_use'),
-(9, 'Corsair', 'RM850x', 3, 850, NULL, 'Power_supply', 'actually_use'),
-(10, 'Supermicro', '4U Storage Chassis', 3, 4, NULL, 'Chassis', 'actually_use'),
-(11, 'Intel', 'Xeon Silver 4314', 4, 16, 256, 'CPU', 'actually_use'),
-(12, 'Samsung', 'DDR4 ECC', 4, 64, 4, 'RAM', 'actually_use'),
-(13, 'Samsung', 'PM9A3 NVMe', 4, 2000, NULL, 'DISK', 'actually_use'),
-(14, 'Seasonic', 'Focus GX-750', 4, 750, NULL, 'Power_supply', 'actually_use'),
-(15, 'Dell', '2U Server Chassis', 4, 2, NULL, 'Chassis', 'actually_use'),
-(16, 'Intel', 'Xeon Silver 4210', 5, 10, 192, 'CPU', 'actually_use'),
-(17, 'Samsung', 'DDR4 ECC', 5, 48, 4, 'RAM', 'actually_use'),
-(18, 'Crucial', 'MX500 SSD', 5, 1000, NULL, 'DISK', 'actually_use'),
-(19, 'Corsair', 'RM750', 5, 750, NULL, 'Power_supply', 'actually_use'),
-(20, 'Dell', '2U Server Chassis', 5, 2, NULL, 'Chassis', 'actually_use'),
-(21, 'AMD', 'EPYC 7302', 6, 16, 256, 'CPU', 'issue'),
-(22, 'Kingston', 'DDR4 ECC', 6, 64, 4, 'RAM', 'actually_use'),
-(23, 'Intel', 'DC S4510', 6, 2000, NULL, 'DISK', 'actually_use'),
-(24, 'Seasonic', 'Focus GX-650', 6, 650, NULL, 'Power_supply', 'actually_use'),
-(25, 'Supermicro', '1U Server Chassis', 6, 1, NULL, 'Chassis', 'actually_use'),
-(26, 'AMD', 'EPYC 7402', 7, 24, 512, 'CPU', 'actually_use'),
-(27, 'NVIDIA', 'A100', 7, 80, 6912, 'GPU', 'actually_use'),
-(28, 'Samsung', 'DDR4 ECC', 7, 256, 4, 'RAM', 'actually_use'),
-(29, 'Samsung', 'PM9A3 NVMe', 7, 4000, NULL, 'DISK', 'actually_use'),
-(30, 'Seasonic', 'Prime PX-1600', 7, 1600, NULL, 'Power_supply', 'actually_use'),
-(31, 'Supermicro', '4U GPU Chassis', 7, 4, NULL, 'Chassis', 'actually_use'),
-(32, 'AMD', 'EPYC 7352', 8, 24, 512, 'CPU', 'maintenance'),
-(33, 'NVIDIA', 'RTX 6000 Ada', 8, 48, 18176, 'GPU', 'ready'),
-(34, 'Samsung', 'DDR4 ECC', 8, 128, 4, 'RAM', 'actually_use'),
-(35, 'Samsung', 'PM9A3 NVMe', 8, 2000, NULL, 'DISK', 'actually_use'),
-(36, 'Corsair', 'AX1600i', 8, 1600, NULL, 'Power_supply', 'actually_use'),
-(37, 'Supermicro', '4U GPU Chassis', 8, 4, NULL, 'Chassis', 'actually_use'),
-(38, 'AMD', 'EPYC 3251', 10, 8, 64, 'CPU', 'actually_use'),
-(39, 'Kingston', 'DDR4 ECC', 10, 32, 4, 'RAM', 'actually_use'),
-(40, 'Intel', 'SSD DC S3500', 10, 480, NULL, 'DISK', 'actually_use'),
-(41, 'Seasonic', 'Focus GX-550', 10, 550, NULL, 'Power_supply', 'actually_use'),
-(42, 'Netgate', '1U Network Chassis', 10, 1, NULL, 'Chassis', 'actually_use'),
-(43, 'Intel', 'Xeon D-2146NT', 11, 8, 128, 'CPU', 'actually_use'),
-(44, 'Samsung', 'DDR4 ECC', 11, 32, 4, 'RAM', 'actually_use'),
-(45, 'Intel', 'SSD DC S3510', 11, 480, NULL, 'DISK', 'actually_use'),
-(46, 'Seasonic', 'Focus GX-650', 11, 650, NULL, 'Power_supply', 'actually_use'),
-(47, 'Netgate', '1U Security Chassis', 11, 1, NULL, 'Chassis', 'actually_use'),
-(48, 'AMD', 'EPYC 7313', 2, 16, 512, 'CPU', 'actually_use');
+INSERT INTO `components` (`id`, `brand`, `model`, `machine_id`, `spec_value_primary`, `spec_value_secondary`, `type`, `status`, `ticket`) VALUES
+(1, 'AMD', 'EPYC 7313', 2, 16, 512, 'CPU', 'actually_use', NULL),
+(2, 'Kingston', 'DDR4 ECC', 2, 128, 4, 'RAM', 'actually_use', NULL),
+(3, 'Seagate', 'Exos X18', 2, 18000, NULL, 'DISK', 'actually_use', NULL),
+(4, 'Seasonic', 'Prime TX-1000', 2, 1000, NULL, 'Power_supply', 'actually_use', NULL),
+(5, 'Supermicro', '4U Storage Chassis', 2, 4, NULL, 'Chassis', 'actually_use', NULL),
+(6, 'AMD', 'EPYC 7282', 3, 16, 512, 'CPU', 'maintenance', NULL),
+(7, 'Kingston', 'DDR4 ECC', 3, 96, 4, 'RAM', 'actually_use', NULL),
+(8, 'Seagate', 'Exos X16', 3, 16000, NULL, 'DISK', 'actually_use', NULL),
+(9, 'Corsair', 'RM850x', 3, 850, NULL, 'Power_supply', 'actually_use', NULL),
+(10, 'Supermicro', '4U Storage Chassis', 3, 4, NULL, 'Chassis', 'actually_use', NULL),
+(11, 'Intel', 'Xeon Silver 4314', 4, 16, 256, 'CPU', 'actually_use', NULL),
+(12, 'Samsung', 'DDR4 ECC', 4, 64, 4, 'RAM', 'actually_use', NULL),
+(13, 'Samsung', 'PM9A3 NVMe', 4, 2000, NULL, 'DISK', 'actually_use', NULL),
+(14, 'Seasonic', 'Focus GX-750', 4, 750, NULL, 'Power_supply', 'actually_use', NULL),
+(15, 'Dell', '2U Server Chassis', 4, 2, NULL, 'Chassis', 'actually_use', NULL),
+(16, 'Intel', 'Xeon Silver 4210', 5, 10, 192, 'CPU', 'actually_use', NULL),
+(17, 'Samsung', 'DDR4 ECC', 5, 48, 4, 'RAM', 'actually_use', NULL),
+(18, 'Crucial', 'MX500 SSD', 5, 1000, NULL, 'DISK', 'actually_use', NULL),
+(19, 'Corsair', 'RM750', 5, 750, NULL, 'Power_supply', 'actually_use', NULL),
+(20, 'Dell', '2U Server Chassis', 5, 2, NULL, 'Chassis', 'actually_use', NULL),
+(21, 'AMD', 'EPYC 7302', 6, 16, 256, 'CPU', 'issue', NULL),
+(22, 'Kingston', 'DDR4 ECC', 6, 64, 4, 'RAM', 'actually_use', NULL),
+(23, 'Intel', 'DC S4510', 6, 2000, NULL, 'DISK', 'actually_use', NULL),
+(24, 'Seasonic', 'Focus GX-650', 6, 650, NULL, 'Power_supply', 'actually_use', NULL),
+(25, 'Supermicro', '1U Server Chassis', 6, 1, NULL, 'Chassis', 'actually_use', NULL),
+(26, 'AMD', 'EPYC 7402', 7, 24, 512, 'CPU', 'actually_use', NULL),
+(27, 'NVIDIA', 'A100', 7, 80, 6912, 'GPU', 'actually_use', NULL),
+(28, 'Samsung', 'DDR4 ECC', 7, 256, 4, 'RAM', 'actually_use', NULL),
+(29, 'Samsung', 'PM9A3 NVMe', 7, 4000, NULL, 'DISK', 'actually_use', NULL),
+(30, 'Seasonic', 'Prime PX-1600', 7, 1600, NULL, 'Power_supply', 'actually_use', NULL),
+(31, 'Supermicro', '4U GPU Chassis', 7, 4, NULL, 'Chassis', 'actually_use', NULL),
+(32, 'AMD', 'EPYC 7352', 8, 24, 512, 'CPU', 'maintenance', NULL),
+(33, 'NVIDIA', 'RTX 6000 Ada', 8, 48, 18176, 'GPU', 'ready', NULL),
+(34, 'Samsung', 'DDR4 ECC', 8, 128, 4, 'RAM', 'actually_use', NULL),
+(35, 'Samsung', 'PM9A3 NVMe', 8, 2000, NULL, 'DISK', 'actually_use', NULL),
+(36, 'Corsair', 'AX1600i', 8, 1600, NULL, 'Power_supply', 'actually_use', NULL),
+(37, 'Supermicro', '4U GPU Chassis', 8, 4, NULL, 'Chassis', 'actually_use', NULL),
+(38, 'AMD', 'EPYC 3251', 10, 8, 64, 'CPU', 'actually_use', NULL),
+(39, 'Kingston', 'DDR4 ECC', 10, 32, 4, 'RAM', 'actually_use', NULL),
+(40, 'Intel', 'SSD DC S3500', 10, 480, NULL, 'DISK', 'actually_use', NULL),
+(41, 'Seasonic', 'Focus GX-550', 10, 550, NULL, 'Power_supply', 'actually_use', NULL),
+(42, 'Netgate', '1U Network Chassis', 10, 1, NULL, 'Chassis', 'actually_use', NULL),
+(43, 'Intel', 'Xeon D-2146NT', 11, 8, 128, 'CPU', 'actually_use', NULL),
+(44, 'Samsung', 'DDR4 ECC', 11, 32, 4, 'RAM', 'actually_use', NULL),
+(45, 'Intel', 'SSD DC S3510', 11, 480, NULL, 'DISK', 'actually_use', NULL),
+(46, 'Seasonic', 'Focus GX-650', 11, 650, NULL, 'Power_supply', 'actually_use', NULL),
+(47, 'Netgate', '1U Security Chassis', 11, 1, NULL, 'Chassis', 'actually_use', NULL),
+(48, 'AMD', 'EPYC 7313', 2, 16, 512, 'CPU', 'actually_use', NULL),
+(49, 'NVIDIA', 'H100', NULL, 96, 16896, 'GPU', 'ready', NULL);
+
+--
+-- Déclencheurs `components`
+--
+DELIMITER $$
+CREATE TRIGGER `componentCheckInsert` BEFORE INSERT ON `components` FOR EACH ROW BEGIN
+    IF NEW.ticket IS NOT NULL AND NEW.machine_id IS NOT NULL THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A component can’t be assigned to both a ticket and a machine at the same time!';
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `componentCheckUpdate` BEFORE UPDATE ON `components` FOR EACH ROW BEGIN
+    IF NEW.ticket IS NOT NULL AND NEW.machine_id IS NOT NULL THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A component can’t be assigned to both a ticket and a machine at the same time.';
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `componentStatusGestion` BEFORE UPDATE ON `components` FOR EACH ROW BEGIN
+    IF NEW.ticket IS NOT NULL OR NEW.machine_id IS NOT NULL THEN
+        SET NEW.status = 'actually_use';
+	ELSE
+		SET NEW.status = 'ready';
+    END IF ;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `componentTicketReassignCheck` BEFORE UPDATE ON `components` FOR EACH ROW BEGIN
+    IF OLD.ticket IS NOT NULL
+       AND NEW.ticket IS NOT NULL
+       AND NEW.ticket <> OLD.ticket THEN
+       
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'You can’t change the ticket on a machine that is already used in another ticket';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -157,7 +203,55 @@ INSERT INTO `component_load` (`id`, `components_load`, `date_time`, `component_i
 (45, 61, '2025-12-13 22:37:10', 45),
 (46, 70, '2025-12-13 22:37:10', 46),
 (47, 52, '2025-12-13 22:37:10', 47),
-(48, 45, '2025-12-13 22:37:10', 48);
+(48, 45, '2025-12-13 22:37:10', 48),
+(49, 84, '2025-12-14 20:51:51', 1),
+(50, 90, '2025-12-14 20:51:51', 2),
+(51, 78, '2025-12-14 20:51:51', 3),
+(52, 86, '2025-12-14 20:51:51', 4),
+(53, 68, '2025-12-14 20:51:51', 5),
+(54, 80, '2025-12-14 20:51:51', 6),
+(55, 88, '2025-12-14 20:51:51', 7),
+(56, 75, '2025-12-14 20:51:51', 8),
+(57, 83, '2025-12-14 20:51:51', 9),
+(58, 65, '2025-12-14 20:51:51', 10),
+(59, 82, '2025-12-14 20:51:51', 11),
+(60, 89, '2025-12-14 20:51:51', 12),
+(61, 77, '2025-12-14 20:51:51', 13),
+(62, 85, '2025-12-14 20:51:51', 14),
+(63, 66, '2025-12-14 20:51:51', 15),
+(64, 79, '2025-12-14 20:51:51', 16),
+(65, 86, '2025-12-14 20:51:51', 17),
+(66, 73, '2025-12-14 20:51:51', 18),
+(67, 81, '2025-12-14 20:51:51', 19),
+(68, 64, '2025-12-14 20:51:51', 20),
+(69, 91, '2025-12-14 20:51:51', 21),
+(70, 88, '2025-12-14 20:51:51', 22),
+(71, 76, '2025-12-14 20:51:51', 23),
+(72, 89, '2025-12-14 20:51:51', 24),
+(73, 70, '2025-12-14 20:51:51', 25),
+(74, 95, '2025-12-14 20:51:51', 26),
+(75, 99, '2025-12-14 20:51:51', 27),
+(76, 94, '2025-12-14 20:51:51', 28),
+(77, 87, '2025-12-14 20:51:51', 29),
+(78, 92, '2025-12-14 20:51:51', 30),
+(79, 78, '2025-12-14 20:51:51', 31),
+(80, 88, '2025-12-14 20:51:51', 32),
+(81, 93, '2025-12-14 20:51:51', 33),
+(82, 90, '2025-12-14 20:51:51', 34),
+(83, 82, '2025-12-14 20:51:51', 35),
+(84, 89, '2025-12-14 20:51:51', 36),
+(85, 74, '2025-12-14 20:51:51', 37),
+(86, 83, '2025-12-14 20:51:51', 38),
+(87, 88, '2025-12-14 20:51:51', 39),
+(88, 72, '2025-12-14 20:51:51', 40),
+(89, 84, '2025-12-14 20:51:51', 41),
+(90, 67, '2025-12-14 20:51:51', 42),
+(91, 85, '2025-12-14 20:51:51', 43),
+(92, 90, '2025-12-14 20:51:51', 44),
+(93, 74, '2025-12-14 20:51:51', 45),
+(94, 87, '2025-12-14 20:51:51', 46),
+(95, 69, '2025-12-14 20:51:51', 47),
+(96, 63, '2025-12-14 20:51:51', 48);
 
 -- --------------------------------------------------------
 
@@ -251,8 +345,31 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `name`, `first_name`, `user_name`, `role`, `available`, `hashpass`) VALUES
-(13, 'FIGUEIRAS', 'Jossua', 'contact@jossua.dev', 'admin', 0, '$2a$12$i3YnMztVE//cal/DeACsmOffv5Z04hWTt1aTagW6m2FYSN0L5NeiC'),
-(15, 'FIGUEIRAS', 'Jossua', 'contact1@jossua.dev', 'technician', 0, '$2a$12$7SyDAVjT4su6H0iENKhknu.i9twaFSMl141Ipak01AqlizL3yO5h6');
+(13, 'FIGUEIRAS', 'Jossua', 'contact@jossua.dev', 'admin', 1, '$2a$12$i3YnMztVE//cal/DeACsmOffv5Z04hWTt1aTagW6m2FYSN0L5NeiC'),
+(15, 'FIGUEIRAS', 'Jossua', 'contact1@jossua.dev', 'technician', 0, '$2a$12$7SyDAVjT4su6H0iENKhknu.i9twaFSMl141Ipak01AqlizL3yO5h6'),
+(16, 'Jossu', '', '/+5ER9Xejq§?TxNX9zQ49ZzVG+n,R ;V', 'technician', 0, '$2a$12$2j5gG3hUQreKS2c080hYv.I71.kjWDDnIE48ONKBIlE6SzXColMi6'),
+(17, 'test', 'new admin', '>>UWSdWV1\'tbX+$/Ovf -elgln.jL;>)', 'admin', 0, '$2a$12$BLNYbuTtsIQTI8xr6TXHSu8RSMrQBoS24lH1TBtj7Qguf/h3zB26y'),
+(18, 'Jossua', 'new admin', '? mV)pWVCT$8(RP6FT<\"UGs(9B.4we4v', 'admin', 0, '$2a$12$E42IclZFwLGKmIV1nRNQhObB44rXyJR70W1Oni6IP8Y6U5.k5Xk1.'),
+(19, 'thomas', 'toto', 'w;G,GQeXqhk9U6MskmiQQL/)4&7:e5qN', 'technician', 0, '$2a$12$A25Gwlj5h1nGo/iWIdmzeeS5FY2APnbgJ19tKTTeSBwW2jCrrJ66m'),
+(20, 'testsystem', '', ';ISmNewR4uN\"rjw.$>+iê&2\"6xI5ê1\"f', 'admin', 0, '$2a$12$Y9NdxdFvmDXA/xIKDo7Rnu8ZaSOwNjs1XYKFT3lk2lg9..nq88fzS'),
+(21, 'test', '', '?9)9szcx-mMID$jex3827/SQ55Ns/m-I', 'technician', 0, '$2a$12$sEJ2A.MwAvPBhDB6irSNTuLQ1B0iy20vTab6wjeg4qZHjdnwcQAsa'),
+(22, 'test', 'test', 'j?w 3G:$Gd≠S+5n70tRj?≠HdE=\'fmfrT', 'technician', 0, '$2a$12$vvdtBWlWB.7hS4r9142QGe/bitKSI/63Tgac04LHwLHxiItOq8bme'),
+(23, 'test', 'test', '1xa r)z6êXH!b\'Efé3*3x≠,1g\'L\'rj≠<', 'technician', 0, '$2a$12$axUIRv1EDGUIlkocLppDGOSkLEcf7lynrrYuvMeFljb0lEyDMLHE6'),
+(24, 'zer', 'zer', 'cejf:0L?KHZZ6A0k<9êXVTu1lméRePiv', 'technician', 0, '$2a$12$aXPEbx9o4Cm0kknkHIC35OG/TduBzkTraFp7iphs5rLoLotwpnzTq'),
+(25, 'zaezaedsqd', 'sqd', 'wWMy,<Ah.!-t0Bo3;ê\'\"7=4zNéNtDygq', 'technician', 0, '$2a$12$roGp7g0VmH7kOprDArICruU948H9u1E0kMzCimMnIbB3gfTUXQrIy'),
+(26, 'test', 'test', 'é\'\'S,pR=Q≠S@C3kVê2NR<MrKR ch2a 6', 'technician', 0, '$2a$12$DZLUrBeEMl3On3Lf5wmrf.RkCmr4qPFlUbvuWooCkio6Z4pNDYPPe'),
+(27, 'rsgfdfd', 'dsfdsf', '$N0Qjcu<GHin≠KuW!ST≠9YxdvC2&S?NG', 'technician', 0, '$2a$12$xkp72C9GaNQmn1oe00UkaeLd0/20ZRo49wVuG6bSysWMoRGU./JUK'),
+(28, 'azer', 'azer', '2W2;m&dv u2yoSC1@Pc≠V$.vym\"§.*uP', 'technician', 0, '$2a$12$riuSDCj1CWUFnpes4psNtO0a5SxYnDrNsq1HUvNkKO7ICO7Qg/.pS'),
+(29, 'azsaz', 'sqdsqd', 'Y>>G@9mY<i92J!x1.tt:SB\"hCO*U3Jc5', 'technician', 0, '$2a$12$Aih1LV0dx5DJEbqkEuSmK.jDOgu4CyBiOcL/5ocL9ptrN0kJm0UKu'),
+(31, 'fdsf', 'xwcwxc', 'bIh8LfN6M9Dê>S;Mi\'Rcif.CT,BH!e≠≠', 'technician', 0, '$2a$12$ePMzW8g9w12/jqC2le9uBu2Eny0c5EPgucD0UYynSZt0mQqP2Kcsi'),
+(32, 'test', 'test', '&1R+6l*ofIggkOKAD-Kod2GY\"-oo*r9≠', 'technician', 0, '$2a$12$mAziAU8rH9hv6lXpRtjohutec4PWg6MocvZOlsMVSSIEe0nkOx8Fm'),
+(33, 'test', 'test', '8Q,QxOzqnl*gTM<q=,PR.X-§g<:B43Qg', 'technician', 0, '$2a$12$bqVuOcMiLFSb/uFQGsDh2OKTvP710ElILwLFBhMPCRFRNt/U/C7a2'),
+(34, 'Patrice', 'Maubert', '-!\"\'tu)VE\'xp.R<ZVd5f2Qt\'=E-Bg8zs', 'admin', 0, '$2a$12$vqwN4bCOs7ClRJVxhfdLOO3ZyjNh7nJbcIH8.YntOZxh7jWF8arA6'),
+(35, 'test', 'test', '\"N*(lg???jkb+XT;<?8L?QejdIa!d-KV', 'technician', 0, '$2a$12$TCbcKJh0LoPfyZaZAWDpv.HYedvzoM9A6AWuv0wHSdlmISlhrDbIW'),
+(36, 'admin', 'test', 'B?oqjG!n6j!42ê$8tAh≠sx(9X@?;-&7k', 'admin', 0, '$2a$12$OAC7xW/J3QKIA0Yh1S4jlOFcyrYlcw43IJ9w1wimyYoWFAR6KI2lK'),
+(37, 'test', 'test', '§/fhL3O:1f;x<3\'WfIi+E(Y≠dZY.e9uI', 'technician', 0, '$2a$12$1zbF.VEpt441muf3In2YEevVlRMyVzkFOK2LQIEb5l6FFM3u/J4V6'),
+(38, 'test', 'test', '-Vzêyx?I=+8WGt5Owv\'9ca!3,Ldét=-1', 'technician', 0, '$2a$12$8nbSgZ5Bkf/HCdn6HFRzGe3KLm0N7xe8RShqoE7w.dAIzsI0iQhT2'),
+(39, 'le chien', 'Hella', 'YQdy&e6ég&>N7l+QDEX-T=7\'G?\"M.C:\'', 'admin', 0, '$2a$12$9L81.k05gqsIfR2tQ9nB7.gipiyY2f3q/SlYQWMEClfrzqk8pfdLW');
 
 -- --------------------------------------------------------
 
@@ -302,6 +419,27 @@ CREATE TABLE `tickets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Déchargement des données de la table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `machine_id`, `created_by`, `assigned_to`, `title`, `description`, `status`, `open_at`, `closed_at`) VALUES
+(1, 5, 13, 15, 'Test', 'Test Ticket system', 'open', '2025-12-18 12:25:21', NULL),
+(2, 2, 13, 15, 'Test interface', 'ticket de test de l\'interface', 'open', '2025-12-21 15:38:48', '2025-12-21 15:38:48'),
+(3, 2, 13, 15, 'new test', '', 'open', '2025-12-21 17:30:19', '2025-12-21 17:30:19');
+
+--
+-- Déclencheurs `tickets`
+--
+DELIMITER $$
+CREATE TRIGGER `ticketStatusGestion` BEFORE UPDATE ON `tickets` FOR EACH ROW BEGIN
+    IF NEW.closed_at IS NOT NULL THEN
+        SET NEW.status = 'Close';
+    END IF;
+END
+$$
+DELIMITER ;
+
+--
 -- Index pour les tables déchargées
 --
 
@@ -310,7 +448,8 @@ CREATE TABLE `tickets` (
 --
 ALTER TABLE `components`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_components_machine_id` (`machine_id`);
+  ADD KEY `fk_components_machine_id` (`machine_id`),
+  ADD KEY `fk_components_ticket` (`ticket`);
 
 --
 -- Index pour la table `component_load`
@@ -370,13 +509,13 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT pour la table `components`
 --
 ALTER TABLE `components`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT pour la table `component_load`
 --
 ALTER TABLE `component_load`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT pour la table `machines`
@@ -400,7 +539,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT pour la table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT pour la table `temperature`
@@ -412,7 +551,7 @@ ALTER TABLE `temperature`
 -- AUTO_INCREMENT pour la table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
@@ -422,7 +561,8 @@ ALTER TABLE `tickets`
 -- Contraintes pour la table `components`
 --
 ALTER TABLE `components`
-  ADD CONSTRAINT `fk_components_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`);
+  ADD CONSTRAINT `fk_components_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`),
+  ADD CONSTRAINT `fk_components_ticket` FOREIGN KEY (`ticket`) REFERENCES `tickets` (`id`);
 
 --
 -- Contraintes pour la table `component_load`

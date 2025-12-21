@@ -4,16 +4,42 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 import domain.Chassis;
 import domain.Component;
 import domain.Cpu;
 import domain.Disk;
+import domain.Gpu;
 import domain.PowerSupply;
 import domain.Ram;
 
 public abstract class ComponentDao {
+    public static Component getComponentById(int id){
+        try {
+			Connection conn = SingleConnection.GetConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT id, brand, model, machine_id, spec_value_primary, spec_value_secondary, type, status, ticket FROM components WHERE id = ?;");
+			stmt.setInt(1, id);
+			ResultSet result = stmt.executeQuery();
+			
+			if(result.next()) {
+				switch (result.getString("type")) {
+					case "CPU" : return new Cpu(result);
+					case "GPU" : return new Gpu(result);
+					case "RAM" : return new Ram(result);
+					case "DISK" : return new Disk(result);
+					case "Power_supply" : return new PowerSupply(result);
+					case "Chassis" : return new Chassis(result);
+					default : return null;
+				}
+			}
+			return null;
+        }catch(SQLException e){
+            System.out.println("SQL ERROR ! /n explains :" + e);
+        }
+        return null;
+    }
     public static ArrayList<Component> getAllComponents(){
         ArrayList<Component> compList = new ArrayList<Component>();
         try {
@@ -52,5 +78,56 @@ public abstract class ComponentDao {
         return compList;
         
     }
+    public static void update(Component c){
+        try {
+			Connection conn = SingleConnection.GetConnection();
+			PreparedStatement stmt = conn.prepareStatement("UPDATE components SET brand = ?, model = ?, machine_id = ?, spec_value_primary = ?, spec_value_secondary = ?, type = ?, ticket = ? WHERE id = ?");
+			stmt.setString(1, c.getBrand());
+			stmt.setString(2, c.getModel());
+            System.out.print("\n machine id = " + c.getMachineId() + "\n");
+            if(c.getMachineId() == 0){
+                stmt.setNull(3, Types.INTEGER);
+            }else{
+                stmt.setInt(3, c.getMachineId());
+            }
+            stmt.setInt(7, c.getTicketId());
 
+            switch (c){
+                case Chassis ch-> {
+                    stmt.setInt(4, ch.getSizeU());
+                    stmt.setNull(5, Types.INTEGER);
+                    stmt.setString(6, "Chassis");
+                }case Cpu cpu-> {
+                    stmt.setInt(4, cpu.getNb_core());
+                    stmt.setInt(5, cpu.getMax_ram());
+                    stmt.setString(6, "Chassis");
+                }case Disk disk-> {
+                    stmt.setInt(4, disk.getSize_go());
+                    stmt.setNull(5, Types.INTEGER);
+                    stmt.setString(6, "Chassis");
+                }case Gpu gpu-> {
+                    stmt.setInt(4, gpu.getVram());
+                    stmt.setInt(5, gpu.getNb_core());
+                    stmt.setString(6, "Chassis");
+                }case PowerSupply ps-> {
+                    stmt.setInt(4, ps.getPower());
+                    stmt.setNull(5, Types.INTEGER);
+                    stmt.setString(6, "Chassis");
+                }case Ram ram-> {
+                    stmt.setInt(4, ram.getSize_go());
+                    stmt.setInt(5, ram.getVersion());
+                    stmt.setString(6, "Chassis");
+                }default -> System.out.print("Error can't find type \n temp message follow todo");
+
+                //-----------
+                // TODO 
+                // create personal error and use it here
+                //-----------
+            }
+                stmt.setInt(8, c.getId());
+                stmt.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }  
+    }
 }

@@ -3,6 +3,8 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Dao.ComponentDao;
+
 public abstract class Component {
 	private int id;
 	private String brand;
@@ -42,6 +44,15 @@ public abstract class Component {
 	}
 	public int getTicketId() {
 		return ticketId;
+	}
+	public void setTicketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+	public void updateComponent(){
+		ComponentDao.update(this);
+	}
+	public static Component getById(int id){
+		return ComponentDao.getComponentById(id);
 	}
 	public static boolean compareComponentById(Component c1, Component c2){
 		if(c1.getId() == c2.getId()){

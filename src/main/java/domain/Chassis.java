@@ -17,5 +17,7 @@ public class Chassis extends Component{
 			System.out.print("\nERROR : Can't create Chassis with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
-
+	public int getSizeU() {
+		return sizeU;
+	}
 }

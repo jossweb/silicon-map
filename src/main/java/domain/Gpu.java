@@ -20,4 +20,10 @@ public class Gpu extends Component{
 			System.out.print("\nERROR : Can't create Gpu with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
+	public int getVram() {
+		return vram;
+	}
+	public int getNb_core() {
+		return nb_core;
+	}
 }

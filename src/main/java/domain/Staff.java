@@ -116,4 +116,7 @@ public abstract class Staff {
 		return bubble;
 
 	}
+	public static Staff getUserById(int id){
+		return StaffDao.getStaffMember(id);
+	}
 }

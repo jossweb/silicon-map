@@ -17,4 +17,7 @@ public class PowerSupply extends Component{
 			System.out.print("\nERROR : Can't create Power supply with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
+	public int getPower() {
+		return power;
+	}
 }

@@ -30,7 +30,12 @@ import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 
 class UserInterface{
+    private Stage stage;
+    private Staff logUser;
 	public void Dashboard(Stage s, Staff logUser) {
+
+        this.logUser = logUser;
+        this.stage = s;
 
         boolean isadmin = logUser instanceof Admin; 
         Statistics statistics = new Statistics();
@@ -96,10 +101,10 @@ class UserInterface{
         VBox box; 
         
         if(isadmin){
-            box = admin(logUser, statistics, s);
+            box = admin(statistics);
         }
         else{
-            box = technician(logUser);
+            box = technician();
         }
         dashview.getChildren().add(box);
         root.setCenter(dashview);
@@ -115,7 +120,7 @@ class UserInterface{
     // ----------
     // ADMIN DASHBOARD
     // ----------
-    private VBox admin(Staff logUser, Statistics statistics, Stage stage){
+    private VBox admin(Statistics statistics){
         //admin dashboard interface
         VBox div = new VBox();
         div.setAlignment(Pos.TOP_LEFT);
@@ -206,11 +211,11 @@ class UserInterface{
     // ----------
     // TECHNICIAN DASHBOARD
     // ----------
-    private VBox technician(Staff logUser){
+    private VBox technician(){
         //technician dashboard interface
         VBox div = new VBox();
         div.setAlignment(Pos.TOP_LEFT); 
-        Label welcomeText = new Label("Welcome " + logUser.getFirst_name());
+        Label welcomeText = new Label("Welcome " + this.logUser.getFirst_name());
 		welcomeText.getStyleClass().add("subtitle");
 
         Label statTitle = new Label("Global statistiques ");
@@ -237,7 +242,7 @@ class UserInterface{
         box.getChildren().addAll(head, ticketsBubbles(s));
 
         addStaffMember.setOnAction(e -> {
-            InterfaceAddNewTicket form = new InterfaceAddNewTicket(primaryStage, s);
+            InterfaceAddNewTicket form = new InterfaceAddNewTicket(this.stage, s, (Admin)this.logUser);
             form.show();
         });
 

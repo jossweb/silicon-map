@@ -20,4 +20,10 @@ public class Ram extends Component{
 			System.out.print("\nERROR : Can't create Ram with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
+	public int getSize_go() {
+		return size_go;
+	}
+	public int getVersion() {
+		return version;
+	}
 }

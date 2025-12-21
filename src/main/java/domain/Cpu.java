@@ -20,4 +20,10 @@ public class Cpu extends Component{
 			System.out.print("\nERROR : Can't create Cpu with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
+	public int getNb_core() {
+		return nb_core;
+	}
+	public int getMax_ram() {
+		return max_ram;
+	}
 }

@@ -1,13 +1,18 @@
 package application;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import domain.Admin;
 import domain.Component;
 import domain.Machine;
 import domain.Staff;
 import domain.Statistics;
 import domain.Technician;
+import domain.Ticket;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,8 +30,7 @@ public class InterfaceAddNewTicket extends Stage {
     Set<Integer> selectedComponentsIds; 
     private Statistics stats;
 
-    public InterfaceAddNewTicket(Stage principalStage, Statistics s){
-
+    public InterfaceAddNewTicket(Stage principalStage, Statistics s, Admin userLogin){
         //init with default value (when value < 0 technician is not selected by user)
         this.selectedTechnicianId = -1;
         this.selectedMachineId = -1;
@@ -76,7 +80,43 @@ public class InterfaceAddNewTicket extends Stage {
         initModality(Modality.WINDOW_MODAL);
 
         submit.setOnAction(e->{
-            System.out.print("clicked");
+            String newTitle = titleField.getText();
+            String newDescription = descriptionField.getText();
+            if(!(newTitle.compareTo("")==1)){
+                if (!(this.selectedTechnicianId==-1)){
+                    Ticket t = new Ticket(0, Machine.getMachine(selectedMachineId), userLogin, (Technician)Staff.getUserById(this.selectedTechnicianId), newTitle, newDescription, "Open", LocalDateTime.now(), null);
+                    t.createTicket();
+                    for(int cId : this.selectedComponentsIds){
+                        Component c = Component.getById(cId);
+                        c.setTicketId(t.getId());
+                        c.updateComponent();
+                    }
+                    VBox successRoot = new VBox(10);
+                    successRoot.setPadding(new Insets(20));
+                    successRoot.setAlignment(Pos.CENTER);
+
+                    Label successLabel = new Label("Success");
+                    successLabel.getStyleClass().add("subtitle");
+
+                    Label explainationLabel = new Label("Ticket add successfully");
+                    explainationLabel.getStyleClass().add("subsubtitle");
+
+                    Button close = new Button("Close");
+                    close.getStyleClass().add("submit-button");
+                    close.setMaxWidth(Double.MAX_VALUE);
+                    close.setOnAction(f -> close());
+
+                    successRoot.getChildren().addAll(successLabel, explainationLabel, close);
+                    getScene().setRoot(successRoot);
+
+                }else{
+                    errorLabel.setText("You need to select a technician for this ticket");
+                    errorLabel.setVisible(true);
+                }
+            }else{
+                errorLabel.setText("You can't give an empty title");
+                errorLabel.setVisible(true);
+            }
         });        
     }
     private ScrollPane createHorizontalComponentSelector(){

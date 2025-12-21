@@ -20,7 +20,7 @@ public abstract class StatisticsDao {
 
             while(result.next()){
                 Timestamp ts = result.getTimestamp("date_time");
-                temps.put(result.getInt("machine_id"), new Tuple(result.getInt("temperature"), ts.toLocalDateTime()));
+                temps.put(result.getInt("machine_id"), new Tuple<Integer, LocalDateTime>(result.getInt("temperature"), ts.toLocalDateTime()));
             }
             return temps;
         }catch(SQLException e) {
@@ -39,7 +39,7 @@ public abstract class StatisticsDao {
 
             while(result.next()){
                 Timestamp ts = result.getTimestamp("date_time");
-                temps.put(result.getInt("component_id"), new Tuple(result.getInt("components_load"), ts.toLocalDateTime()));
+                temps.put(result.getInt("component_id"), new Tuple<Integer, LocalDateTime>(result.getInt("components_load"), ts.toLocalDateTime()));
             }
             return temps;
         }catch(SQLException e) {

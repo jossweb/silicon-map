@@ -17,4 +17,7 @@ public class Disk extends Component{
 			System.out.print("\nERROR : Can't create Disk with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
+	public int getSize_go() {
+		return size_go;
+	}
 }
