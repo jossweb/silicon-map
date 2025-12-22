@@ -2,13 +2,9 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import domain.Admin;
 import domain.Staff;
-import domain.Statistics;
+import domain.Context;
 import domain.Storage;
 import domain.Compute;
 import domain.GpuCompute;
@@ -32,25 +28,15 @@ import javafx.scene.layout.VBox;
 class UserInterface{
     private Stage stage;
     private Staff logUser;
+    private Context context;
 	public void Dashboard(Stage s, Staff logUser) {
 
         this.logUser = logUser;
         this.stage = s;
+        this.context = new Context();
 
         boolean isadmin = logUser instanceof Admin; 
-        Statistics statistics = new Statistics();
         logUser.setAvailable(true);
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
-            Thread t = new Thread(r);
-            t.setDaemon(true);
-            return t;
-        });
-
-        executor.scheduleAtFixedRate(() -> {
-            statistics.updateTemp();
-            statistics.updateLoad();
-
-        }, 0, 5, TimeUnit.SECONDS);
 
         BorderPane root = new BorderPane();
         root.setId("main-pane");
@@ -101,7 +87,7 @@ class UserInterface{
         VBox box; 
         
         if(isadmin){
-            box = admin(statistics);
+            box = admin();
         }
         else{
             box = technician();
@@ -120,7 +106,7 @@ class UserInterface{
     // ----------
     // ADMIN DASHBOARD
     // ----------
-    private VBox admin(Statistics statistics){
+    private VBox admin(){
         //admin dashboard interface
         VBox div = new VBox();
         div.setAlignment(Pos.TOP_LEFT);
@@ -171,39 +157,39 @@ class UserInterface{
         StackPane contentPanel = new StackPane();
 
         div.getChildren().addAll(navbar, contentPanel);
-        contentPanel.getChildren().setAll(MainStatSummary(statistics));
+        contentPanel.getChildren().setAll(MainStatSummary());
 
         //button handler navbar
         mainNavButton.setOnAction(s->{
-            contentPanel.getChildren().setAll(MainStatSummary(statistics));
+            contentPanel.getChildren().setAll(MainStatSummary());
             selectNavButton(mainNavButton, navButtonsList);
         });
 
         computeNavButton.setOnAction(s->{
-            contentPanel.getChildren().setAll(computePart(statistics));
+            contentPanel.getChildren().setAll(computePart());
             selectNavButton(computeNavButton, navButtonsList);
         });
 
         gpuComputeNavButton.setOnAction(s->{
-            contentPanel.getChildren().setAll(computeGpuPart(statistics));
+            contentPanel.getChildren().setAll(computeGpuPart());
             selectNavButton(gpuComputeNavButton, navButtonsList);
         });
 
         storageNavButton.setOnAction(s->{
-            contentPanel.getChildren().setAll(storagePart(statistics));
+            contentPanel.getChildren().setAll(storagePart());
             selectNavButton(storageNavButton, navButtonsList);
         });
 
         networkNavButton.setOnAction(s->{
-            contentPanel.getChildren().setAll(networkPart(statistics));
+            contentPanel.getChildren().setAll(networkPart());
             selectNavButton(networkNavButton, navButtonsList);
         });
         staffnavButton.setOnAction(s->{
-            contentPanel.getChildren().setAll(staffPart(statistics, stage));
+            contentPanel.getChildren().setAll(staffPart());
             selectNavButton(staffnavButton, navButtonsList);
         });
         ticketNavButton.setOnAction((s->{
-            contentPanel.getChildren().setAll(TicketPart(statistics, stage));
+            contentPanel.getChildren().setAll(TicketPart());
             selectNavButton(ticketNavButton, navButtonsList);
         }));
         return div;
@@ -228,7 +214,7 @@ class UserInterface{
     // ----------
     // ADMIN DASHBOARD DYNAMIC PARTS
     // ----------
-    private VBox TicketPart(Statistics s, Stage primaryStage){
+    private VBox TicketPart(){
         VBox box = new VBox();
         HBox head = new HBox();
         Label subTitle = new Label("All tickets");
@@ -239,17 +225,17 @@ class UserInterface{
         addStaffMember.getStyleClass().add("addButton");
 
         head.getChildren().addAll(subTitle, midpart, addStaffMember);
-        box.getChildren().addAll(head, ticketsBubbles(s));
+        box.getChildren().addAll(head, ticketsBubbles());
 
         addStaffMember.setOnAction(e -> {
-            InterfaceAddNewTicket form = new InterfaceAddNewTicket(this.stage, s, (Admin)this.logUser);
+            InterfaceAddNewTicket form = new InterfaceAddNewTicket(this.stage, this.context, (Admin)this.logUser);
             form.show();
         });
 
 
         return box;
     }
-    private VBox staffPart(Statistics statistics, Stage primaryStage){
+    private VBox staffPart(){
         VBox box = new VBox();
         HBox head = new HBox();
         Label subTitle = new Label("Staff members");
@@ -261,19 +247,19 @@ class UserInterface{
         addStaffMember.getStyleClass().add("addButton");
 
         head.getChildren().addAll(subTitle, midpart, addStaffMember);
-        box.getChildren().addAll(head, staffMembersBubbles(statistics));
+        box.getChildren().addAll(head, staffMembersBubbles());
 
         addStaffMember.setOnAction(e -> {
-            InterfaceAddNewStaff form = new InterfaceAddNewStaff(primaryStage);
+            InterfaceAddNewStaff form = new InterfaceAddNewStaff(this.stage);
             form.show();
         });
 
 
         return box;
     }
-    private VBox networkPart(Statistics statistics){
-        statistics.updateMachinesList();
-        ArrayList<Network> computeList = Network.GetNetworkFromStats(statistics);
+    private VBox networkPart(){
+        this.context.updateMachinesList();
+        ArrayList<Network> computeList = Network.GetNetworkFromStats(this.context);
 
         VBox b = new VBox();
         GridPane grid = new GridPane();
@@ -282,8 +268,8 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (Network c : computeList) {
-            VBox box = c.createMachineButton();
-            grid.add(box, col, row);
+            Button button = c.createMachineButton(this.stage, this.context);
+            grid.add(button, col, row);
             col++;
             if (col >= 5) {
                 col = 0;
@@ -299,9 +285,9 @@ class UserInterface{
         b.getChildren().add(scrollPane);
         return b;
     } 
-    private VBox storagePart(Statistics statistics){
-        statistics.updateMachinesList();
-        ArrayList<Storage> computeList = Storage.GetStorageFromStats(statistics);
+    private VBox storagePart(){
+        this.context.updateMachinesList();
+        ArrayList<Storage> computeList = Storage.GetStorageFromStats(this.context);
 
         VBox b = new VBox();
         GridPane grid = new GridPane();
@@ -310,8 +296,8 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (Storage c : computeList) {
-            VBox box = c.createMachineButton();
-            grid.add(box, col, row);
+            Button button = c.createMachineButton(this.stage, this.context);
+            grid.add(button, col, row);
             col++;
             if (col >= 5) {
                 col = 0;
@@ -327,9 +313,9 @@ class UserInterface{
         b.getChildren().add(scrollPane);
         return b;
     }
-    private VBox computeGpuPart(Statistics statistics){
-        statistics.updateMachinesList();
-        ArrayList<GpuCompute> computeList = GpuCompute.GetGpuComputeFromStats(statistics);
+    private VBox computeGpuPart(){
+        this.context.updateMachinesList();
+        ArrayList<GpuCompute> computeList = GpuCompute.GetGpuComputeFromStats(this.context);
 
         VBox b = new VBox();
         GridPane grid = new GridPane();
@@ -338,8 +324,8 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (GpuCompute c : computeList) {
-            VBox box = c.createMachineButton();
-            grid.add(box, col, row);
+            Button button = c.createMachineButton(this.stage, this.context);
+            grid.add(button, col, row);
             col++;
             if (col >= 5) {
                 col = 0;
@@ -355,9 +341,9 @@ class UserInterface{
         b.getChildren().add(scrollPane);
         return b;
     }
-    private VBox computePart(Statistics statistics){
-        statistics.updateMachinesList();
-        ArrayList<Compute> computeList = Compute.GetComputeFromStats(statistics);
+    private VBox computePart(){
+        this.context.updateMachinesList();
+        ArrayList<Compute> computeList = Compute.GetComputeFromStats(this.context);
 
         VBox b = new VBox();
         GridPane grid = new GridPane();
@@ -366,8 +352,8 @@ class UserInterface{
         int row = 0;
         int col = 0;
         for (Compute c : computeList) {
-            VBox box = c.createMachineButton();
-            grid.add(box, col, row);
+            Button button = c.createMachineButton(this.stage, this.context);
+            grid.add(button, col, row);
             col++;
             if (col >= 5) {
                 col = 0;
@@ -383,13 +369,32 @@ class UserInterface{
         b.getChildren().add(scrollPane);
         return b;
     }
-    private VBox MainStatSummary(Statistics statistics){
+    private VBox MainStatSummary(){
+        this.context.updateTemp();
+        this.context.updateLoad();
         VBox box = new VBox();
         Label statTitle = new Label("Global statistiques ");
 		statTitle.getStyleClass().add("subsubtitle");
         HBox container = new HBox();
         container.setSpacing(10);
-        container.getChildren().addAll(createStatBuble("normal", "Average load", String.format("%.1f", statistics.getAvgLoad()) + "%"), createStatBuble("warning", "Average temp", String.format("%.1f", statistics.getAvgTemp()) + "°"), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
+        double avgLoad = this.context.getAvgLoad();
+        String loadStatus = "normal";
+        if(avgLoad>100){
+            loadStatus = "error";
+        }else if(avgLoad > 75){
+            loadStatus = "warning";
+        }
+
+        double avgTemp = this.context.getAvgTemp();
+        String tempStatus = "normal";
+        if(avgTemp>100){
+            tempStatus = "error";
+        }else if(avgTemp > 75){
+            tempStatus = "warning";
+        }
+
+
+        container.getChildren().addAll(createStatBuble(loadStatus, "Average load", String.format("%.1f", avgLoad) + "%"), createStatBuble(tempStatus, "Average temp", String.format("%.1f", avgTemp) + "°"), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
         
         box.getChildren().addAll(statTitle, container);
         return box;
@@ -398,15 +403,15 @@ class UserInterface{
         buttons.forEach(b -> b.getStyleClass().remove("navbar-button-is-selected"));
         selected.getStyleClass().add("navbar-button-is-selected");
     }
-    private ScrollPane ticketsBubbles(Statistics s){
-        s.updateTicketList();
+    private ScrollPane ticketsBubbles(){
+        this.context.updateTicketList();
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         int col = 0;
         int row = 0;
-        for(int i = 0; i < s.getListTickets().size(); i++){
-            grid.add(s.getListTickets().get(i).TicketBubble(), col, row);
+        for(int i = 0; i < this.context.getListTickets().size(); i++){
+            grid.add(this.context.getListTickets().get(i).TicketBubble(), col, row);
             if(col == 1){
                 col = 0;
                 row ++;
@@ -421,14 +426,14 @@ class UserInterface{
         scrollPane.getStyleClass().add("scroll-pane");
         return scrollPane;
     }
-    private ScrollPane staffMembersBubbles(Statistics s){
+    private ScrollPane staffMembersBubbles(){
         GridPane container = new GridPane(10, 10);
-        s.updateStaffMembersList();
+        this.context.updateStaffMembersList();
 
         int row = 0;
         int col = 0;
-        for(int i = 0; i<s.getListStaffMembers().size(); i++){
-            container.add(s.getListStaffMembers().get(i).staffBubble(), col, row);
+        for(int i = 0; i<this.context.getListStaffMembers().size(); i++){
+            container.add(this.context.getListStaffMembers().get(i).staffBubble(), col, row);
 
             if(col==1){
                 col=0;

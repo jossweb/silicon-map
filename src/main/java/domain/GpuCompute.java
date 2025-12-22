@@ -11,7 +11,7 @@ public class GpuCompute extends Machine{
 	public GpuCompute(ResultSet sqlResult){
 		super(sqlResult);
 	}
-	public static ArrayList<GpuCompute> GetGpuComputeFromStats(Statistics s){
+	public static ArrayList<GpuCompute> GetGpuComputeFromStats(Context s){
 		List<GpuCompute> l =  s.getMachines().stream()
 							.filter(e->e instanceof GpuCompute)
 							.map(e-> (GpuCompute) e)

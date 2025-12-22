@@ -190,3 +190,6 @@
 .nobg1{
     -fx-background-color: #EFEFF5;
 }
+.bold{
+    -fx-font-weight: bold;
+}

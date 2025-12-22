@@ -8,7 +8,7 @@ import domain.Admin;
 import domain.Component;
 import domain.Machine;
 import domain.Staff;
-import domain.Statistics;
+import domain.Context;
 import domain.Technician;
 import domain.Ticket;
 import javafx.geometry.Insets;
@@ -28,9 +28,9 @@ public class InterfaceAddNewTicket extends Stage {
     private int selectedTechnicianId;
     private int selectedMachineId;
     Set<Integer> selectedComponentsIds; 
-    private Statistics stats;
+    private Context stats;
 
-    public InterfaceAddNewTicket(Stage principalStage, Statistics s, Admin userLogin){
+    public InterfaceAddNewTicket(Stage principalStage, Context s, Admin userLogin){
         //init with default value (when value < 0 technician is not selected by user)
         this.selectedTechnicianId = -1;
         this.selectedMachineId = -1;

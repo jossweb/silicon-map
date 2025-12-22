@@ -10,7 +10,7 @@ public class Compute extends Machine {
 	public Compute(ResultSet sqlResult){
 		super(sqlResult);
 	}
-	public static ArrayList<Compute> GetComputeFromStats(Statistics s){
+	public static ArrayList<Compute> GetComputeFromStats(Context s){
 		List<Compute> l =  s.getMachines().stream()
 							.filter(e->e instanceof Compute)
 							.map(e-> (Compute) e)

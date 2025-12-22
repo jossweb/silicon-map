@@ -11,7 +11,7 @@ public abstract class Network extends Machine{
 	public Network(ResultSet sqlResult){
 		super(sqlResult);
 	}
-    public static ArrayList<Network> GetNetworkFromStats(Statistics s){
+    public static ArrayList<Network> GetNetworkFromStats(Context s){
 		List<Network> l =  s.getMachines().stream()
 							.filter(e->e instanceof Network)
 							.map(e-> (Network) e)
