@@ -119,10 +119,7 @@ public abstract class ComponentDao {
                     stmt.setString(6, "Chassis");
                 }default -> System.out.print("Error can't find type \n temp message follow todo");
 
-                //-----------
-                // TODO 
-                // create personal error and use it here
-                //-----------
+                // TODO : create personal error and use it here
             }
                 stmt.setInt(8, c.getId());
                 stmt.executeUpdate();

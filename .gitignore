@@ -13,3 +13,4 @@ Desktop.ini
 .project
 .vscode/
 *.code-workspace
+*.fxbuild

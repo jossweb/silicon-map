@@ -1,5 +1,7 @@
 package application;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import domain.Admin;
@@ -12,6 +14,10 @@ import domain.Network;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -23,6 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import type.Tuple;
 import javafx.scene.layout.VBox;
 
 class UserInterface{
@@ -211,9 +218,7 @@ class UserInterface{
 
         return div;
     }
-    // ----------
     // ADMIN DASHBOARD DYNAMIC PARTS
-    // ----------
     private VBox TicketPart(){
         VBox box = new VBox();
         HBox head = new HBox();
@@ -396,8 +401,42 @@ class UserInterface{
 
         container.getChildren().addAll(createStatBuble(loadStatus, "Average load", String.format("%.1f", avgLoad) + "%"), createStatBuble(tempStatus, "Average temp", String.format("%.1f", avgTemp) + "°"), createStatBuble("error", "test", "0%"), createStatBuble(" ", "test", "0%"));
         
-        box.getChildren().addAll(statTitle, container);
+        // Charts part
+        HBox chartsPart = new HBox(5);
+        LineChart<String, Number> chart1 = createLineChart(this.context.getAvgTempLastInputs(), "Temperature °");
+        LineChart<String, Number> chart2 = createLineChart(this.context.getAvgLoadLastInputs(), "Load %");
+
+        chartsPart.getChildren().addAll(chart1, chart2);
+
+        Label evolutionLabel = new Label("Evolution");
+        evolutionLabel.getStyleClass().addAll("subsubtitle", "need-gap-y");
+
+        box.getChildren().addAll(statTitle, container, evolutionLabel, chartsPart);
         return box;
+    }
+    public static LineChart<String, Number> createLineChart(ArrayList<Tuple<Integer, LocalDateTime>> values, String name) {
+        CategoryAxis xAxis = new CategoryAxis();
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setTickUnit(1);
+
+        LineChart<String, Number> lineChart = new LineChart<String, Number>(xAxis, yAxis);
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName(name);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        values.forEach(t -> {
+            series.getData().add(new XYChart.Data<>(t.getSecond().format(formatter), t.getFirst()));
+        });
+
+        lineChart.getData().add(series);
+        lineChart.setCreateSymbols(false);
+        lineChart.setPrefHeight(350);  
+        lineChart.getStyleClass().add("need-gap-y");
+
+        return lineChart;
     }
     private void selectNavButton(Button selected, List<Button> buttons) {
         buttons.forEach(b -> b.getStyleClass().remove("navbar-button-is-selected"));

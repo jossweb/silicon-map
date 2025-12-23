@@ -87,11 +87,7 @@ public class Login extends Application {
                 }finally{
                     //reset password field
                     passField.setText("");
-                    //-------------
-                    //TODO
-                    // Add anti spam system 
-                    // maybe disable the login button for 1 second
-                    //-------------
+                    //TODO : Add anti spam system maybe disable the login button for 1 second
                 }
 
             }else{

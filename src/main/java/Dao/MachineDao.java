@@ -30,11 +30,8 @@ public abstract class MachineDao {
 			}
 			stmt.setString(6, m.whoami("Compute"));
 			
-			// =============================
-			// TODO : 
-			// add rack id when rack class defined
+			// TODO : add rack id when rack class defined
 			stmt.setInt(7, 1);
-			// =============================
 			
 			return stmt.executeUpdate()==1;
 			
@@ -109,11 +106,8 @@ public abstract class MachineDao {
 			}
 			stmt.setString(6, m.whoami("Compute"));
 			
-			// =============================
-			// TODO : 
-			// add rack id when rack class defined
+			// TODO : add rack id when rack class defined
 			stmt.setInt(7, 1);
-			// =============================
 			stmt.setInt(8, m.getId());
 			
 			if(stmt.executeUpdate()==1)

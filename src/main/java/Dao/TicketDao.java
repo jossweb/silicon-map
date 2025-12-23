@@ -59,10 +59,7 @@ public abstract class TicketDao {
             if (rs.next()) {
                 return rs.getInt(1);
             }else{
-                // ---------
-                // TODO
-                // Send exception
-                // ---------
+                // TODO : Send exception
             }
 
         }catch(SQLException e){

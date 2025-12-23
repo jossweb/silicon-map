@@ -193,3 +193,16 @@
 .bold{
     -fx-font-weight: bold;
 }
+/*.chart*/
+.chart-series-line {
+    -fx-stroke: #0169FF;
+    -fx-stroke-width: 5px; 
+    -fx-background-radius: 12px;
+}
+.chart-plot-background {
+    -fx-background-color: #EFEFF5; 
+    -fx-background-radius: 12px;
+}
+.default-color0.chart-line-symbol {
+    -fx-background-color: #0169FF;
+}
