@@ -83,6 +83,7 @@ public class Login extends Application {
                     errorIndication.setVisible(true);
                 }catch(Exception ex){
                     errorIndication.setText("unexpected error");
+                    System.out.print("ERROR : " + ex);
                     errorIndication.setVisible(true);
                 }finally{
                     //reset password field

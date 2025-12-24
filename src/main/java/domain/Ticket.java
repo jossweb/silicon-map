@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import Dao.TicketDao;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 public class Ticket {
 	private int id;
@@ -87,18 +85,5 @@ public class Ticket {
 	}
 	public LocalDateTime getClosed_at() {
 		return closed_at;
-	}
-	public VBox TicketBubble(){
-		Label title = new Label(this.title);
-		title.getStyleClass().add("subtitle");
-		Label descriptionPreview = new Label(this.description);
-		descriptionPreview.getStyleClass().add("subsubtitle");
-		Label createdBy = new Label("Created by " + this.creator.getName());
-		Label technicianOn = new Label("For " + this.technician.getName());
-		VBox bubble = new VBox();
-		bubble.getStyleClass().add("staff-bubble");
-		bubble.getChildren().addAll(title, descriptionPreview, createdBy, technicianOn);
-		bubble.setMaxWidth(Double.MAX_VALUE); 
-		return bubble;
 	}
 }
