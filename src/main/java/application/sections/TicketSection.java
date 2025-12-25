@@ -1,6 +1,7 @@
 package application.sections;
 
 import application.components.ticket.TicketCard;
+import domain.Admin;
 import domain.Context;
 import domain.Technician;
 import domain.Ticket;
@@ -9,9 +10,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 public class TicketSection extends ScrollPane{
-    public TicketSection(Context context){
+    public TicketSection(Context context, Stage stage, Admin admin){
         context.updateTicketList();
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -34,7 +36,7 @@ public class TicketSection extends ScrollPane{
         int col = 0;
         int row = 0;
         for(int i = 0; i < context.getListTickets().size(); i++){
-            grid.add(new TicketCard(context.getListTickets().get(i)), col, row);
+            grid.add(new TicketCard(context.getListTickets().get(i), admin, stage), col, row);
             if(col == 3){
                 col = 0;
                 row ++;
@@ -48,7 +50,7 @@ public class TicketSection extends ScrollPane{
         this.setPannable(true);
         this.getStyleClass().add("scroll-pane");
     }
-    public TicketSection(Context context, Technician technician){
+    public TicketSection(Context context, Stage stage, Technician technician){
         context.updateTicketList();
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -73,7 +75,7 @@ public class TicketSection extends ScrollPane{
         for(int i = 0; i < context.getListTickets().size(); i++){
             Ticket t = context.getListTickets().get(i);
             if(t.getStatus().equals(("open")) && t.getTechnician().getId() == technician.getId()){
-                grid.add(new TicketCard(t), col, row);
+                grid.add(new TicketCard(t, technician, stage), col, row);
                 if(col == 3){
                     col = 0;
                     row ++;

@@ -1,22 +1,15 @@
 package application;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
+import application.components.Charts;
 import domain.Context;
 import domain.Machine;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import type.Tuple;
 
 public class InterfaceMachineInfo extends Stage {
     private Stage stage;
@@ -78,29 +71,8 @@ public class InterfaceMachineInfo extends Stage {
         statusBox.getChildren().addAll(status, statusValue);
 
 
-        LineChart<String, Number> chart = createLineChart(this.context.getTempList().get(this.machine.getId()));
+        LineChart<String, Number> chart = new Charts(this.context.getTempList().get(this.machine.getId()), "Temp");
 
         root.getChildren().addAll(pageTitle, hostnameBox, typeBox, ipBox, macBox, osBox, statusBox, chart);
-    }
-    public static LineChart<String, Number> createLineChart(ArrayList<Tuple<Integer, LocalDateTime>> values) {
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Time");
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Temp");
-
-        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-        values.forEach(t -> {
-            series.getData().add(new XYChart.Data<>(t.getSecond().format(formatter), t.getFirst()));
-        });
-
-        lineChart.getData().add(series);
-
-        return lineChart;
     }
 }

@@ -28,7 +28,7 @@ public class TicketPart extends VBox{
         addStaffMember.getStyleClass().add("addButton");
 
         head.getChildren().addAll(subTitle, midpart, addStaffMember);
-        this.getChildren().addAll(head, new TicketSection(this.context));
+        this.getChildren().addAll(head, new TicketSection(this.context, stage, admin));
 
         addStaffMember.setOnAction(e -> {
             InterfaceAddNewTicket form = new InterfaceAddNewTicket(this.stage, this.context, admin);
@@ -44,6 +44,6 @@ public class TicketPart extends VBox{
         subTitle.getStyleClass().add("subsubtitle");
 
         head.getChildren().addAll(subTitle);
-        this.getChildren().addAll(head, new TicketSection(this.context, technician));
+        this.getChildren().addAll(head, new TicketSection(this.context, stage, technician));
     }
 }

@@ -52,7 +52,11 @@ public abstract class TicketDao {
             stmt.setString(5, newTicket.getDescription());
             stmt.setString(6, newTicket.getStatus());
             stmt.setTimestamp(7, Timestamp.valueOf(newTicket.getOpen_at()));
-            stmt.setTimestamp(8, Timestamp.valueOf(newTicket.getOpen_at()));
+            if (newTicket.getClosed_at() != null) {
+                stmt.setTimestamp(8, Timestamp.valueOf(newTicket.getClosed_at()));
+            } else {
+                stmt.setNull(8, java.sql.Types.TIMESTAMP);
+            }
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -66,5 +70,31 @@ public abstract class TicketDao {
             System.out.println("SQL ERROR ! /n explains :" + e);
         }
         return 0;
+    }
+    public static void updateTicket(Ticket t){
+        try{
+            Connection conn = SingleConnection.GetConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE tickets SET machine_id = ?, created_by = ?, assigned_to = ?, title = ?, description = ?, status = ?, open_at = ?, closed_at = ? WHERE id = ?;");
+            
+            stmt.setInt(1, t.getMachine().getId());
+            stmt.setInt(2, t.getCreator().getId());
+            stmt.setInt(3, t.getTechnician().getId());
+            stmt.setString(4, t.getTitle());
+            stmt.setString(5, t.getDescription());
+            stmt.setString(6, t.getStatus());
+            stmt.setTimestamp(7, Timestamp.valueOf(t.getOpen_at()));
+            if (t.getClosed_at() != null) {
+                stmt.setTimestamp(8, Timestamp.valueOf(t.getClosed_at()));
+            } else {
+                stmt.setNull(8, java.sql.Types.TIMESTAMP);
+            }
+
+            stmt.setInt(9, t.getId());
+
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            System.out.println("SQL ERROR ! /n explains :" + e);
+        }
     }
 }

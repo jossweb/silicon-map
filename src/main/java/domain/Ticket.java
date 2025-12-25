@@ -2,6 +2,7 @@ package domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import Dao.TicketDao;
@@ -59,6 +60,10 @@ public class Ticket {
 			this.status = newStatus;
 		}
 	}
+	public void close(){
+		this.SetStatus("closed");
+		this.closed_at = LocalDateTime.now();
+	}
 	public int getId() {
 		return id;
 	}
@@ -85,5 +90,8 @@ public class Ticket {
 	}
 	public LocalDateTime getClosed_at() {
 		return closed_at;
+	}
+	public void updateInDb(){
+		TicketDao.updateTicket(this);
 	}
 }
