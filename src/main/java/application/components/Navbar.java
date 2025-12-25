@@ -12,6 +12,7 @@ import domain.Context;
 import domain.GpuCompute;
 import domain.Network;
 import domain.Storage;
+import domain.Technician;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -105,6 +106,56 @@ public class Navbar extends GridPane{
             this.contentPanel.getChildren().setAll(new StaffPart(this.stage, this.context));
             selectNavButton(staffnavButton, navButtonsList);
         });
+        ticketNavButton.setOnAction((s->{
+            this.contentPanel.getChildren().setAll(new TicketPart(user, this.stage, this.context));
+            selectNavButton(ticketNavButton, navButtonsList);
+        }));
+    }
+    public Navbar(Technician user, Context context, Stage stage, StackPane contentPanel){
+
+        this.context = context;
+        this.stage = stage;
+        this.contentPanel = contentPanel;
+
+        this.getStyleClass().add("navbar");
+        this.setHgap(20);
+
+        ColumnConstraints left = new ColumnConstraints();
+        left.setHgrow(Priority.ALWAYS);
+
+        ColumnConstraints right = new ColumnConstraints();
+        right.setHgrow(Priority.ALWAYS);
+
+        this.getColumnConstraints().addAll(left, right);
+
+        Label welcomeText = new Label("Welcome " + user.getFirst_name());
+        welcomeText.getStyleClass().add("subtitle");
+        GridPane.setHalignment(welcomeText, HPos.LEFT);
+
+        HBox navButtons = new HBox();
+        navButtons.setAlignment(Pos.CENTER_RIGHT);
+
+        Button mainNavButton = new Button("Main");
+        Button ticketNavButton = new Button("Ticket");
+
+        mainNavButton.getStyleClass().addAll("navbar-button", "navbar-button-is-selected");
+        ticketNavButton.getStyleClass().addAll("navbar-button");
+
+        List<Button> navButtonsList = List.of(mainNavButton, ticketNavButton);
+
+        navButtons.getChildren().addAll(navButtonsList);
+
+        this.add(welcomeText, 0, 0);
+        this.add(navButtons, 1, 0);
+
+        this.contentPanel.getChildren().setAll(new MainPart(user, this.context));
+
+        //button handler navbar
+        mainNavButton.setOnAction(s->{
+            this.contentPanel.getChildren().setAll(new MainPart(user, this.context));
+            selectNavButton(mainNavButton, navButtonsList);
+        });
+
         ticketNavButton.setOnAction((s->{
             this.contentPanel.getChildren().setAll(new TicketPart(user, this.stage, this.context));
             selectNavButton(ticketNavButton, navButtonsList);

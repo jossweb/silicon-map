@@ -3,6 +3,7 @@ package application.sections;
 import application.InterfaceAddNewTicket;
 import domain.Admin;
 import domain.Context;
+import domain.Technician;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,5 +34,16 @@ public class TicketPart extends VBox{
             InterfaceAddNewTicket form = new InterfaceAddNewTicket(this.stage, this.context, admin);
             form.show();
         });
+    }
+    public TicketPart(Technician technician, Stage stage, Context context){
+        this.stage= stage;
+        this.context = context;
+        //top bar
+        HBox head = new HBox();
+        Label subTitle = new Label("All tickets");
+        subTitle.getStyleClass().add("subsubtitle");
+
+        head.getChildren().addAll(subTitle);
+        this.getChildren().addAll(head, new TicketSection(this.context, technician));
     }
 }

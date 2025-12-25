@@ -1,11 +1,12 @@
 package application;
 
 import application.sections.admin.AdminPart;
+import application.sections.technician.TechnicianPart;
 import domain.Admin;
 import domain.Staff;
+import domain.Technician;
 import domain.Context;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -80,7 +81,7 @@ class UserInterface{
             box = new AdminPart((Admin)this.logUser, s, context);
         }
         else{
-            box = technician();
+            box = new TechnicianPart((Technician)this.logUser, this.stage, context);
         }
         dashview.getChildren().add(box);
         root.setCenter(dashview);
@@ -92,19 +93,5 @@ class UserInterface{
         this.stage.setOnCloseRequest(event -> {
             logUser.setAvailable(false);
         });
-    }
-    private VBox technician(){
-        //technician dashboard interface
-        VBox div = new VBox();
-        div.setAlignment(Pos.TOP_LEFT);
-        Label welcomeText = new Label("Welcome " + this.logUser.getFirst_name());
-		welcomeText.getStyleClass().add("subtitle");
-
-        Label statTitle = new Label("Global statistiques ");
-		statTitle.getStyleClass().add("subsubtitle");
-
-        div.getChildren().addAll(welcomeText, statTitle);
-
-        return div;
     }
 }
