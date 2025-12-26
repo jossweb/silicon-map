@@ -149,6 +149,7 @@ public class Navbar extends GridPane{
         this.add(navButtons, 1, 0);
 
         this.contentPanel.getChildren().setAll(new MainPart(user, this.context));
+        this.getStyleClass().add("need-gap-y");
 
         //button handler navbar
         mainNavButton.setOnAction(s->{

@@ -168,7 +168,7 @@ public class InterfaceAddNewTicket extends Stage {
         box.setFillHeight(true);
 
         for (Machine m : this.stats.getMachines()) {
-                Button b = new Button(m.getHostname() + " " + m.getIp_address());
+                Button b = new Button(m.getHostname() + " " + m.getIpAddress());
                 b.getStyleClass().add("selectors-button");
                 b.setUserData(m.getId());
 

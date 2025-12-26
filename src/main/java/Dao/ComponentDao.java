@@ -98,16 +98,16 @@ public abstract class ComponentDao {
                     stmt.setNull(5, Types.INTEGER);
                     stmt.setString(6, "Chassis");
                 }case Cpu cpu-> {
-                    stmt.setInt(4, cpu.getNb_core());
-                    stmt.setInt(5, cpu.getMax_ram());
+                    stmt.setInt(4, cpu.getNbCore());
+                    stmt.setInt(5, cpu.getMaxRam());
                     stmt.setString(6, "Chassis");
                 }case Disk disk-> {
-                    stmt.setInt(4, disk.getSize_go());
+                    stmt.setInt(4, disk.getSizeGo());
                     stmt.setNull(5, Types.INTEGER);
                     stmt.setString(6, "Chassis");
                 }case Gpu gpu-> {
                     stmt.setInt(4, gpu.getVram());
-                    stmt.setInt(5, gpu.getNb_core());
+                    stmt.setInt(5, gpu.getNbCore());
                     stmt.setString(6, "Chassis");
                 }case PowerSupply ps-> {
                     stmt.setInt(4, ps.getPower());

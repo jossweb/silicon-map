@@ -8,23 +8,23 @@ import Dao.MachineDao;
 public abstract class Machine{
 	private int id;
 	private String hostname;
-	private String ip_address;
-	private String mac_adress;
+	private String ipAddress;
+	private String macAdress;
 	private String os;
 	private String status;
 	
 	public Machine(int id, String hostname, String ip_address, String mac_adress, String os, String status) {
 		this.id = id;
 		this.hostname=hostname;
-		this.ip_address=ip_address;
-		this.mac_adress=mac_adress;
+		this.ipAddress=ip_address;
+		this.macAdress=mac_adress;
 		this.os=os;
 		this.status=status;
 	}
 	public Machine(String hostname, String mac_adress, String os, String status) {
 		this.hostname=hostname;
-		this.ip_address=null;
-		this.mac_adress=mac_adress;
+		this.ipAddress=null;
+		this.macAdress=mac_adress;
 		this.os=os;
 		this.status=status;
 	}
@@ -32,8 +32,8 @@ public abstract class Machine{
 		try{
 			this.id = sqlResult.getInt("id");
 			this.hostname = sqlResult.getString("hostname");
-			this.ip_address = sqlResult.getString("ip_address");
-			this.mac_adress = sqlResult.getString("mac_address");
+			this.ipAddress = sqlResult.getString("ip_address");
+			this.macAdress = sqlResult.getString("mac_address");
 			this.os = sqlResult.getString("os");
 			this.status = sqlResult.getString("status");
 		}catch(SQLException e){
@@ -43,11 +43,11 @@ public abstract class Machine{
 	public String getHostname() {
 		return hostname;
 	}
-	public String getIp_address() {
-		return ip_address;
+	public String getIpAddress() {
+		return ipAddress;
 	}
-	public String getMac_adress() {
-		return mac_adress;
+	public String getMacAdress() {
+		return macAdress;
 	}
 	public String getOs() {
 		return os;

@@ -24,7 +24,7 @@ public class MachineButton extends Button{
 
         Label l = new Label(this.machine.getHostname());
         l.getStyleClass().add("bubble-title");
-        Label ip = new Label(this.machine.getIp_address());
+        Label ip = new Label(this.machine.getIpAddress());
 
         if(this.machine.getStatus().equals("Online")){
             this.getStyleClass().add("machine-bubble-normal");

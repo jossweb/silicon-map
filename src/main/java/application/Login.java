@@ -20,8 +20,8 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-    	Font.loadFont(getClass().getResourceAsStream("/fonts/estate.ttf"), 14);
-    	
+    	Font.loadFont(getClass().getResourceAsStream("/fonts/roboto.ttf"), 14);
+        
         BorderPane root = new BorderPane();
         root.setId("main-pane");
 

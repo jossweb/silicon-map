@@ -20,8 +20,8 @@ public abstract class MachineDao {
 			Connection conn = SingleConnection.GetConnection();
 			PreparedStatement stmt = conn.prepareStatement("INSERT INTO machines (hostname, ip_address, mac_address, os, status, type, rack) VALUES (?, ?, ?, ?, ?, ?, ?);");
 			stmt.setString(1, m.getHostname());
-			stmt.setString(2, m.getIp_address());
-			stmt.setString(3, m.getMac_adress());
+			stmt.setString(2, m.getIpAddress());
+			stmt.setString(3, m.getMacAdress());
 			stmt.setString(4, m.getOs());
 			switch (m.getStatus()) {
 				case "Online" : stmt.setString(5, "Online");
@@ -96,8 +96,8 @@ public abstract class MachineDao {
 			Connection conn = SingleConnection.GetConnection();
 			PreparedStatement stmt = conn.prepareStatement("UPDATE machines SET hostname = ?, ip_address = ?, mac_address = ?, os = ?, status = ?, type = ?, rack = ? WHERE id = ?;");
 			stmt.setString(1, m.getHostname());
-			stmt.setString(2, m.getIp_address());
-			stmt.setString(3, m.getMac_adress());
+			stmt.setString(2, m.getIpAddress());
+			stmt.setString(3, m.getMacAdress());
 			stmt.setString(4, m.getOs());
 			switch (m.getStatus()) {
 				case "Online" : stmt.setString(5, "Online");

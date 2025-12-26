@@ -49,13 +49,13 @@ public class InterfaceMachineInfo extends Stage {
         HBox ipBox = new HBox();
         Label ip = new Label("Ip : ");
         ip.getStyleClass().add("bold");
-        Label ipValue = new Label(this.machine.getIp_address());
+        Label ipValue = new Label(this.machine.getIpAddress());
         ipBox.getChildren().addAll(ip, ipValue);
 
         HBox macBox = new HBox();
         Label mac = new Label("Mac : ");
         mac.getStyleClass().add("bold");
-        Label macValue = new Label(this.machine.getMac_adress());
+        Label macValue = new Label(this.machine.getMacAdress());
         macBox.getChildren().addAll(mac, macValue);
 
         HBox osBox = new HBox();

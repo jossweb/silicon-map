@@ -2,7 +2,7 @@
 #main-pane {
     -fx-background-color: #EFEFF5;
     -fx-padding: 0 20 20 20;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-size: 14;
 }
 #welcome-text {
@@ -13,14 +13,14 @@
 
 .siliconmap-logo {
 	-fx-text-fill: #0169FF;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size: 28px;
 }
 
 #login-title {
     -fx-text-fill: #0169FF;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size: 35;
 }
@@ -42,7 +42,7 @@
 }
 .Status{
     -fx-font-size: 28;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
 }
 .Status-normal{
@@ -68,7 +68,7 @@
 }
 .navbar-button{
     -fx-background-color: #fff;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size:18;
     -fx-cursor: hand;
@@ -83,14 +83,14 @@
 }
 .subtitle{
     -fx-text-fill: #0169FF;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size: 22px;
     -fx-padding: 0 0 10 0;
 }
 .subsubtitle{
     -fx-text-fill: #000;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size:18;
     -fx-padding: 10 0 10 0;
@@ -98,35 +98,35 @@
 .stats{
     -fx-background-color: #EFEFF5;
     -fx-padding: 20;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size:20;
     -fx-background-radius: 12px;
 }
 .stats-num{
     -fx-padding: 4;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-weight: bold;
     -fx-font-size:40;
 }
 .machine-bubble-normal{
     -fx-background-color: #EFEFF5;
     -fx-padding: 25 15 25 15;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
 .machine-bubble-warning{
     -fx-background-color: #EFEFF5;
     -fx-padding: 25 15 25 15;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
 .machine-bubble-error{
     -fx-background-color: #EFEFF5;
     -fx-padding: 25 15 25 15;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-size: 16;
     -fx-background-radius: 12px;
 }
@@ -146,7 +146,7 @@
 .addButton{
     -fx-background-color: #fff;
     -fx-background-insets: 0;
-    -fx-font-family: estate;
+    -fx-font-family: roboto;
     -fx-font-size: 25;
     -fx-cursor: hand;
 }
