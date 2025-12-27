@@ -31,6 +31,23 @@ public class MainStats extends HBox {
         }
 
         this.setSpacing(10);
-        this.getChildren().addAll(new StatCard(loadStatus, "Average load", String.format("%.1f", avgLoad) + "%"), new StatCard(tempStatus, "Average temp", String.format("%.1f", avgTemp) + "°"), new StatCard("error", "test", "0%"), new StatCard(" ", "test", "0%"));
+
+        this.context.updateMachinesList();
+        int machineInDb = this.context.getMachines().size();
+        String machineTitle = "Machine in db";
+        if(machineInDb>1){
+            machineTitle = "Machines in db";
+        }
+
+        this.context.updateTicketList();
+        int openTicketsCount = (int)this.context.getListTickets().stream()
+                            .filter(e->e.getStatus().equals("open"))
+                            .count();
+        String openTicketTitle = "Ticket open";
+        if(openTicketsCount>1){
+            openTicketTitle = "Tickets open";
+        }
+        
+        this.getChildren().addAll(new StatCard(loadStatus, "Average load", String.format("%.1f", avgLoad) + "%"), new StatCard(tempStatus, "Average temp", String.format("%.1f", avgTemp) + "°"), new StatCard("normal", machineTitle, String.format("%d", machineInDb)), new StatCard("normal", openTicketTitle, String.format("%d", openTicketsCount)));
     }
 }

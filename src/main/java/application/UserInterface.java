@@ -14,6 +14,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import type.Tuple;
 import javafx.scene.layout.VBox;
 
 class UserInterface{
@@ -47,8 +48,10 @@ class UserInterface{
 
         head.getColumnConstraints().addAll(left, center, right);
 
+        Tuple<String, String> statusLabelContentAndStyle = this.definedStatus();
+
         Label leftLabel = new Label("Silicon Map");
-        Label centerLabel = new Label("Status : All good!");
+        Label centerLabel = new Label(statusLabelContentAndStyle.getFirst());
         Label rightLabel = new Label("Technician dashboard");
 
         if(isadmin){
@@ -64,7 +67,7 @@ class UserInterface{
         head.add(rightLabel, 2, 0);
 
         leftLabel.getStyleClass().addAll("siliconmap-logo");
-        centerLabel.getStyleClass().addAll("Status", "Status-normal");
+        centerLabel.getStyleClass().addAll("Status", statusLabelContentAndStyle.getSecond());
         rightLabel.getStyleClass().addAll("space-type");
 
         root.setTop(head);
@@ -93,5 +96,27 @@ class UserInterface{
         this.stage.setOnCloseRequest(event -> {
             logUser.setAvailable(false);
         });
+    }
+    public Tuple<String, String> definedStatus(){
+        this.context.updateMachinesList();
+
+        int nbMaintenanceMachine = (int)this.context.getMachines().stream()
+                                    .filter(m->m.getStatus().equals("Maintenance"))
+                                    .count();
+        if(nbMaintenanceMachine<1){
+            return new Tuple<String,String>("No machine detected in the database", "Status-error");
+        }
+
+        int totalMachine = (int)this.context.getMachines().stream()
+                                    .count();
+
+        int maintenancePercentage = (nbMaintenanceMachine*100)/totalMachine;
+        if(maintenancePercentage>=50){
+            return new Tuple<String, String>("Status : a lot of problems", "Status-error");
+        }else if(maintenancePercentage>=25){
+            return new Tuple<String, String>("Status : some problems", "Status-warning");
+        }else{
+            return new Tuple<String, String>("Status : All good!", "Status-normal");
+        }
     }
 }
