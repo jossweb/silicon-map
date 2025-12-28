@@ -18,7 +18,7 @@ public abstract class MachineDao {
 	public static boolean CreateMachineInDb(Machine m) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
-			PreparedStatement stmt = conn.prepareStatement("INSERT INTO machines (hostname, ip_address, mac_address, os, status, type, rack) VALUES (?, ?, ?, ?, ?, ?, ?);");
+			PreparedStatement stmt = conn.prepareStatement("INSERT INTO machines (hostname, ip_address, mac_address, os, status, type) VALUES (?, ?, ?, ?, ?, ?);");
 			stmt.setString(1, m.getHostname());
 			stmt.setString(2, m.getIpAddress());
 			stmt.setString(3, m.getMacAdress());
@@ -30,9 +30,6 @@ public abstract class MachineDao {
 			}
 			stmt.setString(6, m.whoami("Compute"));
 			
-			// TODO : add rack id when rack class defined
-			stmt.setInt(7, 1);
-			
 			return stmt.executeUpdate()==1;
 			
 		}catch(SQLException e) {
@@ -42,7 +39,7 @@ public abstract class MachineDao {
 	public static Machine getMachine(int id) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
-			PreparedStatement stmt = conn.prepareStatement("SELECT id, hostname, ip_address, mac_address, os, status, type, rack FROM machines WHERE id = ?");
+			PreparedStatement stmt = conn.prepareStatement("SELECT id, hostname, ip_address, mac_address, os, status, type FROM machines WHERE id = ?");
 			stmt.setInt(1, id);
 			ResultSet result = stmt.executeQuery();
 			
@@ -66,7 +63,7 @@ public abstract class MachineDao {
 		ArrayList<Machine> list = new ArrayList<Machine>();
 		try {
 			Connection conn = SingleConnection.GetConnection();
-			PreparedStatement stmt = conn.prepareStatement("SELECT id, hostname, ip_address, mac_address, os, status, type, rack FROM machines");
+			PreparedStatement stmt = conn.prepareStatement("SELECT id, hostname, ip_address, mac_address, os, status, type FROM machines");
 			ResultSet result = stmt.executeQuery();
 			
 			while(result.next()) {
@@ -94,7 +91,7 @@ public abstract class MachineDao {
 	public static String updateMachineDb(Machine m) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
-			PreparedStatement stmt = conn.prepareStatement("UPDATE machines SET hostname = ?, ip_address = ?, mac_address = ?, os = ?, status = ?, type = ?, rack = ? WHERE id = ?;");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE machines SET hostname = ?, ip_address = ?, mac_address = ?, os = ?, status = ?, type = ? WHERE id = ?;");
 			stmt.setString(1, m.getHostname());
 			stmt.setString(2, m.getIpAddress());
 			stmt.setString(3, m.getMacAdress());
@@ -105,10 +102,7 @@ public abstract class MachineDao {
 				default : stmt.setString(5, "Offline");
 			}
 			stmt.setString(6, m.whoami("Compute"));
-			
-			// TODO : add rack id when rack class defined
-			stmt.setInt(7, 1);
-			stmt.setInt(8, m.getId());
+			stmt.setInt(7, m.getId());
 			
 			if(stmt.executeUpdate()==1)
 				return "Mis à jour";

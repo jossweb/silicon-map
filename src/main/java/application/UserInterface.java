@@ -1,5 +1,6 @@
 package application;
 
+import Dao.SingleConnection;
 import application.sections.admin.AdminPart;
 import application.sections.technician.TechnicianPart;
 import domain.Admin;
@@ -95,6 +96,7 @@ class UserInterface{
 
         this.stage.setOnCloseRequest(event -> {
             logUser.setAvailable(false);
+            SingleConnection.close();
         });
     }
     public Tuple<String, String> definedStatus(){

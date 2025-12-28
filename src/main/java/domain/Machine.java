@@ -21,13 +21,6 @@ public abstract class Machine{
 		this.os=os;
 		this.status=status;
 	}
-	public Machine(String hostname, String mac_adress, String os, String status) {
-		this.hostname=hostname;
-		this.ipAddress=null;
-		this.macAdress=mac_adress;
-		this.os=os;
-		this.status=status;
-	}
 	public Machine(ResultSet sqlResult){
 		try{
 			this.id = sqlResult.getInt("id");

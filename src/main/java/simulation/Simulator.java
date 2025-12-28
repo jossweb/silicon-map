@@ -32,21 +32,55 @@ public class Simulator {
 
         while(continu){
             try{
-                System.err.println("\nenter loop simulator");
                 this.context.updateComponentList();
                 this.context.updateMachinesList();
 
                 this.nextComponentLoad();
+                this.newMachineTemp();
 
+                //load
                 ContextDao.sendHashMapLoad(this.loadList);
                 this.prevLoad = this.loadList;
                 this.loadList = new HashMap<Integer, Integer>();
+
+                //temp
+                ContextDao.sendHashMapTemp(this.tempList);
+                this.prevTemp = this.tempList;
+                this.tempList = new HashMap<Integer, Integer>();
 
                 Thread.sleep(10000);
             }catch(Exception e){
                 System.out.print("Error simulator : " + e);
             }
         }  
+    }
+    private void newMachineTemp(){
+        for(Machine m : this.context.getMachines()){
+            if(m.getStatus().equals("Online")){
+                double salt = 0.6 + this.random.nextDouble();
+                double newTemp;
+                if(this.prevTemp.get(m.getId()) == null){
+                    double baseT;
+                    switch(m.whoami("default")){
+                        case "Compute" :  baseT = this.baseTemp;
+                        break;
+                        case "GpuCompute" : baseT = this.baseTemp + 15;
+                        break;
+                        default :  baseT = this.baseTemp - 15;
+                        break;
+                    }
+                    newTemp = baseT * salt;
+                }else{
+                    newTemp = this.prevTemp.get(m.getId()) * salt;
+                }
+
+                if(newTemp > 120){
+                    newTemp = 115;
+                }
+                this.tempList.put(m.getId(), (int)newTemp);
+
+            }
+        }
     }
     private void nextComponentLoad(){
         for(Component c : this.context.getListComponents()){
@@ -73,12 +107,7 @@ public class Simulator {
                     newLoad = 0;
                 }
                 this.loadList.put(c.getId(), (int)newLoad);
-            }else{
-                this.loadList.put(c.getId(), 0);
             }
         }
-    }
-    public void stop(){
-        this.continu=false;
     }
 }

@@ -57,27 +57,55 @@ public abstract class ContextDao {
         return load;
     }
     public static void sendHashMapLoad(HashMap<Integer, Integer> map){
-        try{
-            Connection conn = SingleConnection.GetConnection();
-            String request = "INSERT INTO component_load (component_id, components_load) VALUES ";
-            for(int i=0; i<map.size(); i++){
-                if(i<map.size()-1){
-                    request += "(?, ?), ";
-                }else{
-                    request += "(?, ?);";
+        if(map.size()>1){
+            try{
+                Connection conn = SingleConnection.GetConnection();
+                String request = "INSERT INTO component_load (component_id, components_load) VALUES ";
+                for(int i=0; i<map.size(); i++){
+                    if(i<map.size()-1){
+                        request += "(?, ?), ";
+                    }else{
+                        request += "(?, ?);";
+                    }
                 }
-            }
-            PreparedStatement stmt = conn.prepareStatement(request);
+                PreparedStatement stmt = conn.prepareStatement(request);
 
-            int j = 0;
-            for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                stmt.setInt(j*2 + 1, entry.getKey());
-                stmt.setInt(j*2 + 2, entry.getValue());
-                j++;
+                int j = 0;
+                for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    stmt.setInt(j*2 + 1, entry.getKey());
+                    stmt.setInt(j*2 + 2, entry.getValue());
+                    j++;
+                }
+                stmt.executeUpdate();
+            }catch(SQLException e){
+                System.out.println("SQL ERROR ! \n explains :" + e);
             }
-            stmt.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("SQL ERROR ! \n explains :" + e);
+        }
+    }
+    public static void sendHashMapTemp(HashMap<Integer, Integer> map){
+        if(map.size()>1){
+            try{
+                Connection conn = SingleConnection.GetConnection();
+                String request = "INSERT INTO temperature (machine_id, temperature) VALUES ";
+                for(int i=0; i<map.size(); i++){
+                    if(i<map.size()-1){
+                        request += "(?, ?), ";
+                    }else{
+                        request += "(?, ?);";
+                    }
+                }
+                PreparedStatement stmt = conn.prepareStatement(request);
+
+                int j = 0;
+                for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    stmt.setInt(j*2 + 1, entry.getKey());
+                    stmt.setInt(j*2 + 2, entry.getValue());
+                    j++;
+                }
+                stmt.executeUpdate();
+            }catch(SQLException e){
+                System.out.println("SQL ERROR ! \n explains :" + e);
+            }
         }
     }
 }
