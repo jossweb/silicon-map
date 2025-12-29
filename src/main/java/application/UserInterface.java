@@ -28,6 +28,9 @@ class UserInterface{
         this.stage = s;
         this.context = new Context();
 
+        this.stage.setMinWidth(900);
+        this.stage.setMinHeight(600);
+
         boolean isadmin = logUser instanceof Admin; 
         logUser.setAvailable(true);
 

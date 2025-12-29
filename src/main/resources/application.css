@@ -55,10 +55,7 @@
     -fx-text-fill : #FF0105;
 }
 .space-type{
-    -fx-background-radius: 12px;
-    -fx-background-color: #0169FF;
-    -fx-border-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: #0169FF;
     -fx-font-weight: normal;
     -fx-font-size: 22px;
     -fx-padding: 8;
@@ -205,6 +202,7 @@
 }
 .chat-part{
     -fx-background-color: #ffffff;
+    -fx-padding: 8;
     -fx-background-radius: 12px;
 }
 .red-button{
@@ -219,7 +217,7 @@
 }
 .chart-plot-background {
     -fx-background-color: #EFEFF5; 
-    -fx-background-radius: 12px;
+    -fx-background-radius: 0px 5px 0px 0px;
 }
 .default-color0.chart-line-symbol {
     -fx-background-color: #0169FF;
