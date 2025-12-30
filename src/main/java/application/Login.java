@@ -21,7 +21,12 @@ public class Login extends Application {
     @Override
     public void start(Stage primaryStage) {
     	Font.loadFont(getClass().getResourceAsStream("/fonts/roboto.ttf"), 14);
-        
+    
+        InterfaceDbChoice dbChoice = new InterfaceDbChoice(primaryStage);
+        dbChoice.showAndWait();
+        loginPage(primaryStage);
+    }
+    private void loginPage(Stage stage){
         BorderPane root = new BorderPane();
         root.setId("main-pane");
 
@@ -104,8 +109,8 @@ public class Login extends Application {
         Scene scene = new Scene(root, 1100, 700);
         scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
     public static void main(String[] args) {
         launch();

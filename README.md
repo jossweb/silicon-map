@@ -15,5 +15,6 @@ This project is for educational purposes only and is not intended for production
 - Javafx (user interface)
 - mysql-connector (connection with mysql db)
 - jbcrypt (password encryption)
+- dotenv-java (storing database information in a .env file)
 
 *We use Maven to manage dependencies*

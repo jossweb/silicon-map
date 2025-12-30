@@ -1,19 +1,59 @@
 package Dao;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+
+import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvEntry;
+
 
 public class SingleConnection {
 
     private static Connection connection = null;
     private SingleConnection() {
-        try {
-            String url = "jdbc:mysql://localhost:8889/siliconmap?useSSL=false&serverTimezone=UTC";
-            String user = "root";
-            String password = "root";
 
-            connection = DriverManager.getConnection(url, user, password);
+        HashMap<String, String> dbsInfosMap = new HashMap<String, String>();
+
+        Dotenv dotenv = Dotenv.configure()
+            .ignoreIfMissing()
+            .systemProperties()
+            .load();
+
+        for (DotenvEntry e : dotenv.entries()) {
+            dbsInfosMap.put(e.getKey(), e.getValue());
+        }
+
+        String host;
+        String port;
+        String dbName;
+        String dbUser;
+        String dbPassword;
+        String ssl;
+
+        String selectedDb = System.getProperty("SELECTED_DB");
+        if (selectedDb == "REMOTE"){
+            host = dbsInfosMap.get("REMOTEHOSTNAME");
+            port = dbsInfosMap.get("REMOTEPORT");
+            dbName = dbsInfosMap.get("REMOTEDBNAME");
+            dbUser = dbsInfosMap.get("REMOTEUSER");
+            dbPassword = dbsInfosMap.get("REMOTEPASS");
+            ssl = dbsInfosMap.get("REMOTEUSESSL");
+        }else{
+            host = dbsInfosMap.get("LOCALHOSTNAME");
+            port = dbsInfosMap.get("LOCALPORT");
+            dbName = dbsInfosMap.get("LOCALDBNAME");
+            dbUser = dbsInfosMap.get("LOCALUSER");
+            dbPassword = dbsInfosMap.get("LOCALPASS");
+            ssl = dbsInfosMap.get("LOCALUSESSL");
+        }
+
+        try {
+            String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useSSL=" + ssl + "&serverTimezone=UTC";
+
+            connection = DriverManager.getConnection(url, dbUser, dbPassword);
             
         } catch (SQLException e) {
         	throw new RuntimeException(e);

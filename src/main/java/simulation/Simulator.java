@@ -30,6 +30,8 @@ public class Simulator {
         this.random = new Random();
         this.continu = true;
 
+        System.out.print("\nStart Simulation\n");
+
         while(continu){
             try{
                 this.context.updateComponentList();
