@@ -108,12 +108,13 @@ class UserInterface{
         int nbMaintenanceMachine = (int)this.context.getMachines().stream()
                                     .filter(m->m.getStatus().equals("Maintenance"))
                                     .count();
-        if(nbMaintenanceMachine<1){
-            return new Tuple<String,String>("No machine detected in the database", "Status-error");
-        }
 
         int totalMachine = (int)this.context.getMachines().stream()
                                     .count();
+                                    
+        if(totalMachine<1){
+            return new Tuple<String,String>("No machine detected in the database", "Status-error");
+        }
 
         int maintenancePercentage = (nbMaintenanceMachine*100)/totalMachine;
         if(maintenancePercentage>=50){
