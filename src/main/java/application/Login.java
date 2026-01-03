@@ -59,9 +59,11 @@ public class Login extends Application {
         Button btnLogin = new Button("Login");
         btnLogin.setMaxWidth(Double.MAX_VALUE);
         btnLogin.getStyleClass().add("submit-button");
+        btnLogin.setDefaultButton(true);
 
         Label errorIndication = new Label("");
         errorIndication.setVisible(false);
+        
 
 
         btnLogin.setOnAction(e -> {
@@ -100,6 +102,7 @@ public class Login extends Application {
                 errorIndication.setText("Please fill in the fields");
                 errorIndication.setVisible(true);
             }
+            userField.requestFocus();
         });
 
         loginBox.getChildren().addAll(loginTitle, userLabel, userField, passLabel, passField, btnLogin, errorIndication);

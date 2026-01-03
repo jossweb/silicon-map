@@ -48,6 +48,38 @@ public class MainStats extends HBox {
             openTicketTitle = "Tickets open";
         }
         
-        this.getChildren().addAll(new StatCard(loadStatus, "Average load", String.format("%.1f", avgLoad) + "%"), new StatCard(tempStatus, "Average temp", String.format("%.1f", avgTemp) + "°"), new StatCard("normal", machineTitle, String.format("%d", machineInDb)), new StatCard("normal", openTicketTitle, String.format("%d", openTicketsCount)));
+        String flecheLoad = "";
+        java.util.List<type.Tuple<Integer, java.time.LocalDateTime>> listLoad = this.context.getAvgLoadLastInputs();
+
+        if (listLoad.size() >= 2) {
+            int actuel = listLoad.get(listLoad.size() - 1).getFirst();
+            int précédent = listLoad.get(listLoad.size() - 2).getFirst();
+            
+            if (actuel > précédent) flecheLoad = "↗";
+            else if (actuel < précédent) flecheLoad = "↘";
+            else if (actuel == précédent) flecheLoad = "=";
+        }
+
+        String flecheTemp = "";
+        java.util.List<type.Tuple<Integer, java.time.LocalDateTime>> listTemp = this.context.getAvgTempLastInputs();
+
+        if (listTemp.size() >= 2) {
+            int actuel = listTemp.get(listTemp.size() - 1).getFirst();
+            int précédent = listTemp.get(listTemp.size() - 2).getFirst();
+            
+            if (actuel > précédent) flecheTemp = "↗";
+            else if (actuel < précédent) flecheTemp = "↘";
+            else if (actuel == précédent) flecheTemp = "=";
+        }
+
+        String texteLoad = String.format("%.1f", avgLoad) + "%" + flecheLoad;
+        String texteTemp = String.format("%.1f", avgTemp) + "°" + flecheTemp;
+
+        this.getChildren().addAll(
+            new StatCard(loadStatus, "Average load", texteLoad), 
+            new StatCard(tempStatus, "Average temp", texteTemp), 
+            new StatCard("normal", machineTitle, String.valueOf(machineInDb)), 
+            new StatCard("normal", openTicketTitle, String.valueOf(openTicketsCount))
+        );
     }
 }

@@ -60,7 +60,7 @@ public class Context {
             return result;
         }
 
-        for (int i = 0; i < ref.size(); i++) {
+        for (int i = ref.size() - 1; i >= 0; i--) {
 
             int sum = 0;
             int count = 0;
@@ -90,7 +90,7 @@ public class Context {
             return result;
         }
 
-        for (int i = 0; i < ref.size(); i++) {
+        for (int i = ref.size() - 1; i >= 0; i--) {
 
             int sum = 0;
             int count = 0;
