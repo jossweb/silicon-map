@@ -1,10 +1,12 @@
 package application;
 
 import application.components.Charts;
+import application.components.PDF;
 import domain.Context;
 import domain.Machine;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,7 +26,7 @@ public class InterfaceMachineInfo extends Stage {
         VBox root = new VBox(10);
         root.setId("main-pane");
 
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 400, 500);
         scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
         setScene(scene);
 
@@ -73,6 +75,24 @@ public class InterfaceMachineInfo extends Stage {
 
         LineChart<String, Number> chart = new Charts(this.context.getTempList().get(this.machine.getId()), "Temp");
 
-        root.getChildren().addAll(pageTitle, hostnameBox, typeBox, ipBox, macBox, osBox, statusBox, chart);
+        Button createPdf = new Button("Create data sheet");
+        createPdf.getStyleClass().add("submit-button");
+
+        Label indication = new Label("");
+        //indication.getStyleClass().add("");
+        indication.setVisible(false);
+
+
+        root.getChildren().addAll(pageTitle, hostnameBox, typeBox, ipBox, macBox, osBox, statusBox, chart, createPdf, indication);
+
+        createPdf.setOnAction(e->{
+            PDF newPdf = new PDF(this.machine.getHostname(), this.machine);
+            indication.setVisible(true);
+            if(newPdf.getSuccess()){
+                indication.setText("Document create as " + newPdf.getDocName() + ".pdf");
+            }else{
+                indication.setText("Error, can't create the document!");
+            }        
+        });
     }
 }

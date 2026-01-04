@@ -13,7 +13,7 @@ import io.github.cdimascio.dotenv.DotenvEntry;
 public class SingleConnection {
 
     private static Connection connection = null;
-    private SingleConnection() {
+    public SingleConnection() {
 
         HashMap<String, String> dbsInfosMap = new HashMap<String, String>();
 

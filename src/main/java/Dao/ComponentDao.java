@@ -78,6 +78,45 @@ public abstract class ComponentDao {
         return compList;
         
     }
+    public static ArrayList<Component> getMachinesComponents(int id){
+        ArrayList<Component> compList = new ArrayList<Component>();
+        try {
+			Connection conn = SingleConnection.GetConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT id, brand, model, machine_id, spec_value_primary, spec_value_secondary, type, status, ticket FROM components WHERE machine_id = ?;");
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+
+            while (result.next()) {
+                switch (result.getString("type")) {
+                    case "CPU":
+                        compList.add(new Cpu(result));
+                        break;
+                    case "RAM":
+                        compList.add(new Ram(result));
+                        break;
+                    case "DISK":
+                        compList.add(new Disk(result));
+                        break;
+                    case "Power_supply":
+                        compList.add(new PowerSupply(result));
+                        break;
+                    case "Chassis":
+                        compList.add(new Chassis(result));
+                        break;
+                    case "GPU":
+                        compList.add(new Chassis(result));
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        }catch(SQLException e){
+            System.out.println("SQL ERROR ! /n explains :" + e);
+        }
+        return compList;
+        
+    }
     public static void update(Component c){
         try {
 			Connection conn = SingleConnection.GetConnection();

@@ -1,5 +1,6 @@
 package application;
 
+import Dao.SingleConnection;
 import domain.Staff;
 import error.BadPassword;
 import error.UserNotFound;
@@ -27,6 +28,9 @@ public class Login extends Application {
         loginPage(primaryStage);
     }
     private void loginPage(Stage stage){
+        //start sql connection
+        new SingleConnection();
+
         BorderPane root = new BorderPane();
         root.setId("main-pane");
 
@@ -93,9 +97,7 @@ public class Login extends Application {
                     System.out.print("ERROR : " + ex);
                     errorIndication.setVisible(true);
                 }finally{
-                    //reset password field
                     passField.setText("");
-                    //TODO : Add anti spam system maybe disable the login button for 1 second
                 }
 
             }else{

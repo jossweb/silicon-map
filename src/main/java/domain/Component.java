@@ -51,6 +51,22 @@ public abstract class Component {
 	public void updateComponent(){
 		ComponentDao.update(this);
 	}
+	public String whoami(String alternative){
+		if(this instanceof Chassis)
+			return "Chassis";
+		else if(this instanceof Cpu)
+			return "Cpu";
+		else if(this instanceof Disk)
+			return "Disk";
+		else if(this instanceof Gpu)
+			return "Gpu";
+		else if(this instanceof Ram)
+			return "Ram";
+		else if(this instanceof PowerSupply)
+			return "Power Supply";
+		else 
+			return alternative;
+	}	
 	public static Component getById(int id){
 		return ComponentDao.getComponentById(id);
 	}

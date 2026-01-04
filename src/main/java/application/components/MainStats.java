@@ -47,33 +47,9 @@ public class MainStats extends HBox {
         if(openTicketsCount>1){
             openTicketTitle = "Tickets open";
         }
-        
-        String flecheLoad = "";
-        java.util.List<type.Tuple<Integer, java.time.LocalDateTime>> listLoad = this.context.getAvgLoadLastInputs();
 
-        if (listLoad.size() >= 2) {
-            int actuel = listLoad.get(listLoad.size() - 1).getFirst();
-            int précédent = listLoad.get(listLoad.size() - 2).getFirst();
-            
-            if (actuel > précédent) flecheLoad = "↗";
-            else if (actuel < précédent) flecheLoad = "↘";
-            else if (actuel == précédent) flecheLoad = "=";
-        }
-
-        String flecheTemp = "";
-        java.util.List<type.Tuple<Integer, java.time.LocalDateTime>> listTemp = this.context.getAvgTempLastInputs();
-
-        if (listTemp.size() >= 2) {
-            int actuel = listTemp.get(listTemp.size() - 1).getFirst();
-            int précédent = listTemp.get(listTemp.size() - 2).getFirst();
-            
-            if (actuel > précédent) flecheTemp = "↗";
-            else if (actuel < précédent) flecheTemp = "↘";
-            else if (actuel == précédent) flecheTemp = "=";
-        }
-
-        String texteLoad = String.format("%.1f", avgLoad) + "%" + flecheLoad;
-        String texteTemp = String.format("%.1f", avgTemp) + "°" + flecheTemp;
+        String texteLoad = String.format("%.1f", avgLoad) + "%";
+        String texteTemp = String.format("%.1f", avgTemp) + "°";
 
         this.getChildren().addAll(
             new StatCard(loadStatus, "Average load", texteLoad), 

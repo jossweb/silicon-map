@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : jeu. 01 jan. 2026 à 23:10
+-- Généré le : sam. 03 jan. 2026 à 23:21
 -- Version du serveur : 8.0.40
 -- Version de PHP : 8.3.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `silicon_final`
+-- Base de données : `siliconmap`
 --
 
 -- --------------------------------------------------------
@@ -137,6 +137,14 @@ CREATE TRIGGER `componentTicketReassignCheck` BEFORE UPDATE ON `components` FOR 
 END
 $$
 DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `machines_before_insert` BEFORE INSERT ON `components` FOR EACH ROW BEGIN
+    IF NEW.machine_id IS NOT NULL THEN
+        SET NEW.status = 'actually_use';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -218,7 +226,7 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`id`, `name`, `first_name`, `user_name`, `role`, `available`, `hashpass`) VALUES
 (13, 'FIGUEIRAS', 'Jossua', 'contact@jossua.dev', 'admin', 0, '$2a$12$i3YnMztVE//cal/DeACsmOffv5Z04hWTt1aTagW6m2FYSN0L5NeiC'),
-(15, 'FIGUEIRAS', 'Jossua', 'contact1@jossua.dev', 'technician', 0, '$2a$12$7SyDAVjT4su6H0iENKhknu.i9twaFSMl141Ipak01AqlizL3yO5h6');
+(15, 'FIGUEIRAS', 'Jossua', 'contact1@jossua.dev', 'technician', 0, '$2a$12$7SyDAVjT4su6H0iENKhknu.i9twaFSMl141Ipak01AqlizL3yO5h6'),
 
 -- --------------------------------------------------------
 
@@ -327,7 +335,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT pour la table `components`
 --
 ALTER TABLE `components`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT pour la table `component_load`
@@ -339,7 +347,7 @@ ALTER TABLE `component_load`
 -- AUTO_INCREMENT pour la table `machines`
 --
 ALTER TABLE `machines`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `Message`
@@ -364,6 +372,44 @@ ALTER TABLE `temperature`
 --
 ALTER TABLE `tickets`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `components`
+--
+ALTER TABLE `components`
+  ADD CONSTRAINT `fk_components_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`),
+  ADD CONSTRAINT `fk_components_ticket` FOREIGN KEY (`ticket`) REFERENCES `tickets` (`id`);
+
+--
+-- Contraintes pour la table `component_load`
+--
+ALTER TABLE `component_load`
+  ADD CONSTRAINT `fk_load_component_id` FOREIGN KEY (`component_id`) REFERENCES `components` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `Message`
+--
+ALTER TABLE `Message`
+  ADD CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `staff` (`id`),
+  ADD CONSTRAINT `fk_ticket` FOREIGN KEY (`tickets`) REFERENCES `tickets` (`id`);
+
+--
+-- Contraintes pour la table `temperature`
+--
+ALTER TABLE `temperature`
+  ADD CONSTRAINT `fk_temperature_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`);
+
+--
+-- Contraintes pour la table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD CONSTRAINT `fk_tickets_assigned_to` FOREIGN KEY (`assigned_to`) REFERENCES `staff` (`id`),
+  ADD CONSTRAINT `fk_tickets_created_by` FOREIGN KEY (`created_by`) REFERENCES `staff` (`id`),
+  ADD CONSTRAINT `fk_tickets_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

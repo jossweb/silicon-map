@@ -2,7 +2,9 @@ package domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import Dao.ComponentDao;
 import Dao.MachineDao;
 
 public abstract class Machine{
@@ -78,5 +80,8 @@ public abstract class Machine{
 	}
 	public void deleteMachine() {
 		MachineDao.deleteMachine(this);
+	}
+	public ArrayList<Component> getComponents(){
+		return ComponentDao.getMachinesComponents(this.id);
 	}
 }
