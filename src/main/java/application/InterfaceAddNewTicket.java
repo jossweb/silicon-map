@@ -23,6 +23,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * New ticket creation interface. |
+ * Nouvelle interface de création de tickets.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class InterfaceAddNewTicket extends Stage {
 
     private int selectedTechnicianId;
@@ -30,6 +36,14 @@ public class InterfaceAddNewTicket extends Stage {
     Set<Integer> selectedComponentsIds; 
     private Context stats;
 
+    /**
+     * Constructs the new ticket creation interface. |
+     * Construit l'interface de création de nouveau ticket.
+     * 
+     * @param principalStage the main stage of the application | le stage principal de l'application
+     * @param s the context containing machines, components and staff lists | le contexte contenant les listes de machines, composants et membres du staff
+     * @param userLogin the admin creating the ticket | l'administrateur créant le ticket
+     */
     public InterfaceAddNewTicket(Stage principalStage, Context s, Admin userLogin){
         //init with default value (when value < 0 technician is not selected by user)
         this.selectedTechnicianId = -1;
@@ -119,6 +133,10 @@ public class InterfaceAddNewTicket extends Stage {
             }
         });        
     }
+    /**
+     * Horizontal selector that allows adding an additional component to the ticket |
+     * Sélecteur horizontal permettant d'ajouter un composant supplémentaire au ticket.
+     */
     private ScrollPane createHorizontalComponentSelector(){
         this.stats.updateComponentList();
 
@@ -160,6 +178,10 @@ public class InterfaceAddNewTicket extends Stage {
         return scrollPane;
 
     }
+    /**
+     * Horizontal selector for adding a machine to the ticket. |
+     * Sélecteur horizontal permettant d'ajouter une machine au ticket.
+     */
     private ScrollPane createHorizontalMachineSelector(){
         this.stats.updateMachinesList();
 
@@ -196,6 +218,10 @@ public class InterfaceAddNewTicket extends Stage {
         return scrollPane;
 
     }
+    /**
+     * Horizontal selector for adding a technician to the ticket. |
+     * Sélecteur horizontal permettant d'ajouter un technicien au ticket.
+     */
     private ScrollPane createHorizontalTecchnicianSelector() {
 
         this.stats.updateStaffMembersList();

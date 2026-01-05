@@ -6,6 +6,13 @@ import java.time.LocalDateTime;
 
 import Dao.TicketDao;
 
+/**
+ * Represents a support ticket in the system |
+ * Représente un ticket de support dans le système.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
+
 public class Ticket {
 	private int id;
 	private Machine machine;
@@ -16,7 +23,30 @@ public class Ticket {
 	private String status;
 	private LocalDateTime open_at;
 	private LocalDateTime closed_at;
-	
+
+	/**
+     * Creates a Ticket instance with explicit values |
+     * Crée une instance Ticket à partir de valeurs explicites.
+     *
+     * @param id the unique identifier of the ticket |
+     * l'identifiant unique du ticket
+     * @param m the machine associated with the ticket |
+     * la machine associée au ticket
+     * @param creator the admin who created the ticket |
+     * l'admin ayant créé le ticket
+     * @param technician the technician assigned to the ticket |
+     * le technicien assigné au ticket
+     * @param title the title of the ticket |
+     * le titre du ticket
+     * @param description the detailed description of the issue |
+     * la description détaillée du problème
+     * @param status the current status of the ticket ("open", "in_progress", "closed") |
+     * le statut actuel du ticket ("open", "in_progress", "closed")
+     * @param open_at the date and time the ticket was opened |
+     * la date et l'heure d'ouverture du ticket
+     * @param closed_at the date and time the ticket was closed |
+     * la date et l'heure de fermeture du ticket
+     */
 	public Ticket(int id, Machine m, Admin creator, Technician technician, String title, String description, String status, LocalDateTime open_at, LocalDateTime closed_at) {
 		this.id = id;
 		this.machine = m;
@@ -28,6 +58,13 @@ public class Ticket {
 		this.closed_at = closed_at;
 		this.status = status;
 	}
+	/**
+     * Creates a Ticket instance from a SQL result set |
+     * Crée une instance Ticket à partir d'un résultat SQL.
+     *
+     * @param result the SQL result set containing ticket data |
+     * le résultat SQL contenant les données du ticket
+     */
 	public Ticket(ResultSet result){
 		try{
 			this.id = result.getInt("id");
@@ -51,14 +88,30 @@ public class Ticket {
 			System.out.print("\nERROR : Can't create Staff with SQL constructor. \n" + e + "\nDEBUG : Check columns' names ...");
 		}
 	}
+	/**
+     * Creates this ticket in the database |
+     * Crée ce ticket dans la base de données.
+     */
 	public void createTicket(){
 		this.id = TicketDao.createTicketInDb(this);
 	}
+
+    /**
+     * Sets the status of the ticket if valid |
+     * Définit le statut du ticket si valide.
+     *
+     * @param newStatus the new status ("open", "in_progress", "closed") |
+     * le nouveau statut ("open", "in_progress", "closed")
+     */
 	public void SetStatus(String newStatus) {
 		if(newStatus == "open" || newStatus == "in_progress" || newStatus == "closed") {
 			this.status = newStatus;
 		}
 	}
+	/**
+     * Closes the ticket and sets the closing timestamp |
+     * Ferme le ticket et définit la date de fermeture.
+     */
 	public void close(){
 		this.SetStatus("closed");
 		this.closed_at = LocalDateTime.now();
@@ -90,6 +143,10 @@ public class Ticket {
 	public LocalDateTime getClosed_at() {
 		return closed_at;
 	}
+	/**
+     * Updates this ticket in the database |
+     * Met à jour ce ticket dans la base de données.
+     */
 	public void updateInDb(){
 		TicketDao.updateTicket(this);
 	}

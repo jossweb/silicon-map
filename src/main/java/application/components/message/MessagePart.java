@@ -9,11 +9,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * class that manages the display of messages |
+ * classe qui gère l'affichage des messages
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class MessagePart extends ScrollPane {
     private VBox container;
     private Ticket ticket;
     private Staff loguser;
 
+    /** 
+     * @param t the ticket whose messages are displayed
+     * @param logUser the currently logged-in user
+     */
     public MessagePart(Ticket t, Staff logUser){
         this.ticket = t;
         this.loguser = logUser;
@@ -33,6 +43,10 @@ public class MessagePart extends ScrollPane {
         this.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.setFitToWidth(true);
     }
+    /**
+     * refreshes messages on display. |
+     * actualise l'affichage du message.
+     */
     public void refresh(){
         this.container.getChildren().clear();
 

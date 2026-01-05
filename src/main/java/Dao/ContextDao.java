@@ -11,7 +11,20 @@ import java.util.Map;
 import type.Tuple;
 import java.sql.SQLException;
 
+/**
+ * All SQL interactions related to the app context and app statistics |
+ * Toutes les interactions SQL liées au contexte de l'application et aux statistiques de l'application.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public abstract class ContextDao {
+    /**
+     * Retrieves the last 5 temperature readings on a machine |
+     * Récupère les 5 derniers relevés de temp sur une machine
+     * 
+     * @return A hashmap containing the machine id (key) and a list of Tuples temperature, date (value). |
+     * Un hashmap qui contient la machine id (key) et une list de tuples température, date (value).
+     */
     public static HashMap<Integer, ArrayList<Tuple<Integer, LocalDateTime>>> getRecentTemp(){
         HashMap<Integer, ArrayList<Tuple<Integer, LocalDateTime>>> temps = new HashMap<>();
         try {
@@ -35,6 +48,13 @@ public abstract class ContextDao {
 
         return temps;
     }
+    /**
+     * Retrieves the last 5 load % readings on a component |
+     * Récupère les 5 derniers relevés en % de charge sur un composant
+     * 
+     * @return A hashmap containing the component id (key) and a list of Tuples load%, date (value). |
+     * Un hashmap qui contient la component id (key) et une list de tuples charge%, date (value).
+     */
     public static HashMap<Integer, ArrayList<Tuple<Integer, LocalDateTime>>> getRecentLoad(){
 
         HashMap<Integer, ArrayList<Tuple<Integer, LocalDateTime>>> load = new HashMap<>();
@@ -56,6 +76,13 @@ public abstract class ContextDao {
         }
         return load;
     }
+    /**
+     * Saves component load to the database |
+     * Sauvegarde la charge des composants dans la base de données
+     * 
+     * @param map A hashmap containing the component id (key) and component load % |
+     * Un hashmap contenant l'identifiant du composent (key) et la température de la machine (value)
+     */
     public static void sendHashMapLoad(HashMap<Integer, Integer> map){
         if(map.size()>1){
             try{
@@ -82,6 +109,13 @@ public abstract class ContextDao {
             }
         }
     }
+    /**
+     * Saves machine temp to the database |
+     * Sauvegarde la température des machines dans la base de données
+     * 
+     * @param map A hashmap containing the machine id (key) and machine temp (value)|
+     * Un hashmap contenant l'identifiant de la machine (key) et la température de la machine (value)
+     */
     public static void sendHashMapTemp(HashMap<Integer, Integer> map){
         if(map.size()>1){
             try{

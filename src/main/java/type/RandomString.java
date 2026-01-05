@@ -2,9 +2,23 @@ package type;
 
 import java.util.Random;
 
+/**
+ * Generates a random string of a given length |
+ * Génère une chaîne de caractères aléatoire d'une longueur donnée.
+ * 
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class RandomString {
     private String randomString;
 
+    /**
+     * Constructs a random string of specified length |
+     * Construit une chaîne aléatoire de longueur spécifiée.
+     *
+     * @param length the length of the random string |
+     * la longueur de la chaîne aléatoire
+     */
     public RandomString(int length){
         char[] charTable = {
         'a','b','c','d','e','f','g','h','i','j','k','l','m',
@@ -21,6 +35,13 @@ public class RandomString {
             this.randomString += charTable[random.nextInt(charTable.length)];
         }
     }
+    /**
+     * Returns the generated random string |
+     * Retourne la chaîne aléatoire générée.
+     *
+     * @return the generated random string |
+     * la chaîne aléatoire générée
+     */
     public String getString(){
         return this.randomString;
     }

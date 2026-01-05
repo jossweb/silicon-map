@@ -22,6 +22,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 import domain.Component;
 import domain.Machine;
 
+/**
+ * Create and save pdf. |
+ * Crée et sauvegarde un pdf.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class PDF {
     private String docName;
     private Machine machine;
@@ -29,6 +35,10 @@ public class PDF {
     private Font subTitleFont;
     private Font bodyFont;
     private boolean success;
+    /** 
+    * @param name the name of the PDF file to be created (without extension) | le nom du fichier PDF à créer (sans extension)
+    * @param m the Machine object containing all the information to include | l'objet Machine contenant toutes les informations à inclure
+    */
     public PDF(String name, Machine m) {        
         this.docName = name;
         this.machine = m;
@@ -124,9 +134,18 @@ public class PDF {
             System.out.println("\nError: cannot create PDF document \n" + e);
         }
     }
+    /**
+     * returns whether the PDF was created and saved successfully |
+     * indique si le PDF a été créé et enregistré avec succès.
+     * 
+     * @return true if the PDF was created and saved successfully
+     */
     public boolean getSuccess(){
         return this.success;
     }
+    /** 
+     * @return the name of the document
+     */
     public String getDocName(){
         return docName;
     }

@@ -10,7 +10,19 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import type.Tuple;
 
+/**
+ * Creating a chart based on the data passed as parameters |
+ * Création d'un graphique à partir des données en paramètres
+ * 
+ * @author FIGUEIRAS Jossua
+ */
+
 public class Charts extends LineChart<String, Number>{
+    /**
+    * -
+    * @param values the list of tuples containing the integer value and its corresponding timestamp
+    * @param name the name of the series displayed on the chart
+    */
     public Charts(ArrayList<Tuple<Integer, LocalDateTime>> values, String name) {
         super(new CategoryAxis(), new NumberAxis());
 

@@ -8,8 +8,26 @@ import java.util.ArrayList;
 
 import domain.Message;
 
+
+/**
+ * All SQL interactions related to the messages |
+ * Toutes les interactions SQL liées aux messages.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public abstract class MessageDao {
 
+    /**
+     * Retrieves messages related to a ticket |
+     * Récupère les messages liés à un ticket
+     * 
+     * @param ticketsId ticket id |
+     * l'id du ticket
+     * 
+     * @return ArrayList who contain all messages related to a ticket. |
+     * Un arraylist qui contient les messages en rapport avec le ticket.
+     * 
+     */
     public static ArrayList<Message> getMessagesByTickets(int ticketsId){
         ArrayList<Message> response = new ArrayList<Message>();
 
@@ -27,6 +45,14 @@ public abstract class MessageDao {
 		}
         return response;
     }
+    /**
+     * Create message in db |
+     * Crée le message en db
+     * 
+     * @param m The message to save |
+     * Le message à sauvegarder
+     * 
+     */
     public static void createMessage(Message m){
         try {
             Connection conn = SingleConnection.GetConnection();

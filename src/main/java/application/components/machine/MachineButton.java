@@ -9,10 +9,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This class is used to create the buttons corresponding to the machines and to open the 
+ * interface that provides access to machine information when the button is clicked. |
+ * Cette classe sert à créer les boutons correspondant aux machines et à ouvrir l'interface 
+ * qui permet d'accéder aux informations de la machine lorsque l'on clique sur le bouton.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class MachineButton extends Button{
     private Context context;
     private Stage stage;
     private Machine machine;
+    /** 
+     * @param s the stage in which the machine info window will be shown
+     * @param c the context containing machines and related data
+     * @param m the machine represented by this button
+     */
     public MachineButton(Stage s, Context c, Machine m){
         this.context = c;
         this.stage = s;

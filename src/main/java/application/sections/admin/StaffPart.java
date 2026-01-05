@@ -1,7 +1,7 @@
 package application.sections.admin;
 
 import application.InterfaceAddNewStaff;
-import application.components.staff.StaffCard;
+import application.components.staff.StaffListPart;
 import domain.Context;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StaffPart extends VBox{
+    /**
+     * Creating a chart based on the data passed as parameters |
+     * Création d'un graphique à partir des données en paramètres
+     * 
+     * @author FIGUEIRAS Jossua
+     */
     public StaffPart(Stage stage, Context context){
         context.updateStaffMembersList();
         HBox head = new HBox();
@@ -24,7 +30,7 @@ public class StaffPart extends VBox{
         addStaffMember.getStyleClass().add("addButton");
 
         head.getChildren().addAll(subTitle, midpart, addStaffMember);
-        this.getChildren().addAll(head, new StaffCard(context));
+        this.getChildren().addAll(head, new StaffListPart(context));
     
         addStaffMember.setOnAction(e -> {
             InterfaceAddNewStaff form = new InterfaceAddNewStaff(stage);

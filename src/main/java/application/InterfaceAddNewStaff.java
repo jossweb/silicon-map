@@ -18,7 +18,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import type.RandomString;
 
+/**
+ * Interface for creating a new staff member. |
+ * Interface pour la création d'un nouveau membre du staff.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class InterfaceAddNewStaff extends Stage {
+    /**
+     * Constructs the staff creation interface and sets up all UI elements. |
+     * Construit l'interface de création de membre du personnel et configure tous les éléments de l'UI.
+     *
+     * @param principalStage the main stage of the application | le stage principal de l'application
+     */
     public InterfaceAddNewStaff(Stage principalStage){
         setTitle("Create new staff member");
         VBox root = new VBox(10);

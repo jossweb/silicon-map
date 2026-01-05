@@ -15,7 +15,23 @@ import domain.Gpu;
 import domain.PowerSupply;
 import domain.Ram;
 
+/**
+ * All SQL interactions related to the components |
+ * Toutes les interactions SQL liées aux composants.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public abstract class ComponentDao {
+    /**
+     * Retrieving a component (in sql db) using it's ID |
+     * Récupérer un composant dans la db sql à l'aide de son ID.
+     * 
+     * @param id The ID of the machine being searched | 
+     * l'identifiant de la machine faisant l'objet de la recherche
+     * 
+     * @return The component found in the database / 
+     * Le composant trouvé dans la base de données
+     */
     public static Component getComponentById(int id){
         try {
 			Connection conn = SingleConnection.GetConnection();
@@ -40,6 +56,13 @@ public abstract class ComponentDao {
         }
         return null;
     }
+    /**
+     * Retrieves all components from SQL |
+     * Récupère tout les composents du sql.
+     * 
+     * @return The ArrayList that stores all the components found in database. |
+     * Un ArrayList qui stocke tous les composants trouvés dans la base de données
+     */
     public static ArrayList<Component> getAllComponents(){
         ArrayList<Component> compList = new ArrayList<Component>();
         try {
@@ -65,7 +88,7 @@ public abstract class ComponentDao {
                         compList.add(new Chassis(result));
                         break;
                     case "GPU":
-                        compList.add(new Chassis(result));
+                        compList.add(new Gpu(result));
                         break;
                     default:
                         break;
@@ -78,6 +101,17 @@ public abstract class ComponentDao {
         return compList;
         
     }
+    /**
+     * Récupère tous les composants appartenant à une machine passé 
+     * en paramètre via le machine id. |
+     * Retrieves all components belonging to a machine passed 
+     * as a parameter via the machine ID.
+     * 
+     * @param id the machine ID.
+     * 
+     * @return The ArrayList which stores all the components found in the database related to the machine. |
+     * L'ArrayList qui stocke tous les composants trouvés dans la base de données et liés à la machine.
+     */
     public static ArrayList<Component> getMachinesComponents(int id){
         ArrayList<Component> compList = new ArrayList<Component>();
         try {
@@ -117,6 +151,13 @@ public abstract class ComponentDao {
         return compList;
         
     }
+    /**
+     * Updates the component passed as a parameter in db. |
+     * Met à jour le composant passé en paramètre dans la base de données.
+     * 
+     * @param c The Component to update |
+     * Le composant à mettre à jour
+     */
     public static void update(Component c){
         try {
 			Connection conn = SingleConnection.GetConnection();
@@ -156,14 +197,12 @@ public abstract class ComponentDao {
                     stmt.setInt(4, ram.getSize_go());
                     stmt.setInt(5, ram.getVersion());
                     stmt.setString(6, "Chassis");
-                }default -> System.out.print("Error can't find type \n temp message follow todo");
-
-                // TODO : create personal error and use it here
+                }default -> throw new SQLException("Can't find type");
             }
-                stmt.setInt(8, c.getId());
-                stmt.executeUpdate();
+            stmt.setInt(8, c.getId());
+            stmt.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("SQL ERROR ! /n explains :" + e);
         }  
     }
 }

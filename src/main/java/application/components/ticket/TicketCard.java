@@ -8,8 +8,19 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Creating button for a ticket and on click redirects to the ticket interface |
+ * Création d'un bouton pour un ticket et au clique redirige vers l'interface du ticket
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class TicketCard extends Button{
 	private Ticket ticket;
+	/**
+	 * @param t the ticket to display
+	 * @param staff the staff member viewing the ticket
+	 * @param stage the stage used to open the detailed ticket interface
+	 */
 	public TicketCard(Ticket t, Staff staff, Stage stage){
 		this.ticket = t;
 		Label title = new Label(ticket.getTitle());

@@ -24,10 +24,25 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/**
+ * Navbar of principal stage. |
+ * Barre de navigation du stage principal.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class Navbar extends GridPane{
     private Context context;
     private Stage stage;
     private StackPane contentPanel;
+    /**
+     * Admin version. |
+     * Version admin.
+     * 
+     * @param user the Admin currently logged in
+     * @param context the Context object containing machines, tickets, and other data
+     * @param stage the Stage on which the interface is displayed
+     * @param contentPanel the StackPane where the content of each section is displayed
+     */
     public Navbar(Admin user, Context context, Stage stage, StackPane contentPanel){
 
         this.context = context;
@@ -111,6 +126,15 @@ public class Navbar extends GridPane{
             selectNavButton(ticketNavButton, navButtonsList);
         }));
     }
+    /**
+     * Technician version. |
+     * Version technicien.
+     * 
+     * @param user the Technician currently logged in
+     * @param context the Context object containing machines, tickets, and other data
+     * @param stage the Stage on which the interface is displayed
+     * @param contentPanel the StackPane where the content of each section is displayed
+     */
     public Navbar(Technician user, Context context, Stage stage, StackPane contentPanel){
 
         this.context = context;

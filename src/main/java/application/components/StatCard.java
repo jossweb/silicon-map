@@ -6,7 +6,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * Create a card for stats. |
+ * Crée une carte pour afficher les 
+ * stats.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class StatCard extends VBox{
+    /**
+    * @param status the status of the statistic | le statut de la statistique
+    * @param labelContent the text label describing the statistic | le texte décrivant la statistique
+    * @param ValueContent the value of the statistic to display | la valeur de la statistique à afficher
+    */
     public StatCard(String status, String labelContent, String ValueContent){
         this.setSpacing(5);
         this.getStyleClass().add("stats"); 

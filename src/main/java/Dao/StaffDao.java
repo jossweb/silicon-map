@@ -10,7 +10,21 @@ import domain.Admin;
 import domain.Staff;
 import domain.Technician;
 
+/**
+ * All SQL interactions related to the staff |
+ * Toutes les interactions SQL liées aux staff.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public abstract class StaffDao {
+	/**
+	 * Get staff member by username |
+	 * récupère le staff member avec l'username.
+	 * 
+	 * @param username staff's username | l'username du staff member
+	 * 
+	 * @return Staff
+	 */
 	public static Staff getStaffMember(String username) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -30,6 +44,14 @@ public abstract class StaffDao {
 		return null;
 		
 	}
+	/**
+	 * Get staff member by id |
+	 * récupère le staff member avec l'id.
+	 * 
+	 * @param id staff's id | l'id du staff member
+	 * 
+	 * @return Staff
+	 */
 	public static Staff getStaffMember(int id) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -51,6 +73,12 @@ public abstract class StaffDao {
 		return null;
 		
 	}
+	/**
+	 * Get all staff member |
+	 * récupère tout les staff member.
+	 * 
+	 * @return Arraylist who contain Staff members | un arraylist qui contient tout les staff members
+	 */
 	public static ArrayList<Staff> getAllStaffMembers(){
 		try {
 			ArrayList<Staff> membersList = new ArrayList<Staff>();
@@ -72,6 +100,16 @@ public abstract class StaffDao {
 		}
 		return null;
 	}
+	/**
+	 * Create the staff member in db |
+	 * Crée le staff member dans la db.
+	 * 
+	 * @param s the staff who will be saved|
+	 * le staff member qui va être sauvegardé
+	 * 
+	 * @return Status string | 
+	 * le status dans une chaine de caractère.
+	 */
 	public static String createStaffMember(Staff s) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -97,6 +135,16 @@ public abstract class StaffDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Update the staff member in db |
+	 * Met à jour le staff member dans la db.
+	 * 
+	 * @param s the staff who will be update|
+	 * le staff member qui va être mis à jour.
+	 * 
+	 * @return Status string | 
+	 * le status dans une chaine de caractère.
+	 */
 	public static String updateStaffMember(Staff s) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -124,6 +172,16 @@ public abstract class StaffDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Delete the staff member in db |
+	 * Supprime le staff member dans la db.
+	 * 
+	 * @param s he staff who will be delete|
+	 * le staff member qui va être supprimé.
+	 * 
+	 * @return true if delete successfully| 
+	 * true si le staff member est supprimé avec succès.
+	 */
 	public static boolean deleteStaffFromDb(Staff s) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -139,6 +197,16 @@ public abstract class StaffDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Update the staff member's status in db |
+	 * Met à jour le status du staff members.
+	 * 
+	 * @param status true if member is online |
+	 * true si le membre est en ligne.
+	 * @param id member id |
+	 * id du membre
+	 * 
+	 */
 	public static void changeStatus(boolean status, int id){
 		try {
 			Connection conn = SingleConnection.GetConnection();

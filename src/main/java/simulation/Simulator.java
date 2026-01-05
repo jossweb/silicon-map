@@ -8,6 +8,17 @@ import domain.Component;
 import domain.Context;
 import domain.Machine;
 
+/**
+ * The goal here is to simulate a large number of machines sending their 
+ * information to the SQL server to simulate a real production environment for the application 
+ * (the simulator can be disabled depending on the database chosen by the user in the .env file).|
+ *
+ * L'objectif est ici de simuler un grand nombre de machines envoyant leurs informations 
+ * au serveur SQL afin de simuler un environnement de production réel pour l'application 
+ * (le simulateur peut être désactivé en fonction de la base de données choisie par l'utilisateur dans le fichier .env).
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class Simulator {
     private Context context;
     private HashMap<Integer, Integer> prevTemp;
@@ -56,6 +67,10 @@ public class Simulator {
             }
         }  
     }
+    /**
+     * For each online machine, its temperature is simulated.|
+     * Pour chaque machine en ligne, sa température est simulée.
+     */
     private void newMachineTemp(){
         for(Machine m : this.context.getMachines()){
             if(m.getStatus().equals("Online")){
@@ -84,6 +99,10 @@ public class Simulator {
             }
         }
     }
+    /**
+     * For each component used in an online machine, its load percentage is simulated.|
+     * Pour chaque composant utilisé dans une machine en ligne, son pourcentage de charge est simulé.
+     */
     private void nextComponentLoad(){
         for(Component c : this.context.getListComponents()){
             Machine machine = Machine.getMachine(c.getMachineId());

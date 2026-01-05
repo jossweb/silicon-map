@@ -6,8 +6,18 @@ import domain.Staff;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+/**
+ * Creates the message display bubble |
+ * Crée la bulle d'affichage du message
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class MessageBubble extends VBox {
     private Message message;
+    /**
+     * @param m the message to display
+     * @param logUser the currently logged-in user
+     */
     public MessageBubble(Message m, Staff logUser){
         this.message = m;
         Label author = new Label(this.message.getAuthor().getName() + " " + this.message.getAuthor().getFirst_name());

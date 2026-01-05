@@ -9,10 +9,28 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+/**
+ * Displays a machine dashboard of the type passed as a parameter |
+ * Affiche un dashboard de machine du type passé en paramètre.
+ * 
+ * @author FIGUEIRAS Jossua
+ * 
+ * @param <M> the type of machine to display
+ */
 public class MachinesParts<M extends Machine> extends VBox {
     private Context context;
     private Stage stage;
 
+    /**
+     * 
+     * @param context the application context containing the list of machines. |
+     *                le contexte de l’application contenant la liste des machines.
+     * @param stage the main application window. |
+     *              la fenêtre principale de l’application.
+     * @param type the class of the machine type to display (e.g., Compute, GpuCompute, Storage, Network). |
+     *             la classe du type de machine à afficher (ex : Compute, GpuCompute, Storage, Network).
+     */
     public MachinesParts(Context context, Stage stage, Class<M> type) {
         this.context = context;
         this.stage = stage;

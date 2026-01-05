@@ -14,7 +14,23 @@ import domain.Router;
 import domain.Storage;
 import domain.Switch;
 
+/**
+ * All SQL interactions related to the machines |
+ * Toutes les interactions SQL liées aux machines.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public abstract class MachineDao {
+	/**
+	 * Create a machine in the database |
+	 * Crée une machine dans la db.
+	 * 
+	 * @param m the machine that will be saved |
+	 *  La machine qui sera sauvegardée
+	 * 
+	 * @return true if machine saved successfully |
+	 * true si la machine a réussi à enregistrer.
+	 */
 	public static boolean CreateMachineInDb(Machine m) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -36,6 +52,16 @@ public abstract class MachineDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Create a machine in the database |
+	 * Crée une machine dans la db.
+	 * 
+	 * @param id the ID of the machine to retrieve |
+	 * l'identifiant de la machine à récupérer
+	 * 
+	 * @return The machine recovered. |
+	 * La machine récupéré.
+	 */
 	public static Machine getMachine(int id) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -59,6 +85,13 @@ public abstract class MachineDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Get all machine from db |
+	 * récupère toutes les machines depuis la base de données
+	 * 
+	 * @return The array list that contain all machine from db |
+	 * Un array list qui contient tout les machines venant de la db
+	 */
 	public static ArrayList<Machine> getAllMachines(){
 		ArrayList<Machine> list = new ArrayList<Machine>();
 		try {
@@ -88,6 +121,16 @@ public abstract class MachineDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Update machine in database |
+	 * met à jour une machine en db
+	 * 
+	 * @param m the update machine |
+	 * la machine à mettre à jour
+	 * 
+	 * @return Status in string |
+	 * Status de la requête dans une chaine de caractères
+	 */
 	public static String updateMachineDb(Machine m) {
 		try {
 			Connection conn = SingleConnection.GetConnection();
@@ -111,6 +154,16 @@ public abstract class MachineDao {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * Delete machine in database |
+	 * Supprime une machine en db
+	 * 
+	 * @param m the delete machine |
+	 * la machine à supprimer
+	 * 
+	 * @return true if machine delete|
+	 * true si la machine est supprimé.
+	 */
 	public static boolean deleteMachine(Machine m) {
 		try {
 			Connection conn = SingleConnection.GetConnection();

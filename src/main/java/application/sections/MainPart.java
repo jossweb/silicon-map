@@ -10,8 +10,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * main part |
+ * Page d'accueil.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class MainPart extends VBox {
     private Context context;
+    /**
+     * Constructor for Admin users. | Constructeur pour les utilisateurs Admin.
+     * 
+     * @param user the logged-in admin | l'admin connecté
+     * @param context the system context containing machine and ticket data | le contexte système contenant les données des machines et tickets
+     */
     public MainPart(Admin user, Context context){
         this.context = context;
 
@@ -28,6 +40,12 @@ public class MainPart extends VBox {
 
         this.getChildren().addAll(stats, evolutionLabel, chartsPart);
     }
+    /**
+     * Constructor for Technician users. | Constructeur pour les utilisateurs Technicien.
+     * 
+     * @param user the logged-in technician | le technicien connecté
+     * @param context the system context containing and | le contexte système contenant les données des machines et tickets
+     */
     public MainPart(Technician user, Context context){
         this.context = context;
 

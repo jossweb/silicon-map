@@ -10,7 +10,21 @@ import java.sql.Statement;
 
 import domain.Ticket;
 
+/**
+ * All SQL interactions related to the tickets |
+ * Toutes les interactions SQL liées aux tickets.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public abstract class TicketDao {
+    /**
+	 * Get ticket by id |
+	 * récupère le ticket avec l'id.
+	 * 
+	 * @param id ticket's id | l'id du ticket
+	 * 
+	 * @return Ticket
+	 */
     public static Ticket getTicket(int id){
         try{
             Connection conn = SingleConnection.GetConnection();
@@ -26,6 +40,13 @@ public abstract class TicketDao {
 		}
         return null;
     }
+    /**
+	 * Get all tickets |
+	 * récupère tout les tickets.
+	 * 
+	 * @return ArrayList who contain all tickets |
+     * Un arrayList qui contient tout les tickets
+	 */
     public static ArrayList<Ticket> getAllTicket(){
         ArrayList<Ticket> list = new ArrayList<Ticket>();
         try{
@@ -41,6 +62,15 @@ public abstract class TicketDao {
 		}
         return list;
     }
+    /**
+	 * Create a tickets in database |
+	 * Crée un ticket dans la base de données.
+	 * 
+     * @param newTicket ticket
+     * 
+	 * @return new ticket't id |
+     * id du nouveau ticket 
+	 */
     public static int createTicketInDb(Ticket newTicket){
         try{
             Connection conn = SingleConnection.GetConnection();
@@ -71,6 +101,12 @@ public abstract class TicketDao {
         }
         return 0;
     }
+    /**
+	 * Update a tickets in database |
+	 * Met à jour un ticket dans la base de données.
+	 * 
+     * @param t ticket
+	 */
     public static void updateTicket(Ticket t){
         try{
             Connection conn = SingleConnection.GetConnection();

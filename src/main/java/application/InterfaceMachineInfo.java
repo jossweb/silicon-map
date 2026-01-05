@@ -13,10 +13,27 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * An interface that allows you to display all the information about a machine 
+ * and generate a technical datasheet in PDF format. |
+ * Une interface permettant d'afficher toutes les informations relatives 
+ * à une machine et de générer une fiche technique au format PDF.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class InterfaceMachineInfo extends Stage {
     private Stage stage;
     private Machine machine;
     private Context context;
+
+    /**
+     * Constructs the machine information interface. |
+     * Construit l'interface d'information d'une machine.
+     * 
+     * @param s the parent stage of the application | le stage parent de l'application
+     * @param m the machine to display | la machine à afficher
+     * @param c the application context containing statistics | le contexte de l'application contenant les statistiques
+     */
     public InterfaceMachineInfo(Stage s, Machine m, Context c){
         this.stage = s; 
         this.machine = m;
@@ -79,7 +96,6 @@ public class InterfaceMachineInfo extends Stage {
         createPdf.getStyleClass().add("submit-button");
 
         Label indication = new Label("");
-        //indication.getStyleClass().add("");
         indication.setVisible(false);
 
 

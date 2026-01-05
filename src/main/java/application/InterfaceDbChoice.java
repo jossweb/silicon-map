@@ -13,8 +13,23 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import simulation.Simulator;
 
+/**
+ * A small window that opens at startup to allow the user to choose the 
+ * SQL server based on the servers specified in the .env file. |
+ * Une petite fenêtre qui s'ouvre au démarrage pour permettre à l'utilisateur de choisir 
+ * le serveur SQL en fonction des serveurs spécifiés dans le fichier .env.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class InterfaceDbChoice extends Stage {
     private Stage stage;
+
+    /**
+     * Constructs the database selection window. |
+     * Construit la fenêtre de sélection de la base de données.
+     * 
+     * @param s the parent stage of the application | le stage parent de l'application
+     */
     public InterfaceDbChoice(Stage s){
         this.stage = s;
 

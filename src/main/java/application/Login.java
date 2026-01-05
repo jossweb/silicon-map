@@ -17,7 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * JavaFX app startup and login page. |
+ * Démarrage de l'application JavaFX et page connexion.
+ * 
+ * @author EVANGELISTA Thomas and FIGUEIRAS Jossua
+ */
 public class Login extends Application {
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -27,6 +34,12 @@ public class Login extends Application {
         dbChoice.showAndWait();
         loginPage(primaryStage);
     }
+    /**
+     * Creates and displays the login interface. |
+     * Crée et affiche l'interface de connexion.
+     * 
+     * @param stage the primary stage of the application | le stage principal de l'application
+     */
     private void loginPage(Stage stage){
         //start sql connection
         new SingleConnection();

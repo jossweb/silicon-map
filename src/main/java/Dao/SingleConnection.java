@@ -10,6 +10,12 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvEntry;
 
 
+/**
+ * Manages the principle of single connection |
+ * Gère le principe du single connexion.
+ * 
+ * @author EVANGELISTA Thomas and FIGUEIRAS Jossua
+ */
 public class SingleConnection {
 
     private static Connection connection = null;
@@ -59,12 +65,22 @@ public class SingleConnection {
         	throw new RuntimeException(e);
         }
     }
+    /**
+     * Get sql connexion |
+     * Récupère la connexion sql
+     * 
+     * @return SQL Connection
+     */
     public static Connection GetConnection() {
         if (connection == null) {
             new SingleConnection();
         }
         return connection;
     }
+    /**
+     * Close the sql connection |
+     * Ferme la connexion
+     */
     public static void close() {
         if (connection != null) {
             try {

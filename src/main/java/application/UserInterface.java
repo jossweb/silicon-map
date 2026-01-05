@@ -18,10 +18,23 @@ import javafx.stage.Stage;
 import type.Tuple;
 import javafx.scene.layout.VBox;
 
+/**
+ * User interface base. |
+ * Base de l'interface utilisateur.
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 class UserInterface{
     private Stage stage;
     private Staff logUser;
     private Context context;
+    /**
+     * Opens the main dashboard for the logged-in user. |
+     * Ouvre le tableau de bord principal pour l'utilisateur connecté.
+     * 
+     * @param s the primary stage | le stage principal
+     * @param logUser the logged-in user | l'utilisateur connecté
+     */
 	public void Dashboard(Stage s, Staff logUser){
 
         this.logUser = logUser;
@@ -106,11 +119,11 @@ class UserInterface{
         this.context.updateMachinesList();
 
         int nbMaintenanceMachine = (int)this.context.getMachines().stream()
-                                    .filter(m->m.getStatus().equals("Maintenance"))
-                                    .count();
+            .filter(m->m.getStatus().equals("Maintenance"))
+            .count();
 
         int totalMachine = (int)this.context.getMachines().stream()
-                                    .count();
+            .count();
                                     
         if(totalMachine<1){
             return new Tuple<String,String>("No machine detected in the database", "Status-error");

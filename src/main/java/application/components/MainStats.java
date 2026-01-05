@@ -4,8 +4,17 @@ import domain.Context;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * Main Section |
+ * Section main
+ * 
+ * @author FIGUEIRAS Jossua
+ */
 public class MainStats extends HBox {
     private Context context;
+    /**
+     * @param c the Context object containing machines, tickets, and performance data
+     */
     public MainStats(Context c){
         this.context = c;
         //update values
