@@ -1,6 +1,7 @@
 package application.sections.technician;
 
 import application.components.Navbar;
+import application.interfaces.refreshable;
 import domain.Context;
 import domain.Technician;
 import javafx.scene.layout.StackPane;
@@ -13,10 +14,11 @@ import javafx.stage.Stage;
  * 
  * @author FIGUEIRAS Jossua
  */
-public class TechnicianPart extends VBox{
+public class TechnicianPart extends VBox implements refreshable{
     private Technician technician;
     private Stage stage;
     private Context context;
+    private StackPane contentPanel;
 
     /**
      * Constructor for TechnicianPart |
@@ -30,8 +32,17 @@ public class TechnicianPart extends VBox{
         this.technician = t;
         this.stage = s;
         this.context = c;
-        StackPane contentPanel = new StackPane();
+        this.contentPanel = new StackPane();
         this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel));
         this.getChildren().add(contentPanel);
+    }
+    /**
+     * refreshes interface. |
+     * actualise l'interface.
+     */
+    public void refresh(){
+        this.getChildren().clear();
+        this.contentPanel = new StackPane();
+        this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel), contentPanel);
     }
 }

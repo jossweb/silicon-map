@@ -1,6 +1,7 @@
 package application.sections.admin;
 
 import application.components.Navbar;
+import application.interfaces.refreshable;
 import domain.Admin;
 import domain.Context;
 import javafx.scene.layout.StackPane;
@@ -13,10 +14,11 @@ import javafx.stage.Stage;
  * 
  * @author FIGUEIRAS Jossua
  */
-public class AdminPart extends VBox{
+public class AdminPart extends VBox implements refreshable{
     private Admin technician;
     private Stage stage;
     private Context context;
+    private StackPane contentPanel;
 
     /**
      * Constructor for AdminPart |
@@ -30,7 +32,16 @@ public class AdminPart extends VBox{
         this.technician = t;
         this.stage = s;
         this.context = c;
-        StackPane contentPanel = new StackPane();
+        this.contentPanel = new StackPane();
+        this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel), contentPanel);
+    }
+    /**
+     * refreshes interface. |
+     * actualise l'interface.
+     */
+    public void refresh(){
+        this.getChildren().clear();
+        this.contentPanel = new StackPane();
         this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel), contentPanel);
     }
 }

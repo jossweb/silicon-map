@@ -2,6 +2,7 @@ package application.components.message;
 
 import java.util.ArrayList;
 
+import application.interfaces.refreshable;
 import domain.Message;
 import domain.Staff;
 import domain.Ticket;
@@ -15,7 +16,7 @@ import javafx.scene.layout.VBox;
  * 
  * @author FIGUEIRAS Jossua
  */
-public class MessagePart extends ScrollPane {
+public class MessagePart extends ScrollPane implements refreshable{
     private VBox container;
     private Ticket ticket;
     private Staff loguser;

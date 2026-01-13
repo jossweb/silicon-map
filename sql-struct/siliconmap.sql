@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : sam. 03 jan. 2026 à 23:21
+-- Généré le : sam. 10 jan. 2026 à 23:45
 -- Version du serveur : 8.0.40
 -- Version de PHP : 8.3.14
 
@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 -- Structure de la table `components`
 --
 
-CREATE TABLE `components` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `components` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `brand` varchar(40) NOT NULL,
   `model` varchar(80) NOT NULL,
   `machine_id` int DEFAULT NULL,
@@ -36,8 +36,11 @@ CREATE TABLE `components` (
   `spec_value_secondary` int DEFAULT NULL,
   `type` enum('CPU','GPU','RAM','DISK','Power_supply','Chassis') DEFAULT NULL,
   `status` enum('actually_use','ready','maintenance','issue') DEFAULT NULL,
-  `ticket` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ticket` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_components_machine_id` (`machine_id`),
+  KEY `fk_components_ticket` (`ticket`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `components`
@@ -92,7 +95,10 @@ INSERT INTO `components` (`id`, `brand`, `model`, `machine_id`, `spec_value_prim
 (46, 'Seasonic', 'Focus GX-650', 11, 650, NULL, 'Power_supply', 'actually_use', NULL),
 (47, 'Netgate', '1U Security Chassis', 11, 1, NULL, 'Chassis', 'actually_use', NULL),
 (48, 'AMD', 'EPYC 7313', 2, 16, 512, 'CPU', 'actually_use', NULL),
-(49, 'NVIDIA', 'H100', NULL, 96, 16896, 'Chassis', 'actually_use', 17);
+(49, 'NVIDIA', 'H100', NULL, 96, 16896, 'Chassis', 'ready', NULL),
+(50, 'NVIDIA', 'H100', NULL, 96, 16896, 'Chassis', 'ready', NULL),
+(51, 'NVIDIA', 'H100', NULL, 96, 16896, 'Chassis', 'ready', NULL),
+(52, 'NVIDIA', 'H100', NULL, 96, 16896, 'Chassis', 'ready', NULL);
 
 --
 -- Déclencheurs `components`
@@ -152,12 +158,270 @@ DELIMITER ;
 -- Structure de la table `component_load`
 --
 
-CREATE TABLE `component_load` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `component_load` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `components_load` int NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `component_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `component_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_load_component_id` (`component_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=265280 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `component_load`
+--
+
+INSERT INTO `component_load` (`id`, `components_load`, `date_time`, `component_id`) VALUES
+(1, 72, '2025-12-13 22:37:10', 1),
+(2, 81, '2025-12-13 22:37:10', 2),
+(3, 68, '2025-12-13 22:37:10', 3),
+(4, 74, '2025-12-13 22:37:10', 4),
+(5, 55, '2025-12-13 22:37:10', 5),
+(6, 65, '2025-12-13 22:37:10', 6),
+(7, 77, '2025-12-13 22:37:10', 7),
+(8, 61, '2025-12-13 22:37:10', 8),
+(9, 69, '2025-12-13 22:37:10', 9),
+(10, 52, '2025-12-13 22:37:10', 10),
+(11, 70, '2025-12-13 22:37:10', 11),
+(12, 78, '2025-12-13 22:37:10', 12),
+(13, 66, '2025-12-13 22:37:10', 13),
+(14, 71, '2025-12-13 22:37:10', 14),
+(15, 50, '2025-12-13 22:37:10', 15),
+(16, 64, '2025-12-13 22:37:10', 16),
+(17, 73, '2025-12-13 22:37:10', 17),
+(18, 59, '2025-12-13 22:37:10', 18),
+(19, 67, '2025-12-13 22:37:10', 19),
+(20, 48, '2025-12-13 22:37:10', 20),
+(21, 82, '2025-12-13 22:37:10', 21),
+(22, 80, '2025-12-13 22:37:10', 22),
+(23, 62, '2025-12-13 22:37:10', 23),
+(24, 76, '2025-12-13 22:37:10', 24),
+(25, 53, '2025-12-13 22:37:10', 25),
+(26, 91, '2025-12-13 22:37:10', 26),
+(27, 98, '2025-12-13 22:37:10', 27),
+(28, 88, '2025-12-13 22:37:10', 28),
+(29, 74, '2025-12-13 22:37:10', 29),
+(30, 85, '2025-12-13 22:37:10', 30),
+(31, 68, '2025-12-13 22:37:10', 31),
+(32, 76, '2025-12-13 22:37:10', 32),
+(33, 82, '2025-12-13 22:37:10', 33),
+(34, 71, '2025-12-13 22:37:10', 34),
+(35, 66, '2025-12-13 22:37:10', 35),
+(36, 73, '2025-12-13 22:37:10', 36),
+(37, 60, '2025-12-13 22:37:10', 37),
+(38, 69, '2025-12-13 22:37:10', 38),
+(39, 74, '2025-12-13 22:37:10', 39),
+(40, 58, '2025-12-13 22:37:10', 40),
+(41, 67, '2025-12-13 22:37:10', 41),
+(42, 49, '2025-12-13 22:37:10', 42),
+(43, 71, '2025-12-13 22:37:10', 43),
+(44, 76, '2025-12-13 22:37:10', 44),
+(45, 61, '2025-12-13 22:37:10', 45),
+(46, 70, '2025-12-13 22:37:10', 46),
+(47, 52, '2025-12-13 22:37:10', 47),
+(48, 45, '2025-12-13 22:37:10', 48),
+(49, 84, '2025-12-14 20:51:51', 1),
+(50, 90, '2025-12-14 20:51:51', 2),
+(51, 78, '2025-12-14 20:51:51', 3),
+(52, 86, '2025-12-14 20:51:51', 4),
+(53, 68, '2025-12-14 20:51:51', 5),
+(54, 80, '2025-12-14 20:51:51', 6),
+(55, 88, '2025-12-14 20:51:51', 7),
+(56, 75, '2025-12-14 20:51:51', 8),
+(57, 83, '2025-12-14 20:51:51', 9),
+(58, 65, '2025-12-14 20:51:51', 10),
+(59, 82, '2025-12-14 20:51:51', 11),
+(60, 89, '2025-12-14 20:51:51', 12),
+(61, 77, '2025-12-14 20:51:51', 13),
+(62, 85, '2025-12-14 20:51:51', 14),
+(63, 66, '2025-12-14 20:51:51', 15),
+(64, 79, '2025-12-14 20:51:51', 16),
+(65, 86, '2025-12-14 20:51:51', 17),
+(66, 73, '2025-12-14 20:51:51', 18),
+(67, 81, '2025-12-14 20:51:51', 19),
+(68, 64, '2025-12-14 20:51:51', 20),
+(69, 91, '2025-12-14 20:51:51', 21),
+(70, 88, '2025-12-14 20:51:51', 22),
+(71, 76, '2025-12-14 20:51:51', 23),
+(72, 89, '2025-12-14 20:51:51', 24),
+(73, 70, '2025-12-14 20:51:51', 25),
+(74, 95, '2025-12-14 20:51:51', 26),
+(75, 99, '2025-12-14 20:51:51', 27),
+(76, 94, '2025-12-14 20:51:51', 28),
+(77, 87, '2025-12-14 20:51:51', 29),
+(78, 92, '2025-12-14 20:51:51', 30),
+(79, 78, '2025-12-14 20:51:51', 31),
+(80, 88, '2025-12-14 20:51:51', 32),
+(81, 93, '2025-12-14 20:51:51', 33),
+(82, 90, '2025-12-14 20:51:51', 34),
+(83, 82, '2025-12-14 20:51:51', 35),
+(84, 89, '2025-12-14 20:51:51', 36),
+(85, 74, '2025-12-14 20:51:51', 37),
+(86, 83, '2025-12-14 20:51:51', 38),
+(87, 88, '2025-12-14 20:51:51', 39),
+(88, 72, '2025-12-14 20:51:51', 40),
+(89, 84, '2025-12-14 20:51:51', 41),
+(90, 67, '2025-12-14 20:51:51', 42),
+(91, 85, '2025-12-14 20:51:51', 43),
+(92, 90, '2025-12-14 20:51:51', 44),
+(93, 74, '2025-12-14 20:51:51', 45),
+(94, 87, '2025-12-14 20:51:51', 46),
+(95, 69, '2025-12-14 20:51:51', 47),
+(96, 63, '2025-12-14 20:51:51', 48),
+(97, 72, '2025-12-23 16:22:40', 1),
+(98, 75, '2025-12-23 16:22:50', 1),
+(99, 78, '2025-12-23 16:23:00', 1),
+(100, 80, '2025-12-23 16:23:10', 1),
+(101, 77, '2025-12-23 16:23:20', 1),
+(102, 68, '2025-12-23 16:22:40', 2),
+(103, 70, '2025-12-23 16:22:50', 2),
+(104, 73, '2025-12-23 16:23:00', 2),
+(105, 75, '2025-12-23 16:23:10', 2),
+(106, 72, '2025-12-23 16:23:20', 2),
+(107, 81, '2025-12-23 16:22:40', 3),
+(108, 83, '2025-12-23 16:22:50', 3),
+(109, 85, '2025-12-23 16:23:00', 3),
+(110, 88, '2025-12-23 16:23:10', 3),
+(111, 86, '2025-12-23 16:23:20', 3),
+(112, 64, '2025-12-23 16:22:40', 4),
+(113, 66, '2025-12-23 16:22:50', 4),
+(114, 69, '2025-12-23 16:23:00', 4),
+(115, 71, '2025-12-23 16:23:10', 4),
+(116, 70, '2025-12-23 16:23:20', 4),
+(117, 90, '2025-12-23 16:22:40', 5),
+(118, 92, '2025-12-23 16:22:50', 5),
+(119, 94, '2025-12-23 16:23:00', 5),
+(120, 96, '2025-12-23 16:23:10', 5),
+(121, 93, '2025-12-23 16:23:20', 5),
+(122, 70, '2025-12-23 16:22:40', 6),
+(123, 72, '2025-12-23 16:22:50', 6),
+(124, 74, '2025-12-23 16:23:00', 6),
+(125, 76, '2025-12-23 16:23:10', 6),
+(126, 73, '2025-12-23 16:23:20', 6),
+(127, 71, '2025-12-23 16:22:40', 7),
+(128, 73, '2025-12-23 16:22:50', 7),
+(129, 75, '2025-12-23 16:23:00', 7),
+(130, 77, '2025-12-23 16:23:10', 7),
+(131, 74, '2025-12-23 16:23:20', 7),
+(132, 72, '2025-12-23 16:22:40', 8),
+(133, 74, '2025-12-23 16:22:50', 8),
+(134, 76, '2025-12-23 16:23:00', 8),
+(135, 78, '2025-12-23 16:23:10', 8),
+(136, 75, '2025-12-23 16:23:20', 8),
+(137, 73, '2025-12-23 16:22:40', 9),
+(138, 75, '2025-12-23 16:22:50', 9),
+(139, 77, '2025-12-23 16:23:00', 9),
+(140, 79, '2025-12-23 16:23:10', 9),
+(141, 76, '2025-12-23 16:23:20', 9),
+(142, 74, '2025-12-23 16:22:40', 10),
+(143, 76, '2025-12-23 16:22:50', 10),
+(144, 78, '2025-12-23 16:23:00', 10),
+(145, 80, '2025-12-23 16:23:10', 10),
+(146, 77, '2025-12-23 16:23:20', 10),
+(147, 75, '2025-12-23 16:22:40', 11),
+(148, 77, '2025-12-23 16:22:50', 11),
+(149, 79, '2025-12-23 16:23:00', 11),
+(150, 81, '2025-12-23 16:23:10', 11),
+(151, 78, '2025-12-23 16:23:20', 11),
+(152, 76, '2025-12-23 16:22:40', 12),
+(153, 78, '2025-12-23 16:22:50', 12),
+(154, 80, '2025-12-23 16:23:00', 12),
+(155, 82, '2025-12-23 16:23:10', 12),
+(156, 79, '2025-12-23 16:23:20', 12),
+(157, 77, '2025-12-23 16:22:40', 13),
+(158, 79, '2025-12-23 16:22:50', 13),
+(159, 81, '2025-12-23 16:23:00', 13),
+(160, 83, '2025-12-23 16:23:10', 13),
+(161, 80, '2025-12-23 16:23:20', 13),
+(162, 78, '2025-12-23 16:22:40', 14),
+(163, 80, '2025-12-23 16:22:50', 14),
+(164, 82, '2025-12-23 16:23:00', 14),
+(165, 84, '2025-12-23 16:23:10', 14),
+(166, 81, '2025-12-23 16:23:20', 14),
+(167, 79, '2025-12-23 16:22:40', 15),
+(168, 81, '2025-12-23 16:22:50', 15),
+(169, 83, '2025-12-23 16:23:00', 15),
+(170, 85, '2025-12-23 16:23:10', 15),
+(171, 82, '2025-12-23 16:23:20', 15),
+(172, 80, '2025-12-23 16:22:40', 16),
+(173, 82, '2025-12-23 16:22:50', 16),
+(174, 84, '2025-12-23 16:23:00', 16),
+(175, 86, '2025-12-23 16:23:10', 16),
+(176, 83, '2025-12-23 16:23:20', 16),
+(177, 81, '2025-12-23 16:22:40', 17),
+(178, 83, '2025-12-23 16:22:50', 17),
+(179, 85, '2025-12-23 16:23:00', 17),
+(180, 87, '2025-12-23 16:23:10', 17),
+(181, 84, '2025-12-23 16:23:20', 17),
+(182, 82, '2025-12-23 16:22:40', 18),
+(183, 84, '2025-12-23 16:22:50', 18),
+(184, 86, '2025-12-23 16:23:00', 18),
+(185, 88, '2025-12-23 16:23:10', 18),
+(186, 85, '2025-12-23 16:23:20', 18),
+(187, 83, '2025-12-23 16:22:40', 19),
+(188, 85, '2025-12-23 16:22:50', 19),
+(189, 87, '2025-12-23 16:23:00', 19),
+(190, 89, '2025-12-23 16:23:10', 19),
+(191, 86, '2025-12-23 16:23:20', 19),
+(192, 84, '2025-12-23 16:22:40', 20),
+(193, 86, '2025-12-23 16:22:50', 20),
+(194, 88, '2025-12-23 16:23:00', 20),
+(195, 90, '2025-12-23 16:23:10', 20),
+(196, 87, '2025-12-23 16:23:20', 20),
+(197, 85, '2025-12-23 16:22:40', 21),
+(198, 87, '2025-12-23 16:22:50', 21),
+(199, 89, '2025-12-23 16:23:00', 21),
+(200, 91, '2025-12-23 16:23:10', 21),
+(201, 88, '2025-12-23 16:23:20', 21),
+(202, 86, '2025-12-23 16:22:40', 22),
+(203, 88, '2025-12-23 16:22:50', 22),
+(204, 90, '2025-12-23 16:23:00', 22),
+(205, 92, '2025-12-23 16:23:10', 22),
+(206, 89, '2025-12-23 16:23:20', 22),
+(207, 87, '2025-12-23 16:22:40', 23),
+(208, 89, '2025-12-23 16:22:50', 23),
+(209, 91, '2025-12-23 16:23:00', 23),
+(210, 93, '2025-12-23 16:23:10', 23),
+(211, 90, '2025-12-23 16:23:20', 23),
+(212, 88, '2025-12-23 16:22:40', 24),
+(213, 90, '2025-12-23 16:22:50', 24),
+(214, 92, '2025-12-23 16:23:00', 24),
+(215, 94, '2025-12-23 16:23:10', 24),
+(216, 91, '2025-12-23 16:23:20', 24),
+(217, 89, '2025-12-23 16:22:40', 25),
+(218, 91, '2025-12-23 16:22:50', 25),
+(219, 93, '2025-12-23 16:23:00', 25),
+(220, 95, '2025-12-23 16:23:10', 25),
+(221, 92, '2025-12-23 16:23:20', 25),
+(222, 90, '2025-12-23 16:22:40', 26),
+(223, 92, '2025-12-23 16:22:50', 26),
+(224, 94, '2025-12-23 16:23:00', 26),
+(225, 96, '2025-12-23 16:23:10', 26),
+(226, 93, '2025-12-23 16:23:20', 26),
+(227, 91, '2025-12-23 16:22:40', 27),
+(228, 93, '2025-12-23 16:22:50', 27),
+(229, 95, '2025-12-23 16:23:00', 27),
+(230, 97, '2025-12-23 16:23:10', 27),
+(231, 94, '2025-12-23 16:23:20', 27),
+(232, 92, '2025-12-23 16:22:40', 28),
+(233, 94, '2025-12-23 16:22:50', 28),
+(234, 96, '2025-12-23 16:23:00', 28),
+(235, 98, '2025-12-23 16:23:10', 28),
+(236, 95, '2025-12-23 16:23:20', 28),
+(237, 93, '2025-12-23 16:22:40', 29),
+(238, 95, '2025-12-23 16:22:50', 29),
+(239, 97, '2025-12-23 16:23:00', 29),
+(240, 99, '2025-12-23 16:23:10', 29),
+(241, 96, '2025-12-23 16:23:20', 29),
+(242, 94, '2025-12-23 16:22:40', 30),
+(243, 96, '2025-12-23 16:22:50', 30),
+(244, 98, '2025-12-23 16:23:00', 30),
+(245, 99, '2025-12-23 16:23:10', 30),
+(246, 97, '2025-12-23 16:23:20', 30),
+(247, 95, '2025-12-23 16:22:40', 31),
+(248, 96, '2025-12-23 16:22:50', 31),
+(249, 97, '2025-12-23 16:23:00', 31),
+(250, 98, '2025-12-23 16:23:10', 31);
 
 -- --------------------------------------------------------
 
@@ -165,15 +429,16 @@ CREATE TABLE `component_load` (
 -- Structure de la table `machines`
 --
 
-CREATE TABLE `machines` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `machines` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `hostname` varchar(255) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
   `mac_address` varchar(17) NOT NULL,
   `os` varchar(255) NOT NULL,
   `status` enum('Online','Offline','Maintenance') NOT NULL DEFAULT 'Offline',
-  `type` enum('Storage','Compute','GPU_Compute','switch','router','firewall') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `type` enum('Storage','Compute','GPU_Compute','switch','router','firewall') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `machines`
@@ -197,12 +462,15 @@ INSERT INTO `machines` (`id`, `hostname`, `ip_address`, `mac_address`, `os`, `st
 -- Structure de la table `Message`
 --
 
-CREATE TABLE `Message` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `Message` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `message` text NOT NULL,
   `tickets` int NOT NULL,
-  `author` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `author` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_ticket` (`tickets`),
+  KEY `fk_author` (`author`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -210,15 +478,17 @@ CREATE TABLE `Message` (
 -- Structure de la table `staff`
 --
 
-CREATE TABLE `staff` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `staff` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `first_name` varchar(40) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `role` enum('admin','technician') NOT NULL,
   `available` tinyint NOT NULL DEFAULT '0',
-  `hashpass` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `hashpass` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_staff_user_name` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `staff`
@@ -227,6 +497,8 @@ CREATE TABLE `staff` (
 INSERT INTO `staff` (`id`, `name`, `first_name`, `user_name`, `role`, `available`, `hashpass`) VALUES
 (13, 'FIGUEIRAS', 'Jossua', 'contact@jossua.dev', 'admin', 0, '$2a$12$i3YnMztVE//cal/DeACsmOffv5Z04hWTt1aTagW6m2FYSN0L5NeiC'),
 (15, 'FIGUEIRAS', 'Jossua', 'contact1@jossua.dev', 'technician', 0, '$2a$12$7SyDAVjT4su6H0iENKhknu.i9twaFSMl141Ipak01AqlizL3yO5h6'),
+(40, 'Technicien', 'exemple', '5Uj!=.s:uMI::&P3az@U9a1x,)z8T!7X', 'technician', 0, '$2a$12$eZqq54azNVvHzElDb5mAnuPtx1ryEBJc1rzLq7Cw.gIekTRv8P7T6'),
+(41, 'Admin', 'exemple', '3m)§?o?JgAS!@Ic§L3d9/T1+fx-9;gyN', 'admin', 0, '$2a$12$8OG7R4Ptv.VmA86QEgirAuGdBFaKx09WAYNsqLQKb7s8.MJpeMkHu');
 
 -- --------------------------------------------------------
 
@@ -234,12 +506,25 @@ INSERT INTO `staff` (`id`, `name`, `first_name`, `user_name`, `role`, `available
 -- Structure de la table `temperature`
 --
 
-CREATE TABLE `temperature` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `temperature` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `temperature` int NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `machine_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `machine_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_temperature_machine_id` (`machine_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53906 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `temperature`
+--
+
+INSERT INTO `temperature` (`id`, `temperature`, `date_time`, `machine_id`) VALUES
+(1, 38, '2025-12-13 22:19:44', 2),
+(2, 34, '2025-12-13 22:19:44', 3),
+(3, 46, '2025-12-13 22:19:44', 4),
+(4, 44, '2025-12-13 22:19:44', 5),
+(5, 41, '2025-12-13 22:19:44', 6);
 
 -- --------------------------------------------------------
 
@@ -247,8 +532,8 @@ CREATE TABLE `temperature` (
 -- Structure de la table `tickets`
 --
 
-CREATE TABLE `tickets` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `machine_id` int NOT NULL,
   `created_by` int NOT NULL,
   `assigned_to` int DEFAULT NULL,
@@ -256,8 +541,12 @@ CREATE TABLE `tickets` (
   `description` text,
   `status` enum('open','in_progress','closed') DEFAULT 'open',
   `open_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `closed_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `closed_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tickets_machine_id` (`machine_id`),
+  KEY `fk_tickets_created_by` (`created_by`),
+  KEY `fk_tickets_assigned_to` (`assigned_to`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déclencheurs `tickets`
@@ -272,108 +561,6 @@ $$
 DELIMITER ;
 
 --
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `components`
---
-ALTER TABLE `components`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_components_machine_id` (`machine_id`),
-  ADD KEY `fk_components_ticket` (`ticket`);
-
---
--- Index pour la table `component_load`
---
-ALTER TABLE `component_load`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_load_component_id` (`component_id`);
-
---
--- Index pour la table `machines`
---
-ALTER TABLE `machines`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `Message`
---
-ALTER TABLE `Message`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_ticket` (`tickets`),
-  ADD KEY `fk_author` (`author`);
-
---
--- Index pour la table `staff`
---
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `uq_staff_user_name` (`user_name`);
-
---
--- Index pour la table `temperature`
---
-ALTER TABLE `temperature`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_temperature_machine_id` (`machine_id`);
-
---
--- Index pour la table `tickets`
---
-ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tickets_machine_id` (`machine_id`),
-  ADD KEY `fk_tickets_created_by` (`created_by`),
-  ADD KEY `fk_tickets_assigned_to` (`assigned_to`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `components`
---
-ALTER TABLE `components`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
---
--- AUTO_INCREMENT pour la table `component_load`
---
-ALTER TABLE `component_load`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `machines`
---
-ALTER TABLE `machines`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT pour la table `Message`
---
-ALTER TABLE `Message`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `staff`
---
-ALTER TABLE `staff`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT pour la table `temperature`
---
-ALTER TABLE `temperature`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `tickets`
---
-ALTER TABLE `tickets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
 -- Contraintes pour les tables déchargées
 --
 
@@ -382,7 +569,7 @@ ALTER TABLE `tickets`
 --
 ALTER TABLE `components`
   ADD CONSTRAINT `fk_components_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`),
-  ADD CONSTRAINT `fk_components_ticket` FOREIGN KEY (`ticket`) REFERENCES `tickets` (`id`);
+  ADD CONSTRAINT `fk_components_ticket` FOREIGN KEY (`ticket`) REFERENCES `tickets` (`id`) ON DELETE SET NULL;
 
 --
 -- Contraintes pour la table `component_load`
@@ -407,7 +594,7 @@ ALTER TABLE `temperature`
 -- Contraintes pour la table `tickets`
 --
 ALTER TABLE `tickets`
-  ADD CONSTRAINT `fk_tickets_assigned_to` FOREIGN KEY (`assigned_to`) REFERENCES `staff` (`id`),
+  ADD CONSTRAINT `fk_tickets_assigned_to` FOREIGN KEY (`assigned_to`) REFERENCES `staff` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `fk_tickets_created_by` FOREIGN KEY (`created_by`) REFERENCES `staff` (`id`),
   ADD CONSTRAINT `fk_tickets_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`id`);
 COMMIT;

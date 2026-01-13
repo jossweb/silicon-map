@@ -1,6 +1,9 @@
 package application.components;
 
+import java.util.function.Function;
+
 import domain.Context;
+import domain.Ticket;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -49,8 +52,9 @@ public class MainStats extends HBox {
         }
 
         this.context.updateTicketList();
+        Function<Ticket, Boolean> isOpen = t -> t.getStatus().equals("open");
         int openTicketsCount = (int)this.context.getListTickets().stream()
-                            .filter(e->e.getStatus().equals("open"))
+                            .filter(isOpen::apply)
                             .count();
         String openTicketTitle = "Ticket open";
         if(openTicketsCount>1){
@@ -62,7 +66,7 @@ public class MainStats extends HBox {
 
         this.getChildren().addAll(
             new StatCard(loadStatus, "Average load", texteLoad), 
-            new StatCard(tempStatus, "Average temp", texteTemp), 
+            new StatCard(tempStatus, "Average temp", texteTemp),
             new StatCard("normal", machineTitle, String.valueOf(machineInDb)), 
             new StatCard("normal", openTicketTitle, String.valueOf(openTicketsCount))
         );

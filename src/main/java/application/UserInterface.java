@@ -7,6 +7,7 @@ import domain.Admin;
 import domain.Staff;
 import domain.Technician;
 import domain.Context;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -94,16 +95,40 @@ class UserInterface{
 
         dashview.setFillWidth(true);
         VBox.setVgrow(dashview, Priority.ALWAYS);
-
-        VBox box; 
         
         if(isadmin){
-            box = new AdminPart((Admin)this.logUser, s, context);
+            AdminPart box = new AdminPart((Admin)this.logUser, s, context);
+            dashview.getChildren().add(box);
+            Thread refresh = new Thread(() -> {
+                while (true) {
+                    try{
+                        Thread.sleep(10000);
+                        Platform.runLater(() -> box.refresh()); 
+                    }catch(Exception e){
+                        System.out.print("Error : refresh thread : \n " + e);
+                    } 
+                }
+            });
+            refresh.setDaemon(true);
+            refresh.start();
         }
         else{
-            box = new TechnicianPart((Technician)this.logUser, this.stage, context);
+            TechnicianPart box = new TechnicianPart((Technician)this.logUser, this.stage, context);
+            dashview.getChildren().add(box);
+            Thread refresh = new Thread(() -> {
+                while(true){
+                    try{
+                        Thread.sleep(10000);
+                        Platform.runLater(() -> box.refresh());
+                    }catch(Exception e){
+                        System.out.print("Error : refresh thread : \n " + e);
+                    }
+                }
+            });
+            refresh.setDaemon(true);
+            refresh.start();
         }
-        dashview.getChildren().add(box);
+        
         root.setCenter(dashview);
         Scene scene = new Scene(root,1100,700);
         scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());

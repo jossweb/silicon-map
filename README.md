@@ -18,3 +18,5 @@ This project is for educational purposes only and is not intended for production
 - dotenv-java (storing database information in a .env file)
 
 *We use Maven to manage dependencies*
+
+## Starting 

@@ -16,3 +16,6 @@ Desktop.ini
 *.fxbuild
 src/main/resources/.env
 /pdf
+/html
+/latex
+Doxyfile
