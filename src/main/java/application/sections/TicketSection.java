@@ -17,20 +17,18 @@ import javafx.stage.Stage;
 
 
 /**
- * ticket part |
- * Affichage des tickets.
+ * ticket part
  * 
  * @author EVANGELISTA Thomas
  */
 public class TicketSection extends ScrollPane {
 
     /**
-     * Admin display constructor |
-     * Constructeur affichage pour Admin.
+     * Admin display constructor
      * 
-     * @param context Contexte système contenant les tickets
-     * @param stage Fenêtre parente
-     * @param admin Admin connecté
+     * @param context System context containing the tickets
+     * @param stage Parent window
+     * @param admin Admin logged in
      */
     public TicketSection(Context context, Stage stage, Admin admin) {
         context.updateTicketList();
@@ -55,12 +53,11 @@ public class TicketSection extends ScrollPane {
     }
 
     /**
-     * Technician display constructor |
-     * Constructeur affichage pour Technician.
+     * Technician display constructor
      * 
-     * @param context Contexte système contenant les tickets
-     * @param stage Fenêtre parente
-     * @param technician Technician connecté
+     * @param context System context containing the tickets
+     * @param stage Parent window
+     * @param technician Connected Technician
      */
     public TicketSection(Context context, Stage stage, Technician technician) {
         context.updateTicketList();
@@ -92,10 +89,9 @@ public class TicketSection extends ScrollPane {
     }
 
     /**
-     * Display an empty message when no ticket is available. |
-     * Affiche un message lorsque aucun ticket n'est disponible.
+     * Display an empty message when no ticket is available 
      * 
-     * @param message Le message à afficher
+     * @param message The message to display
      */
     private void printEmptyMessage() {
         VBox emptyBox = new VBox();
@@ -109,10 +105,9 @@ public class TicketSection extends ScrollPane {
         this.setFitToWidth(true);
     }
     /**
-     * Creates a base GridPane with 4 columns and spacing. |
-     * Crée une GridPane de base avec 4 colonnes et des espacements.
+     * Creates a base GridPane with 4 columns and spacing 
      * 
-     * @return GridPane prête à recevoir les tickets
+     * @return GridPane ready to receive tickets
      */
     private GridPane createBaseGrid() {
         GridPane grid = new GridPane();
@@ -127,10 +122,9 @@ public class TicketSection extends ScrollPane {
         return grid;
     }
     /**
-     * Configure the ScrollPane with the given GridPane. |
-     * Configure la ScrollPane avec la grille contenant les tickets.
+     * Configure the ScrollPane with the given GridPane.
      *
-     * @param grid GridPane contenant les tickets à afficher
+     * @param grid GridPane containing the tickets to display
      */
     private void scrollSpanConfig(GridPane grid) {
         this.setContent(grid);

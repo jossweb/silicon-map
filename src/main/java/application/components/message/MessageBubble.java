@@ -7,8 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
- * Creates the message display bubble |
- * Crée la bulle d'affichage du message
+ * Creates the message display bubble
  * 
  * @author FIGUEIRAS Jossua
  */

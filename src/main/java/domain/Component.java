@@ -7,9 +7,7 @@ import Dao.ComponentDao;
 
 /**
  * Represents a generic hardware component
- * This abstract class is the base for all specific components |
- * Représente un composant matériel générique.
- * Cette classe abstraite est la base de tous les composants spécifiques.
+ * This abstract class is the base for all specific components
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -22,19 +20,13 @@ public abstract class Component {
 	private int ticketId;
 	
 	/**
-     * Creates a Component instance using explicit values |
-     * Crée une instance Component à partir de valeurs explicites.
+     * Creates a Component instance using explicit values
      *
-     * @param id the unique identifier of the component |
-     * l'identifiant unique du composant
-     * @param brand the manufacturer brand |
-     * la marque du fabricant
-     * @param model the model reference |
-     * la référence du modèle
-     * @param mid the identifier of the associated machine |
-     * l'identifiant de la machine associée
-     * @param tid the identifier of the associated ticket |
-     * l'identifiant du ticket associé
+     * @param id the unique identifier of the component
+     * @param brand the manufacturer brand 
+     * @param model the model reference
+     * @param mid the identifier of the associated machine
+     * @param tid the identifier of the associated ticket
      */
 	public Component(int id, String brand, String model, int mid, int tid) {
 		this.id = id;
@@ -44,11 +36,9 @@ public abstract class Component {
 		this.ticketId = tid;
 	}
 	/**
-     * Creates a Component instance from a SQL result set |
-     * Crée une instance Component à partir d'un résultat SQL.
+     * Creates a Component instance from a SQL result set
      *
-     * @param result the SQL result set containing component data |
-     * le résultat SQL contenant les données du composant
+     * @param result the SQL result set containing component data
      */
 	public Component(ResultSet result){
 		try{
@@ -62,80 +52,64 @@ public abstract class Component {
 		}
 	}
 	/**
-     * Returns the unique identifier of the component |
-     * Retourne l'identifiant unique du composant.
+     * Returns the unique identifier of the component
      *
-     * @return the component ID |
-     * l'identifiant du composant
+     * @return the component ID
      */
 	public int getId() {
 		return id;
 	}
 	/**
-     * Returns the manufacturer brand |
-     * Retourne la marque du fabricant.
+     * Returns the manufacturer brand
      *
-     * @return the brand name |
-     * la marque
+     * @return the brand name
      */
 	public String getBrand() {
 		return brand;
 	}
 	/**
-     * Returns the model reference |
-     * Retourne la référence du modèle.
+     * Returns the model reference
      *
-     * @return the model name |
-     * le modèle
+     * @return the model name
      */
 	public String getModel() {
 		return model;
 	}
 	/**
-     * Returns the associated machine identifier |
-     * Retourne l'identifiant de la machine associée.
+     * Returns the associated machine identifier
      *
-     * @return the machine ID |
-     * l'identifiant de la machine
+     * @return the machine ID
      */
 	public int getMachineId() {
 		return machineId;
 	}
 	/**
-     * Returns the associated ticket identifier |
-     * Retourne l'identifiant du ticket associé.
+     * Returns the associated ticket identifier
      *
-     * @return the ticket ID |
-     * l'identifiant du ticket
+     * @return the ticket ID
      */
 	public int getTicketId() {
 		return ticketId;
 	}
 	/**
-     * Updates the associated ticket identifier |
-     * Met à jour l'identifiant du ticket associé.
+     * Updates the associated ticket identifier
      *
-     * @param ticketId the new ticket identifier |
-     * le nouvel identifiant du ticket
+     * @param ticketId the new ticket identifier
      */
 	public void setTicketId(int ticketId) {
 		this.ticketId = ticketId;
 	}
 	/**
-     * Persists the component updates to the database |
-     * Enregistre les modifications du composant dans la base de données.
+     * Persists the component updates to the database
     */
 	public void updateComponent(){
 		ComponentDao.update(this);
 	}
 	/**
-     * Returns the component type as a string |
-     * Retourne le type du composant sous forme de chaîne.
+     * Returns the component type as a string
      *
-     * @param alternative the fallback value if the type is unknown |
-     * la valeur alternative si le type est inconnu
-     * @return the component type name |
-     * le nom du type de composant
+     * @param alternative the fallback value if the type is unknown
+     * @return the component type name
      */
 	public String whoami(String alternative){
 		if(this instanceof Chassis)
@@ -154,27 +128,20 @@ public abstract class Component {
 			return alternative;
 	}
 	/**
-     * Retrieves a component by its unique identifier |
-     * Récupère un composant à partir de son identifiant unique.
+     * Retrieves a component by its unique identifier
      *
-     * @param id the ID of the component to retrieve |
-     * l'identifiant du composant à récupérer
-     * @return the component instance if found |
-     * l'instance du composant si elle est trouvée
+     * @param id the ID of the component to retrieve
+     * @return the component instance if found
      */
 	public static Component getById(int id){
 		return ComponentDao.getComponentById(id);
 	}
 	/**
-     * Compares two components based on their identifiers |
-     * Compare deux composants en fonction de leur identifiant.
+     * Compares two components based on their identifiers
      *
-     * @param c1 the first component |
-     * le premier composant
-     * @param c2 the second component |
-     * le second composant
-     * @return true if both components have the same ID |
-     * true si les deux composants ont le même identifiant
+     * @param c1 the first component 
+     * @param c2 the second component
+     * @return true if both components have the same ID
      */
 	public static boolean compareComponentById(Component c1, Component c2){
 		if(c1.getId() == c2.getId()){

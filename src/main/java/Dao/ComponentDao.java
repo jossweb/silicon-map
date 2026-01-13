@@ -16,21 +16,17 @@ import domain.PowerSupply;
 import domain.Ram;
 
 /**
- * All SQL interactions related to the components |
- * Toutes les interactions SQL liées aux composants.
+ * All SQL interactions related to the components 
  * 
  * @author FIGUEIRAS Jossua
  */
 public abstract class ComponentDao {
     /**
-     * Retrieving a component (in sql db) using it's ID |
-     * Récupérer un composant dans la db sql à l'aide de son ID.
+     * Retrieving a component (in sql db) using it's ID
      * 
-     * @param id The ID of the machine being searched | 
-     * l'identifiant de la machine faisant l'objet de la recherche
+     * @param id The ID of the machine being searched 
      * 
-     * @return The component found in the database / 
-     * Le composant trouvé dans la base de données
+     * @return The component found in the database
      */
     public static Component getComponentById(int id){
         try {
@@ -57,11 +53,9 @@ public abstract class ComponentDao {
         return null;
     }
     /**
-     * Retrieves all components from SQL |
-     * Récupère tout les composents du sql.
+     * Retrieves all components from SQL
      * 
-     * @return The ArrayList that stores all the components found in database. |
-     * Un ArrayList qui stocke tous les composants trouvés dans la base de données
+     * @return The ArrayList that stores all the components found in database
      */
     public static ArrayList<Component> getAllComponents(){
         ArrayList<Component> compList = new ArrayList<Component>();
@@ -102,15 +96,12 @@ public abstract class ComponentDao {
         
     }
     /**
-     * Récupère tous les composants appartenant à une machine passé 
-     * en paramètre via le machine id. |
      * Retrieves all components belonging to a machine passed 
      * as a parameter via the machine ID.
      * 
      * @param id the machine ID.
      * 
-     * @return The ArrayList which stores all the components found in the database related to the machine. |
-     * L'ArrayList qui stocke tous les composants trouvés dans la base de données et liés à la machine.
+     * @return The ArrayList which stores all the components found in the database related to the machine
      */
     public static ArrayList<Component> getMachinesComponents(int id){
         ArrayList<Component> compList = new ArrayList<Component>();
@@ -152,11 +143,9 @@ public abstract class ComponentDao {
         
     }
     /**
-     * Updates the component passed as a parameter in db. |
-     * Met à jour le composant passé en paramètre dans la base de données.
+     * Updates the component passed as a parameter in db 
      * 
-     * @param c The Component to update |
-     * Le composant à mettre à jour
+     * @param c The Component to update
      */
     public static void update(Component c){
         try {

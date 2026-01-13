@@ -30,11 +30,10 @@ class UserInterface{
     private Staff logUser;
     private Context context;
     /**
-     * Opens the main dashboard for the logged-in user. |
-     * Ouvre le tableau de bord principal pour l'utilisateur connecté.
+     * Opens the main dashboard for the logged-in user
      * 
-     * @param s the primary stage | le stage principal
-     * @param logUser the logged-in user | l'utilisateur connecté
+     * @param s the primary stage
+     * @param logUser the logged-in user
      */
 	public void Dashboard(Stage s, Staff logUser){
 

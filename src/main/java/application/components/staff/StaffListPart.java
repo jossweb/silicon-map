@@ -7,8 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
 /**
- * Class that lists staff members in a grid 2x wide. |
- * Classe qui liste les membres du personnel dans une grille de 2 éléments de large.
+ * Class that lists staff members in a grid 2x wide 
  * 
  * @author FIGUEIRAS Jossua
  */

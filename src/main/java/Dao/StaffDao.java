@@ -11,17 +11,15 @@ import domain.Staff;
 import domain.Technician;
 
 /**
- * All SQL interactions related to the staff |
- * Toutes les interactions SQL liées aux staff.
+ * All SQL interactions related to the staff
  * 
  * @author FIGUEIRAS Jossua
  */
 public abstract class StaffDao {
 	/**
-	 * Get staff member by username |
-	 * récupère le staff member avec l'username.
+	 * Get staff member by username
 	 * 
-	 * @param username staff's username | l'username du staff member
+	 * @param username staff's username
 	 * 
 	 * @return Staff
 	 */
@@ -45,10 +43,9 @@ public abstract class StaffDao {
 		
 	}
 	/**
-	 * Get staff member by id |
-	 * récupère le staff member avec l'id.
+	 * Get staff member by id
 	 * 
-	 * @param id staff's id | l'id du staff member
+	 * @param id staff's id
 	 * 
 	 * @return Staff
 	 */
@@ -74,10 +71,9 @@ public abstract class StaffDao {
 		
 	}
 	/**
-	 * Get all staff member |
-	 * récupère tout les staff member.
+	 * Get all staff member
 	 * 
-	 * @return Arraylist who contain Staff members | un arraylist qui contient tout les staff members
+	 * @return Arraylist who contain Staff members
 	 */
 	public static ArrayList<Staff> getAllStaffMembers(){
 		try {
@@ -101,14 +97,11 @@ public abstract class StaffDao {
 		return null;
 	}
 	/**
-	 * Create the staff member in db |
-	 * Crée le staff member dans la db.
+	 * Create the staff member in db
 	 * 
-	 * @param s the staff who will be saved|
-	 * le staff member qui va être sauvegardé
+	 * @param s the staff who will be saved
 	 * 
-	 * @return Status string | 
-	 * le status dans une chaine de caractère.
+	 * @return Status string
 	 */
 	public static String createStaffMember(Staff s) {
 		try {
@@ -136,14 +129,11 @@ public abstract class StaffDao {
 		}
 	}
 	/**
-	 * Update the staff member in db |
-	 * Met à jour le staff member dans la db.
+	 * Update the staff member in db
 	 * 
-	 * @param s the staff who will be update|
-	 * le staff member qui va être mis à jour.
+	 * @param s the staff who will be update
 	 * 
-	 * @return Status string | 
-	 * le status dans une chaine de caractère.
+	 * @return Status string
 	 */
 	public static String updateStaffMember(Staff s) {
 		try {
@@ -173,14 +163,11 @@ public abstract class StaffDao {
 		}
 	}
 	/**
-	 * Delete the staff member in db |
-	 * Supprime le staff member dans la db.
+	 * Delete the staff member in db
 	 * 
-	 * @param s he staff who will be delete|
-	 * le staff member qui va être supprimé.
+	 * @param s he staff who will be delete
 	 * 
-	 * @return true if delete successfully| 
-	 * true si le staff member est supprimé avec succès.
+	 * @return true if delete successfully
 	 */
 	public static boolean deleteStaffFromDb(Staff s) {
 		try {
@@ -198,13 +185,10 @@ public abstract class StaffDao {
 		}
 	}
 	/**
-	 * Update the staff member's status in db |
-	 * Met à jour le status du staff members.
+	 * Update the staff member's status in db
 	 * 
-	 * @param status true if member is online |
-	 * true si le membre est en ligne.
-	 * @param id member id |
-	 * id du membre
+	 * @param status true if member is online
+	 * @param id member id
 	 * 
 	 */
 	public static void changeStatus(boolean status, int id){

@@ -13,8 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * ticket part |
- * Affichage des tickets.
+ * ticket part
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -22,14 +21,13 @@ public class TicketPart extends VBox{
     private Stage stage;
     private Context context;
     /**
-     * Admin view for ticket management. | Vue Admin pour la gestion des tickets.
+     * Admin view for ticket management 
      * 
-     * Displays all tickets and allows creating new tickets. |
-     * Affiche tous les tickets et permet la création de nouveaux tickets.
+     * Displays all tickets and allows creating new tickets 
      * 
-     * @param admin the logged-in admin | l'admin connecté
-     * @param stage the parent stage | la fenêtre parente
-     * @param context the system context containing tickets and machine data | le contexte système contenant les tickets et les machines
+     * @param admin the logged-in admin
+     * @param stage the parent stage
+     * @param context the system context containing tickets and machine data 
      */
     public TicketPart(Admin admin, Stage stage, Context context){
         this.stage= stage;
@@ -54,9 +52,9 @@ public class TicketPart extends VBox{
     /**
      * Technician version
      * 
-     * @param technician the logged-in technican | technicien connecté
-     * @param stage the parent stage | la fenêtre parente
-     * @param context the system context containing tickets and machine data | le contexte système contenant les tickets et les machines
+     * @param technician the logged-in technican
+     * @param stage the parent stage
+     * @param context the system context containing tickets and machine data
      */
     public TicketPart(Technician technician, Stage stage, Context context){
         this.stage= stage;

@@ -13,8 +13,7 @@ import javafx.stage.Stage;
 
 public class StaffPart extends VBox{
     /**
-     * Creating a chart based on the data passed as parameters |
-     * Création d'un graphique à partir des données en paramètres
+     * Creating a chart based on the data passed as parameters 
      * 
      * @author FIGUEIRAS Jossua
      */

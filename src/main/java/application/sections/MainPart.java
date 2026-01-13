@@ -19,10 +19,10 @@ import javafx.scene.layout.VBox;
 public class MainPart extends VBox {
     private Context context;
     /**
-     * Constructor for Admin users. | Constructeur pour les utilisateurs Admin.
+     * Constructor for Admin users
      * 
-     * @param user the logged-in admin | l'admin connecté
-     * @param context the system context containing machine and ticket data | le contexte système contenant les données des machines et tickets
+     * @param user the logged-in admin 
+     * @param context the system context containing machine and ticket data
      */
     public MainPart(Admin user, Context context){
         this.context = context;
@@ -41,10 +41,10 @@ public class MainPart extends VBox {
         this.getChildren().addAll(stats, evolutionLabel, chartsPart);
     }
     /**
-     * Constructor for Technician users. | Constructeur pour les utilisateurs Technicien.
+     * Constructor for Technician users 
      * 
-     * @param user the logged-in technician | le technicien connecté
-     * @param context the system context containing and | le contexte système contenant les données des machines et tickets
+     * @param user the logged-in technician
+     * @param context the system context containing and ticket
      */
     public MainPart(Technician user, Context context){
         this.context = context;

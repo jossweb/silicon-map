@@ -8,8 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 /**
- * Main Section |
- * Section main
+ * Main Section
  * 
  * @author FIGUEIRAS Jossua
  */

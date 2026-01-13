@@ -15,21 +15,17 @@ import domain.Storage;
 import domain.Switch;
 
 /**
- * All SQL interactions related to the machines |
- * Toutes les interactions SQL liées aux machines.
+ * All SQL interactions related to the machines
  * 
  * @author FIGUEIRAS Jossua
  */
 public abstract class MachineDao {
 	/**
-	 * Create a machine in the database |
-	 * Crée une machine dans la db.
+	 * Create a machine in the database
 	 * 
-	 * @param m the machine that will be saved |
-	 *  La machine qui sera sauvegardée
+	 * @param m the machine that will be saved
 	 * 
-	 * @return true if machine saved successfully |
-	 * true si la machine a réussi à enregistrer.
+	 * @return true if machine saved successfully
 	 */
 	public static boolean CreateMachineInDb(Machine m) {
 		try {
@@ -53,14 +49,11 @@ public abstract class MachineDao {
 		}
 	}
 	/**
-	 * Create a machine in the database |
-	 * Crée une machine dans la db.
+	 * Create a machine in the database
 	 * 
-	 * @param id the ID of the machine to retrieve |
-	 * l'identifiant de la machine à récupérer
+	 * @param id the ID of the machine to retrieve
 	 * 
-	 * @return The machine recovered. |
-	 * La machine récupéré.
+	 * @return The machine recovered
 	 */
 	public static Machine getMachine(int id) {
 		try {
@@ -86,11 +79,9 @@ public abstract class MachineDao {
 		}
 	}
 	/**
-	 * Get all machine from db |
-	 * récupère toutes les machines depuis la base de données
+	 * Get all machine from db
 	 * 
-	 * @return The array list that contain all machine from db |
-	 * Un array list qui contient tout les machines venant de la db
+	 * @return The array list that contain all machine from db
 	 */
 	public static ArrayList<Machine> getAllMachines(){
 		ArrayList<Machine> list = new ArrayList<Machine>();
@@ -122,14 +113,11 @@ public abstract class MachineDao {
 		}
 	}
 	/**
-	 * Update machine in database |
-	 * met à jour une machine en db
+	 * Update machine in database
 	 * 
-	 * @param m the update machine |
-	 * la machine à mettre à jour
+	 * @param m the update machine
 	 * 
-	 * @return Status in string |
-	 * Status de la requête dans une chaine de caractères
+	 * @return Status in string
 	 */
 	public static String updateMachineDb(Machine m) {
 		try {
@@ -155,14 +143,11 @@ public abstract class MachineDao {
 		}
 	}
 	/**
-	 * Delete machine in database |
-	 * Supprime une machine en db
+	 * Delete machine in database
 	 * 
-	 * @param m the delete machine |
-	 * la machine à supprimer
+	 * @param m the delete machine
 	 * 
-	 * @return true if machine delete|
-	 * true si la machine est supprimé.
+	 * @return true if machine delete
 	 */
 	public static boolean deleteMachine(Machine m) {
 		try {

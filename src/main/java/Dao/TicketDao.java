@@ -11,17 +11,15 @@ import java.sql.Statement;
 import domain.Ticket;
 
 /**
- * All SQL interactions related to the tickets |
- * Toutes les interactions SQL liées aux tickets.
+ * All SQL interactions related to the tickets
  * 
  * @author FIGUEIRAS Jossua
  */
 public abstract class TicketDao {
     /**
-	 * Get ticket by id |
-	 * récupère le ticket avec l'id.
+	 * Get ticket by id
 	 * 
-	 * @param id ticket's id | l'id du ticket
+	 * @param id ticket's id
 	 * 
 	 * @return Ticket
 	 */
@@ -41,11 +39,9 @@ public abstract class TicketDao {
         return null;
     }
     /**
-	 * Get all tickets |
-	 * récupère tout les tickets.
+	 * Get all tickets
 	 * 
-	 * @return ArrayList who contain all tickets |
-     * Un arrayList qui contient tout les tickets
+	 * @return ArrayList who contain all tickets
 	 */
     public static ArrayList<Ticket> getAllTicket(){
         ArrayList<Ticket> list = new ArrayList<Ticket>();
@@ -63,13 +59,11 @@ public abstract class TicketDao {
         return list;
     }
     /**
-	 * Create a tickets in database |
-	 * Crée un ticket dans la base de données.
+	 * Create a tickets in database
 	 * 
      * @param newTicket ticket
      * 
-	 * @return new ticket't id |
-     * id du nouveau ticket 
+	 * @return new ticket't id 
 	 */
     public static int createTicketInDb(Ticket newTicket){
         try{
@@ -93,7 +87,7 @@ public abstract class TicketDao {
             if (rs.next()) {
                 return rs.getInt(1);
             }else{
-                // TODO : Send exception
+                System.out.print("Error : can't create ticket in db");
             }
 
         }catch(SQLException e){
@@ -102,8 +96,7 @@ public abstract class TicketDao {
         return 0;
     }
     /**
-	 * Update a tickets in database |
-	 * Met à jour un ticket dans la base de données.
+	 * Update a tickets in database
 	 * 
      * @param t ticket
 	 */

@@ -25,8 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- * Navbar of principal stage. |
- * Barre de navigation du stage principal.
+ * Navbar of principal stage 
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -35,8 +34,7 @@ public class Navbar extends GridPane{
     private Stage stage;
     private StackPane contentPanel;
     /**
-     * Admin version. |
-     * Version admin.
+     * Admin version 
      * 
      * @param user the Admin currently logged in
      * @param context the Context object containing machines, tickets, and other data
@@ -127,8 +125,7 @@ public class Navbar extends GridPane{
         }));
     }
     /**
-     * Technician version. |
-     * Version technicien.
+     * Technician version 
      * 
      * @param user the Technician currently logged in
      * @param context the Context object containing machines, tickets, and other data

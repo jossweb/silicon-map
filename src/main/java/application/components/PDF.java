@@ -23,8 +23,7 @@ import domain.Component;
 import domain.Machine;
 
 /**
- * Create and save pdf. |
- * Crée et sauvegarde un pdf.
+ * Create and save pdf 
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -36,8 +35,8 @@ public class PDF {
     private Font bodyFont;
     private boolean success;
     /** 
-    * @param name the name of the PDF file to be created (without extension) | le nom du fichier PDF à créer (sans extension)
-    * @param m the Machine object containing all the information to include | l'objet Machine contenant toutes les informations à inclure
+    * @param name the name of the PDF file to be created (without extension) 
+    * @param m the Machine object containing all the information to include
     */
     public PDF(String name, Machine m) {        
         this.docName = name;
@@ -135,8 +134,7 @@ public class PDF {
         }
     }
     /**
-     * returns whether the PDF was created and saved successfully |
-     * indique si le PDF a été créé et enregistré avec succès.
+     * returns whether the PDF was created and saved successfully
      * 
      * @return true if the PDF was created and saved successfully
      */

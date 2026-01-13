@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 import Dao.TicketDao;
 
 /**
- * Represents a support ticket in the system |
- * Représente un ticket de support dans le système.
+ * Represents a support ticket in the system
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -25,27 +24,17 @@ public class Ticket {
 	private LocalDateTime closed_at;
 
 	/**
-     * Creates a Ticket instance with explicit values |
-     * Crée une instance Ticket à partir de valeurs explicites.
+     * Creates a Ticket instance with explicit values
      *
-     * @param id the unique identifier of the ticket |
-     * l'identifiant unique du ticket
-     * @param m the machine associated with the ticket |
-     * la machine associée au ticket
-     * @param creator the admin who created the ticket |
-     * l'admin ayant créé le ticket
-     * @param technician the technician assigned to the ticket |
-     * le technicien assigné au ticket
-     * @param title the title of the ticket |
-     * le titre du ticket
-     * @param description the detailed description of the issue |
-     * la description détaillée du problème
-     * @param status the current status of the ticket ("open", "in_progress", "closed") |
-     * le statut actuel du ticket ("open", "in_progress", "closed")
-     * @param open_at the date and time the ticket was opened |
-     * la date et l'heure d'ouverture du ticket
-     * @param closed_at the date and time the ticket was closed |
-     * la date et l'heure de fermeture du ticket
+     * @param id the unique identifier of the ticket
+     * @param m the machine associated with the ticket
+     * @param creator the admin who created the ticket
+     * @param technician the technician assigned to the ticket 
+     * @param title the title of the ticket
+     * @param description the detailed description of the issue
+     * @param status the current status of the ticket ("open", "in_progress", "closed")
+     * @param open_at the date and time the ticket was opened
+     * @param closed_at the date and time the ticket was closed
      */
 	public Ticket(int id, Machine m, Admin creator, Technician technician, String title, String description, String status, LocalDateTime open_at, LocalDateTime closed_at) {
 		this.id = id;
@@ -59,11 +48,9 @@ public class Ticket {
 		this.status = status;
 	}
 	/**
-     * Creates a Ticket instance from a SQL result set |
-     * Crée une instance Ticket à partir d'un résultat SQL.
+     * Creates a Ticket instance from a SQL result set 
      *
-     * @param result the SQL result set containing ticket data |
-     * le résultat SQL contenant les données du ticket
+     * @param result the SQL result set containing ticket data
      */
 	public Ticket(ResultSet result){
 		try{
@@ -89,19 +76,16 @@ public class Ticket {
 		}
 	}
 	/**
-     * Creates this ticket in the database |
-     * Crée ce ticket dans la base de données.
+     * Creates this ticket in the database
      */
 	public void createTicket(){
 		this.id = TicketDao.createTicketInDb(this);
 	}
 
     /**
-     * Sets the status of the ticket if valid |
-     * Définit le statut du ticket si valide.
+     * Sets the status of the ticket if valid
      *
-     * @param newStatus the new status ("open", "in_progress", "closed") |
-     * le nouveau statut ("open", "in_progress", "closed")
+     * @param newStatus the new status ("open", "in_progress", "closed") 
      */
 	public void SetStatus(String newStatus) {
 		if(newStatus == "open" || newStatus == "in_progress" || newStatus == "closed") {
@@ -109,8 +93,7 @@ public class Ticket {
 		}
 	}
 	/**
-     * Closes the ticket and sets the closing timestamp |
-     * Ferme le ticket et définit la date de fermeture.
+     * Closes the ticket and sets the closing timestamp
      */
 	public void close(){
 		this.SetStatus("closed");
@@ -144,8 +127,7 @@ public class Ticket {
 		return closed_at;
 	}
 	/**
-     * Updates this ticket in the database |
-     * Met à jour ce ticket dans la base de données.
+     * Updates this ticket in the database
      */
 	public void updateInDb(){
 		TicketDao.updateTicket(this);

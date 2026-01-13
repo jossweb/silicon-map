@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Represents a RAM component in a machine |
- * Représente une barrette de RAM dans une machine.
+ * Represents a RAM component in a machine
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -14,23 +13,15 @@ public class Ram extends Component{
 	private int sizeGo;
 	private int version;
 	/**
-     * Creates a Ram instance with explicit values |
-     * Crée une instance Ram avec des valeurs explicites.
+     * Creates a Ram instance with explicit values
      *
-     * @param id the unique identifier of the component |
-     * l'identifiant unique du composant
-     * @param brand the brand of the RAM |
-     * la marque de la RAM
-     * @param model the model of the RAM |
-     * le modèle de la RAM
-     * @param m the machine ID this RAM belongs to |
-     * l'identifiant de la machine à laquelle appartient la RAM
-     * @param tid the ticket ID associated with this component |
-     * l'identifiant du ticket associé à ce composant
-     * @param size_go the size of the RAM in GB |
-     * la taille de la RAM en Go
-     * @param version the RAM version/type (ex: DDR4, DDR5) |
-     * la version/type de la RAM (ex : DDR4, DDR5)
+     * @param id the unique identifier of the component
+     * @param brand the brand of the RAM
+     * @param model the model of the RAM
+     * @param m the machine ID this RAM belongs to 
+     * @param tid the ticket ID associated with this component
+     * @param size_go the size of the RAM in GB 
+     * @param version the RAM version/type (ex: DDR4, DDR5)
      */
 	public Ram(int id, String brand, String model, int m, int tid, int size_go, int version) {
 		super(id, brand, model, m, tid);
@@ -38,11 +29,9 @@ public class Ram extends Component{
 		this.version = version;
 	}
 	/**
-     * Creates a Ram instance from a SQL result set |
-     * Crée une instance Ram à partir d'un résultat SQL.
+     * Creates a Ram instance from a SQL result set 
      *
-     * @param result the SQL result set containing RAM data |
-     * le résultat SQL contenant les données de la RAM
+     * @param result the SQL result set containing RAM data
      */
 	public Ram(ResultSet result){
 		super(result);
@@ -54,19 +43,17 @@ public class Ram extends Component{
 		}
 	}
 	/**
-     * Returns the size of the RAM in GB |
-     * Renvoie la taille de la RAM en Go.
+     * Returns the size of the RAM in GB
      *
-     * @return the size in GB | la taille en Go
+     * @return the size in GB
      */
 	public int getSize_go() {
 		return sizeGo;
 	}
 	/**
-     * Returns the version/type of the RAM |
-     * Renvoie la version/type de la RAM.
+     * Returns the version/type of the RAM
      *
-     * @return the version/type | la version/type
+     * @return the version/type
      */
 	public int getVersion() {
 		return version;

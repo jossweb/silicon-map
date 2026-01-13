@@ -21,12 +21,11 @@ public class AdminPart extends VBox implements refreshable{
     private StackPane contentPanel;
 
     /**
-     * Constructor for AdminPart |
-     * Constructeur de la partie interface pour un administrateur.
+     * Constructor for AdminPart
      *
-     * @param t  The logged-in admin | L'administrateur connecté
-     * @param s  The current stage | La fenêtre principale
-     * @param c  The application context | Le contexte de l'application
+     * @param t  The logged-in admin 
+     * @param s  The current stage 
+     * @param c  The application context 
      */
     public AdminPart(Admin t, Stage s, Context c){
         this.technician = t;
@@ -36,8 +35,7 @@ public class AdminPart extends VBox implements refreshable{
         this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel), contentPanel);
     }
     /**
-     * refreshes interface. |
-     * actualise l'interface.
+     * refreshes interface 
      */
     public void refresh(){
         this.getChildren().clear();

@@ -5,8 +5,7 @@ import java.sql.SQLException;
 
 
 /**
- * Represents a storage disk component |
- * Représente un composant de stockage de type disque.
+ * Represents a storage disk component
  *
  * @author FIGUEIRAS Jossua
  */
@@ -14,32 +13,23 @@ import java.sql.SQLException;
 public class Disk extends Component{
 	private int sizeGo;
 	/**
-     * Creates a Disk instance using explicit values |
-     * Crée une instance de Disk à partir de valeurs explicites.
+     * Creates a Disk instance using explicit values 
      *
-     * @param id the unique identifier of the disk |
-     * l'identifiant unique du disque
-     * @param brand the disk manufacturer |
-     * le fabricant du disque
-     * @param model the disk model |
-     * le modèle du disque
-     * @param m the associated machine ID |
-     * l'identifiant de la machine associée
-     * @param tid the associated ticket ID |
-     * l'identifiant du ticket associé
-     * @param size_go the disk capacity in gigabytes |
-     * la capacité du disque en gigaoctets
+     * @param id the unique identifier of the disk
+     * @param brand the disk manufacturer 
+     * @param model the disk model
+     * @param m the associated machine ID
+     * @param tid the associated ticket ID
+     * @param size_go the disk capacity in gigabytes
      */
 	public Disk(int id, String brand, String model, int m, int tid, int size_go) {
 		super(id, brand, model, m, tid);
 		this.sizeGo = size_go;
 	}
 	/**
-     * Creates a Disk instance from a SQL result set |
-     * Crée une instance de Disk à partir d'un résultat SQL.
+     * Creates a Disk instance from a SQL result set
      *
-     * @param result the SQL result set containing disk data |
-     * le résultat SQL contenant les données du disque
+     * @param result the SQL result set containing disk data
      */
 	public Disk(ResultSet result){
 		super(result);
@@ -50,11 +40,9 @@ public class Disk extends Component{
 		}
 	}
 	/**
-     * Returns the disk capacity in gigabytes |
-     * Retourne la capacité du disque en gigaoctets.
+     * Returns the disk capacity in gigabytes
      *
-     * @return the disk size in GB |
-     * la taille du disque en Go
+     * @return the disk size in GB
      */
 	public int getSizeGo() {
 		return sizeGo;

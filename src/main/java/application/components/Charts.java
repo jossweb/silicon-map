@@ -11,8 +11,7 @@ import javafx.scene.chart.XYChart;
 import type.Tuple;
 
 /**
- * Creating a chart based on the data passed as parameters |
- * Création d'un graphique à partir des données en paramètres
+ * Creating a chart based on the data passed as parameters
  * 
  * @author FIGUEIRAS Jossua
  */

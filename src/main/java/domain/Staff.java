@@ -11,8 +11,7 @@ import error.UserNotFound;
 import error.BadPassword;
 
 /**
- * Represents a staff member of the system |
- * Représente un membre du personnel dans le système.
+ * Represents a staff member of the system 
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -26,21 +25,14 @@ public abstract class Staff {
 	private boolean available;
 	
 	/**
-     * Creates a Staff instance with explicit values |
-     * Crée une instance Staff avec des valeurs explicites.
+     * Creates a Staff instance with explicit values
      *
-     * @param id the unique identifier of the staff member |
-     * l'identifiant unique du membre du personnel
-     * @param name the last name of the staff member |
-     * le nom de famille du membre du personnel
-     * @param firstname the first name of the staff member |
-     * le prénom du membre du personnel
-     * @param hashpass the hashed password |
-     * le mot de passe chiffré
-     * @param username the login username |
-     * le nom d'utilisateur
-     * @param available indicates if the account is active |
-     * indique si le compte est actif
+     * @param id the unique identifier of the staff member
+     * @param name the last name of the staff member 
+     * @param firstname the first name of the staff member
+     * @param hashpass the hashed password
+     * @param username the login username
+     * @param available indicates if the account is active
      */
 	public Staff(int id, String name, String firstname, String hashpass, String username, boolean available) {
 		this.id = id;
@@ -51,11 +43,9 @@ public abstract class Staff {
 		this.available = available;
 	}
 	 /**
-     * Creates a Staff instance from a SQL result set |
-     * Crée une instance Staff à partir d'un résultat SQL.
+     * Creates a Staff instance from a SQL result set 
      *
-     * @param sqlResult the SQL result set containing staff data |
-     *                  le résultat SQL contenant les données du membre du personnel
+     * @param sqlResult the SQL result set containing staff data
      */
 	public Staff(ResultSet sqlResult){
 		try{
@@ -71,30 +61,22 @@ public abstract class Staff {
 
 	}
 	/**
-     * Hashes a plain password using BCrypt |
-     * Chiffre un mot de passe en clair avec BCrypt.
+     * Hashes a plain password using BCrypt
      *
-     * @param pass the plain password |
-     *             le mot de passe en clair
+     * @param pass the plain password
      * 
-	 * @return the hashed password |
-     *         le mot de passe chiffré
+	 * @return the hashed password
      */
 	public static String hashpass(String pass) {
 		return BCrypt.hashpw(pass, BCrypt.gensalt(12));
 	}
 	/**
-     * Checks login credentials and returns the Staff member |
-     * Vérifie les identifiants et retourne le membre du personnel.
+     * Checks login credentials and returns the Staff member
      *
-     * @param username the login username |
-     *                 le nom d'utilisateur
-     * @param pass the plain password |
-     *             le mot de passe en clair
-     * @return the Staff instance if credentials are correct |
-     *         l'instance Staff si les identifiants sont corrects
-     * @throws LoginError if login fails (user not found or bad password) |
-     *                    lance une exception si la connexion échoue (utilisateur non trouvé ou mot de passe incorrect)
+     * @param username the login username
+     * @param pass the plain password
+     * @return the Staff instance if credentials are correct
+     * @throws LoginError if login fails (user not found or bad password)
      */
 	public static Staff checkPass(String username, String pass) throws LoginError{
 		//return the staff member if pass and username are correct 
@@ -125,25 +107,21 @@ public abstract class Staff {
 	}
 
     /**
-     * Adds the staff member to the database |
-     * Ajoute le membre du personnel dans la base de données.
+     * Adds the staff member to the database
      */
 	public void AddMemberToDb() {
 		StaffDao.createStaffMember(this);
 	}
 	/**
-     * Deletes the staff member from the database |
-     * Supprime le membre du personnel de la base de données.
+     * Deletes the staff member from the database
      */
 	public void DeleteMemberInDb() {
 		StaffDao.deleteStaffFromDb(this);
 	}
 	/**
-     * Updates the availability status of the staff member |
-     * Met à jour le statut de disponibilité du membre du personnel.
+     * Updates the availability status of the staff member
      *
-     * @param bool true if available, false otherwise |
-     * true si disponible, faux sinon
+     * @param bool true if available, false otherwise
      */
 	public void setAvailable(boolean bool){
 		StaffDao.changeStatus(bool, this.id);
@@ -152,14 +130,11 @@ public abstract class Staff {
 		return this.available;
 	}
 	/**
-     * Retrieves a staff member by its ID |
-     * Récupère un membre du personnel par son identifiant.
+     * Retrieves a staff member by its ID 
      *
-     * @param id the unique identifier of the staff member |
-     * l'identifiant unique du membre du personnel
+     * @param id the unique identifier of the staff member
      * 
-	 * @return the Staff instance |
-     * l'instance Staff
+	 * @return the Staff instance
      */
 	public static Staff getUserById(int id){
 		return StaffDao.getStaffMember(id);

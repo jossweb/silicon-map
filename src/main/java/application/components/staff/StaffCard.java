@@ -9,8 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
 
 /**
- * Creating card for a user |
- * Création d'une carte pour un utilisateur
+ * Creating card for a user 
  * 
  * @author FIGUEIRAS Jossua
  */

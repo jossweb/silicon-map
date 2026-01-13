@@ -24,12 +24,9 @@ public class MachinesParts<M extends Machine> extends VBox {
 
     /**
      * 
-     * @param context the application context containing the list of machines. |
-     *                le contexte de l’application contenant la liste des machines.
-     * @param stage the main application window. |
-     *              la fenêtre principale de l’application.
-     * @param type the class of the machine type to display (e.g., Compute, GpuCompute, Storage, Network). |
-     *             la classe du type de machine à afficher (ex : Compute, GpuCompute, Storage, Network).
+     * @param context the application context containing the list of machines 
+     * @param stage the main application window 
+     * @param type the class of the machine type to display (e.g., Compute, GpuCompute, Storage, Network) 
      */
     public MachinesParts(Context context, Stage stage, Class<M> type) {
         this.context = context;

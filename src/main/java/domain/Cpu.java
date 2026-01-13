@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Represents a CPU component |
- * Représente un composant CPU.
+ * Represents a CPU component
  *
  * @author FIGUEIRAS Jossua
  */
@@ -14,23 +13,15 @@ public class Cpu extends Component{
 	private int nbCore;
 	private int maxRam;
 	/**
-     * Creates a CPU instance using explicit values |
-     * Crée une instance de CPU à partir de valeurs explicites.
+     * Creates a CPU instance using explicit values
      *
-     * @param id the unique identifier of the CPU |
-     * l'identifiant unique du CPU
-     * @param brand the CPU manufacturer |
-     * le fabricant du CPU
-     * @param model the CPU model |
-     * le modèle du CPU
-     * @param m the associated machine ID |
-     * l'identifiant de la machine associée
-     * @param tid the associated ticket ID |
-     * l'identifiant du ticket associé
-     * @param nb_core the number of CPU cores |
-     * le nombre de cœurs du processeur
-     * @param max_ram the maximum supported RAM |
-     * la quantité maximale de RAM supportée
+     * @param id the unique identifier of the CPU
+     * @param brand the CPU manufacturer 
+     * @param model the CPU model 
+     * @param m the associated machine ID
+     * @param tid the associated ticket ID
+     * @param nb_core the number of CPU cores
+     * @param max_ram the maximum supported RAM
      */
 	public Cpu(int id, String brand, String model, int m, int tid, int nb_core, int max_ram) {
 		super(id, brand, model, m, tid);
@@ -38,11 +29,9 @@ public class Cpu extends Component{
 		this.maxRam = max_ram;
 	}
 	/**
-     * Creates a CPU instance from a SQL result set |
-     * Crée une instance de CPU à partir d'un résultat SQL.
-     *
-     * @param result the SQL result set containing CPU data |
-     * le résultat SQL contenant les données du CPU
+     * Creates a CPU instance from a SQL result set 
+	 * 
+     * @param result the SQL result set containing CPU data
      */
 	public Cpu(ResultSet result){
 		super(result);
@@ -54,21 +43,17 @@ public class Cpu extends Component{
 		}
 	}
 	/**
-	 * Returns the number of CPU cores |
-	 * Retourne le nombre de cœurs du processeur.
+	 * Returns the number of CPU cores
 	 *
-	 * @return the number of cores |
-	 * le nombre de cœurs
+	 * @return the number of cores
 	 */
 	public int getNbCore() {
 		return nbCore;
 	}
 	/**
-     * Returns the maximum supported RAM |
-     * Retourne la quantité maximale de RAM supportée.
+     * Returns the maximum supported RAM
      *
-     * @return the maximum RAM value |
-     * la valeur maximale de RAM
+     * @return the maximum RAM value
      */
 	public int getMaxRam() {
 		return maxRam;

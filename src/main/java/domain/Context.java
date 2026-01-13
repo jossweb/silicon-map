@@ -14,9 +14,7 @@ import type.Tuple;
 
 /**
  * This class centralizes runtime data such as machines, components,
- * staff members, tickets, temperatures and loads |
- * Cette classe centralise les données d'exécution telles que les machines,
- * composants, membres du personnel, tickets, températures et charges.
+ * staff members, tickets, temperatures and loads 
  *
  * @author EVANGELISTA Thomas and FIGUEIRAS Jossua
  */
@@ -31,8 +29,7 @@ public class Context {
 
 
     /**
-     * Creates an empty Context instance |
-     * Crée une instance Context vide.
+     * Creates an empty Context instance
      */
     public Context(){
         this.temp = new HashMap<>();
@@ -42,56 +39,48 @@ public class Context {
         this.listComponents = new ArrayList<>();
     }
     /**
-     * Updates temperature data from the database |
-     * Met à jour les données de température depuis la base de données.
+     * Updates temperature data from the database 
      */
     public void updateTemp(){
         this.temp = ContextDao.getRecentTemp();
     }
 
     /**
-     * Updates load data from the database |
-     * Met à jour les données de charge depuis la base de données.
+     * Updates load data from the database
      */
     public void updateLoad(){
         this.load = ContextDao.getRecentLoad();
     }
 
     /**
-     * Updates the machine list |
-     * Met à jour la liste des machines.
+     * Updates the machine list 
      */
     public void updateMachinesList(){
         this.listMachine=MachineDao.getAllMachines();
     }
     /**
-     * Updates the staff members list |
-     * Met à jour la liste des membres du personnel.
+     * Updates the staff members list
      */
     public void updateStaffMembersList(){
         this.listStaffMembers = StaffDao.getAllStaffMembers();
     }
 
     /**
-     * Updates the ticket list |
-     * Met à jour la liste des tickets.
+     * Updates the ticket list 
      */
     public void updateTicketList(){
         this.listTickets = TicketDao.getAllTicket();
     }
     /**
-     * Updates the component list |
-     * Met à jour la liste des composants.
+     * Updates the component list 
      */
     public void updateComponentList(){
         this.listComponents = ComponentDao.getAllComponents();
     }
         /**
-     * Computes the average load of all components |
-     * Calcule la charge moyenne de tous les composants.
+     * Computes the average load of all components
      *
-     * @return the average load value |
-     *         la valeur moyenne de charge
+     * @return the average load value 
      */
     public Double getAvgLoad(){
         return this.load.values().stream()
@@ -101,11 +90,9 @@ public class Context {
     }
 
     /**
-     * Computes average temperatures for the latest inputs |
-     * Calcule les températures moyennes pour les dernières valeurs enregistrées.
+     * Computes average temperatures for the latest inputs 
      *
-     * @return a list of average temperature values with timestamps |
-     *         une liste de températures moyennes avec leurs dates
+     * @return a list of average temperature values with timestamps
      */
     public ArrayList<Tuple<Integer, LocalDateTime>> getAvgTempLastInputs() {
         ArrayList<Tuple<Integer, LocalDateTime>> result = new ArrayList<>();
@@ -138,11 +125,9 @@ public class Context {
         return result;
     }
     /**
-     * Computes average loads for the latest inputs |
-     * Calcule les charges moyennes pour les dernières valeurs enregistrées.
+     * Computes average loads for the latest inputs
      *
-     * @return a list of average load values with timestamps |
-     * une liste de charges moyennes avec leurs dates
+     * @return a list of average load values with timestamps
      */
     public ArrayList<Tuple<Integer, LocalDateTime>> getAvgLoadLastInputs() {
         ArrayList<Tuple<Integer, LocalDateTime>> result = new ArrayList<>();
@@ -176,11 +161,9 @@ public class Context {
         return result;
     }
     /**
-     * Computes the average temperature of all machines |
-     * Calcule la température moyenne de toutes les machines.
+     * Computes the average temperature of all machines
      *
-     * @return the average temperature |
-     * la température moyenne
+     * @return the average temperature
      */
     public Double getAvgTemp() {
         return this.temp.values().stream()
@@ -189,51 +172,41 @@ public class Context {
             .orElse(0);
     }
     /**
-     * Returns the machine list |
-     * Retourne la liste des machines.
+     * Returns the machine list
      *
-     * @return the list of machines |
-     * la liste des machines
+     * @return the list of machines
      */
     public ArrayList<Machine> getMachines(){
         return this.listMachine;
     }
     /**
-     * Returns the staff members list |
-     * Retourne la liste des membres du personnel.
+     * Returns the staff members list
      *
-     * @return the list of staff members |
-     *         la liste des membres du personnel
+     * @return the list of staff members
      */
     public ArrayList<Staff> getListStaffMembers(){
         return this.listStaffMembers;
    }
     /**
-     * Returns the ticket list |
-     * Retourne la liste des tickets.
+     * Returns the ticket list 
      *
-     * @return the list of tickets |
-     * la liste des tickets
+     * @return the list of tickets
      */
     public ArrayList<Ticket> getListTickets(){
         return this.listTickets;
     }
     /**
-     * Returns the component list |
-     * Retourne la liste des composants.
+     * Returns the component list
      *
-     * @return the list of components |
-     * la liste des composants
+     * @return the list of components
      */
     public ArrayList<Component> getListComponents(){
         return this.listComponents;
     }
     /**
-     * Returns the temperature history |
-     * Retourne l'historique des températures.
+     * Returns the temperature history
      *
-     * @return the temperature map |
-     * la map des températures
+     * @return the temperature map 
      */
     public Map<Integer, ArrayList<Tuple<Integer, LocalDateTime>>> getTempList(){
         return this.temp;

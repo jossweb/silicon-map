@@ -9,8 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Creating button for a ticket and on click redirects to the ticket interface |
- * Création d'un bouton pour un ticket et au clique redirige vers l'interface du ticket
+ * Creating button for a ticket and on click redirects to the ticket interface
  * 
  * @author FIGUEIRAS Jossua
  */

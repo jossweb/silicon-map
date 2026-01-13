@@ -37,8 +37,7 @@ public class TechnicianPart extends VBox implements refreshable{
         this.getChildren().add(contentPanel);
     }
     /**
-     * refreshes interface. |
-     * actualise l'interface.
+     * refreshes interface
      */
     public void refresh(){
         this.getChildren().clear();

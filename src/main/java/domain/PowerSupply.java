@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Represents a power supply component in a machine |
- * Représente une alimentation électrique dans une machine.
+ * Represents a power supply component in a machine
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -13,32 +12,23 @@ import java.sql.SQLException;
 public class PowerSupply extends Component{
 	private int power;
 	/**
-     * Creates a PowerSupply instance with explicit values |
-     * Crée une instance PowerSupply avec des valeurs explicites.
+     * Creates a PowerSupply instance with explicit values
      *
-     * @param id the unique identifier of the component |
-     * l'identifiant unique du composant
-     * @param brand the brand of the power supply |
-     * la marque de l'alimentation
-     * @param model the model of the power supply |
-     * le modèle de l'alimentation
-     * @param m the machine ID this component belongs to |
-     * l'identifiant de la machine à laquelle le composant appartient
-     * @param tid the ticket ID associated with this component |
-     * l'identifiant du ticket associé à ce composant
-     * @param power the power of the supply in watts |
-     * la puissance de l'alimentation en watts
+     * @param id the unique identifier of the component
+     * @param brand the brand of the power supply
+     * @param model the model of the power supply
+     * @param m the machine ID this component belongs to
+     * @param tid the ticket ID associated with this component 
+     * @param power the power of the supply in watts
      */
 	public PowerSupply(int id, String brand, String model, int m, int tid, int power) {
 		super(id, brand, model, m, tid);
 		this.power = power;
 	}
 	/**
-     * Creates a PowerSupply instance from a SQL result set |
-     * Crée une instance PowerSupply à partir d'un résultat SQL.
+     * Creates a PowerSupply instance from a SQL result set
      *
-     * @param result the SQL result set containing power supply data |
-     * le résultat SQL contenant les données de l'alimentation
+     * @param result the SQL result set containing power supply data
      */
 	public PowerSupply(ResultSet result){
 		super(result);
@@ -49,10 +39,9 @@ public class PowerSupply extends Component{
 		}
 	}
 	/**
-     * Returns the power of this supply in watts |
-     * Renvoie la puissance de cette alimentation en watts.
+     * Returns the power of this supply in watts
      *
-     * @return the power in watts | la puissance en watts
+     * @return the power in watts
      */
 	public int getPower() {
 		return power;

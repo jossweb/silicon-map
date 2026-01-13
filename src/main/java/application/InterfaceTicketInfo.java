@@ -15,9 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * An interface that allows you to display all the information about a ticket. |
- * Une interface permettant d'afficher toutes les informations relatives 
- * à un ticket.
+ * An interface that allows you to display all the information about a ticket
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -26,12 +24,11 @@ public class InterfaceTicketInfo extends Stage{
     private Staff user;
     private Ticket ticket;
     /**
-     * Constructs the ticket information interface. |
-     * Construit l'interface d'information d'un ticket.
+     * Constructs the ticket information interface
      * 
-     * @param s the parent stage of the application | le stage parent de l'application
-     * @param user the current staff user interacting with the ticket | l'utilisateur staff courant interagissant avec le ticket
-     * @param ticket the ticket to display | le ticket à afficher
+     * @param s the parent stage of the application
+     * @param user the current staff user interacting with the ticket
+     * @param ticket the ticket to display 
      */
     public InterfaceTicketInfo(Stage s, Staff user, Ticket ticket){
         this.stage = s;

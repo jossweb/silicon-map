@@ -18,8 +18,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * JavaFX app startup and login page. |
- * Démarrage de l'application JavaFX et page connexion.
+ * JavaFX app startup and login page
  * 
  * @author EVANGELISTA Thomas and FIGUEIRAS Jossua
  */
@@ -35,10 +34,9 @@ public class Login extends Application {
         loginPage(primaryStage);
     }
     /**
-     * Creates and displays the login interface. |
-     * Crée et affiche l'interface de connexion.
+     * Creates and displays the login interface
      * 
-     * @param stage the primary stage of the application | le stage principal de l'application
+     * @param stage the primary stage of the application
      */
     private void loginPage(Stage stage){
         //start sql connection

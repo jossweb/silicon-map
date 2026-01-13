@@ -11,8 +11,7 @@ import io.github.cdimascio.dotenv.DotenvEntry;
 
 
 /**
- * Manages the principle of single connection |
- * Gère le principe du single connexion.
+ * Manages the principle of single connection
  * 
  * @author EVANGELISTA Thomas and FIGUEIRAS Jossua
  */
@@ -66,8 +65,7 @@ public class SingleConnection {
         }
     }
     /**
-     * Get sql connexion |
-     * Récupère la connexion sql
+     * Get sql connexion
      * 
      * @return SQL Connection
      */
@@ -78,8 +76,7 @@ public class SingleConnection {
         return connection;
     }
     /**
-     * Close the sql connection |
-     * Ferme la connexion
+     * Close the sql connection 
      */
     public static void close() {
         if (connection != null) {

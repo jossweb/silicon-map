@@ -8,11 +8,9 @@ import Dao.ComponentDao;
 import Dao.MachineDao;
 
 /**
- * Represents a machine in the system |
- * Représente une machine dans le système.
+ * Represents a machine in the system 
  *
- * Machines can be of various types (Compute, Storage, GpuCompute, Switch, Router, Firewall) |
- * Les machines peuvent être de différents types (Compute, Storage, GpuCompute, Switch, Router, Firewall).
+ * Machines can be of various types (Compute, Storage, GpuCompute, Switch, Router, Firewall) 
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -25,21 +23,14 @@ public abstract class Machine{
 	private String os;
 	private String status;
 	/**
-     * Creates a Machine instance using explicit values |
-     * Crée une instance de Machine à partir de valeurs explicites.
+     * Creates a Machine instance using explicit values
      *
-     * @param id the unique identifier of the machine |
-     * l'identifiant unique de la machine
-     * @param hostname the hostname of the machine |
-     * le nom d'hôte de la machine
-     * @param ip_address the IP address of the machine |
-     * l'adresse IP de la machine
-     * @param mac_adress the MAC address of the machine |
-     * l'adresse MAC de la machine
-     * @param os the operating system installed |
-     * le système d'exploitation installé
-     * @param status the current status (Online/Offline) |
-     * le statut actuel (En ligne/Hors ligne)
+     * @param id the unique identifier of the machine 
+     * @param hostname the hostname of the machine 
+     * @param ip_address the IP address of the machine 
+     * @param mac_adress the MAC address of the machine
+     * @param os the operating system installed
+     * @param status the current status (Online/Offline)
      */
 	public Machine(int id, String hostname, String ip_address, String mac_adress, String os, String status) {
 		this.id = id;
@@ -50,11 +41,9 @@ public abstract class Machine{
 		this.status=status;
 	}
 	/**
-     * Creates a Machine instance from a SQL result set |
-     * Crée une instance de Machine à partir d'un résultat SQL.
+     * Creates a Machine instance from a SQL result set
      *
-     * @param sqlResult the SQL result set containing machine data |
-     * le résultat SQL contenant les données de la machine
+     * @param sqlResult the SQL result set containing machine data
      */
 	public Machine(ResultSet sqlResult){
 		try{
@@ -69,8 +58,7 @@ public abstract class Machine{
 		}
 	}
 	/**
-     * Returns the hostname of the machine |
-     * Retourne le nom d'hôte de la machine.
+     * Returns the hostname of the machine
 	 * 
 	 * @return hostname
      */
@@ -78,8 +66,7 @@ public abstract class Machine{
 		return hostname;
 	}
 	/**
-	 * Returns the IP address of the machine |
-	 * Retourne l'adresse IP de la machine.
+	 * Returns the IP address of the machine
 	 * 
 	 * @return ipaddress
 	 */
@@ -87,8 +74,7 @@ public abstract class Machine{
 		return ipAddress;
 	}
 	/**
-     * Returns the MAC address of the machine |
-     * Retourne l'adresse MAC de la machine.
+     * Returns the MAC address of the machine
 	 * 
 	 * @return macAddress
      */
@@ -96,8 +82,7 @@ public abstract class Machine{
 		return macAdress;
 	}
 	/**
-     * Returns the operating system of the machine |
-     * Retourne le système d'exploitation de la machine.
+     * Returns the operating system of the machine
 	 * 
 	 * @return os
      */
@@ -105,8 +90,7 @@ public abstract class Machine{
 		return os;
 	}
 	/**
-     * Returns the current status (Online/Offline) |
-     * Retourne le statut actuel (En ligne/Hors ligne).
+     * Returns the current status (Online/Offline)
 	 * 
 	 * @return status
      */
@@ -115,8 +99,7 @@ public abstract class Machine{
 	}
 
     /**
-     * Returns the unique identifier of the machine |
-     * Retourne l'identifiant unique de la machine.
+     * Returns the unique identifier of the machine
 	 * 
 	 * @return id
      */
@@ -124,13 +107,10 @@ public abstract class Machine{
 		return id;
 	}
 	    /**
-     * Returns the type of the machine based on its class |
-     * Retourne le type de la machine selon sa classe.
+     * Returns the type of the machine based on its class
      *
-     * @param defaultType the default type to return if unknown |
-     * le type par défaut à retourner si inconnu
-     * @return the machine type as a string |
-     * le type de machine sous forme de chaîne
+     * @param defaultType the default type to return if unknown
+     * @return the machine type as a string
      */
 	public String whoami(String defaultType) {
 		if(this instanceof Storage)
@@ -149,41 +129,34 @@ public abstract class Machine{
 			return defaultType;
 	}
 	/**
-     * Adds this machine to the database |
-     * Ajoute cette machine à la base de données.
+     * Adds this machine to the database 
      */
 	public void addInDB() {
 		MachineDao.CreateMachineInDb(this);
 	}
 	/**
-     * Updates this machine's data in the database |
-     * Met à jour les données de cette machine dans la base de données.
+     * Updates this machine's data in the database 
      */
 	public void modifyInDb() {
 		MachineDao.updateMachineDb(this);
 	}
 	/**
-     * Retrieves a machine by its ID |
-     * Récupère une machine à partir de son identifiant.
+     * Retrieves a machine by its ID 
      *
-     * @param id the ID of the machine |
-     *           l'identifiant de la machine
-     * @return the Machine instance if found, otherwise null |
-     *         l'instance de Machine si trouvée, sinon null
+     * @param id the ID of the machine 
+     * @return the Machine instance if found, otherwise null 
      */
 	public static Machine getMachine(int id) {
 		return MachineDao.getMachine(id);
 	}
 	/**
-     * Deletes this machine from the database |
-     * Supprime cette machine de la base de données.
+     * Deletes this machine from the database 
      */
 	public void deleteMachine() {
 		MachineDao.deleteMachine(this);
 	}
 	 /**
-     * Returns all components associated with this machine |
-     * Retourne tous les composants associés à cette machine.
+     * Returns all components associated with this machine 
 	 * 
 	 * @return component list
      */

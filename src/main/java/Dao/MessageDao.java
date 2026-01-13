@@ -10,22 +10,18 @@ import domain.Message;
 
 
 /**
- * All SQL interactions related to the messages |
- * Toutes les interactions SQL liées aux messages.
+ * All SQL interactions related to the messages
  * 
  * @author FIGUEIRAS Jossua
  */
 public abstract class MessageDao {
 
     /**
-     * Retrieves messages related to a ticket |
-     * Récupère les messages liés à un ticket
+     * Retrieves messages related to a ticket 
      * 
-     * @param ticketsId ticket id |
-     * l'id du ticket
+     * @param ticketsId ticket id
      * 
-     * @return ArrayList who contain all messages related to a ticket. |
-     * Un arraylist qui contient les messages en rapport avec le ticket.
+     * @return ArrayList who contain all messages related to a ticket
      * 
      */
     public static ArrayList<Message> getMessagesByTickets(int ticketsId){
@@ -46,11 +42,9 @@ public abstract class MessageDao {
         return response;
     }
     /**
-     * Create message in db |
-     * Crée le message en db
+     * Create message in db
      * 
-     * @param m The message to save |
-     * Le message à sauvegarder
+     * @param m The message to save
      * 
      */
     public static void createMessage(Message m){

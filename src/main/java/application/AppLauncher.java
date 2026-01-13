@@ -1,8 +1,7 @@
 package application;
 
 /**
- * app launcher |
- * Démarrage de l'app
+ * app launcher
  * 
  * @author FIGUEIRAS Jossua
  */

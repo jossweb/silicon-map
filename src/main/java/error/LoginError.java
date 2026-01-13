@@ -1,8 +1,7 @@
 package error;
 
 /**
- * Base class for login-related exceptions |
- * Classe de base pour les exceptions liées à la connexion.
+ * Base class for login-related exceptions
  * 
  * @author FIGUEIRAS Jossua
  */

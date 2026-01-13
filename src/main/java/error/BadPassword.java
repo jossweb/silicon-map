@@ -1,8 +1,7 @@
 package error;
 
 /**
- * Exception thrown when a user provides an incorrect password |
- * Exception levée lorsqu'un utilisateur fournit un mot de passe incorrect.
+ * Exception thrown when a user provides an incorrect password
  * 
  * @author FIGUEIRAS Jossua
  */

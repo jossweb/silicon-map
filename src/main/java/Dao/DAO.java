@@ -5,8 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Managing the connection to the SQL server. |
- * Gestion de la connexion au server sql.
+ * Managing the connection to the SQL server
  * 
  * @author EVANGELISTA Thomas
  */
@@ -15,8 +14,7 @@ public abstract class DAO{
     private Statement stmt;
 
     /**
-     * Open the SQL connection |
-     * Ouvre la connexion sql.
+     * Open the SQL connection 
      */
     public void open() {
         try {
@@ -30,8 +28,7 @@ public abstract class DAO{
         }
     }
     /**
-     * Close the SQL connection |
-     * Ferme la connexion sql.
+     * Close the SQL connection 
      */
     public void close() {
         try {

@@ -3,8 +3,7 @@ package type;
 import java.util.Random;
 
 /**
- * Generates a random string of a given length |
- * Génère une chaîne de caractères aléatoire d'une longueur donnée.
+ * Generates a random string of a given length
  * 
  * 
  * @author FIGUEIRAS Jossua
@@ -13,11 +12,9 @@ public class RandomString {
     private String randomString;
 
     /**
-     * Constructs a random string of specified length |
-     * Construit une chaîne aléatoire de longueur spécifiée.
+     * Constructs a random string of specified length
      *
-     * @param length the length of the random string |
-     * la longueur de la chaîne aléatoire
+     * @param length the length of the random string
      */
     public RandomString(int length){
         char[] charTable = {
@@ -36,11 +33,9 @@ public class RandomString {
         }
     }
     /**
-     * Returns the generated random string |
-     * Retourne la chaîne aléatoire générée.
+     * Returns the generated random string
      *
-     * @return the generated random string |
-     * la chaîne aléatoire générée
+     * @return the generated random string
      */
     public String getString(){
         return this.randomString;

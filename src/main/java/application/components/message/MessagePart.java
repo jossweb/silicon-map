@@ -11,8 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 /**
- * class that manages the display of messages |
- * classe qui gère l'affichage des messages
+ * class that manages the display of messages
  * 
  * @author FIGUEIRAS Jossua
  */
@@ -45,8 +44,7 @@ public class MessagePart extends ScrollPane implements refreshable{
         this.setFitToWidth(true);
     }
     /**
-     * refreshes messages on display. |
-     * actualise l'affichage du message.
+     * refreshes messages on display
      */
     public void refresh(){
         this.container.getChildren().clear();
