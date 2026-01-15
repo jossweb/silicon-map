@@ -19,6 +19,7 @@ public class AdminPart extends VBox implements refreshable{
     private Stage stage;
     private Context context;
     private StackPane contentPanel;
+    private Navbar nav;
 
     /**
      * Constructor for AdminPart
@@ -32,14 +33,13 @@ public class AdminPart extends VBox implements refreshable{
         this.stage = s;
         this.context = c;
         this.contentPanel = new StackPane();
-        this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel), contentPanel);
+        this.nav = new Navbar(this.technician , this.context, this.stage, contentPanel);
+        this.getChildren().addAll(this.nav, contentPanel);
     }
     /**
      * refreshes interface 
      */
     public void refresh(){
-        this.getChildren().clear();
-        this.contentPanel = new StackPane();
-        this.getChildren().addAll(new Navbar(this.technician , this.context, this.stage, contentPanel), contentPanel);
+        this.nav.refresh();
     }
 }

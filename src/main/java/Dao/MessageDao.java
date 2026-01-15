@@ -29,7 +29,7 @@ public abstract class MessageDao {
 
         try {
             Connection conn = SingleConnection.GetConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT id, message, tickets, author FROM message WHERE tickets = ?;");
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, message, tickets, author FROM Message WHERE tickets = ?;");
             stmt.setInt(1, ticketsId);
             ResultSet result = stmt.executeQuery();
 

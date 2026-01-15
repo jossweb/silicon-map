@@ -60,7 +60,7 @@ public class Ticket {
 			this.technician = Technician.getTechncianById(result.getInt("assigned_to"));
 			this.title = result.getString("title");
 			this.description = result.getString("description");
-			if(result.getTimestamp("closed_at") != null){
+			if(result.getTimestamp("open_at") != null){
 				this.open_at = result.getTimestamp("open_at").toLocalDateTime();
 			}else{
 				this.open_at = null;
