@@ -64,3 +64,15 @@ This project is for educational purposes only and is not intended for production
     ### Requirements
     - Java 21
     - Maven 3.9
+
+
+## Screenshots
+   <img width="1102" height="728" alt="Screenshot" src="https://github.com/user-attachments/assets/92000798-da79-41f8-8106-7a3b821232a0" />
+   <img width="1106" height="734" alt="Screenshot" src="https://github.com/user-attachments/assets/51e6d3a7-1c16-42db-896e-82e6bb6721bb" />
+   <img width="1105" height="730" alt="Screenshot" src="https://github.com/user-attachments/assets/d937da76-14a2-40db-98c9-cb9575d6b1a1" />
+   <img width="1102" height="731" alt="Screenshot" src="https://github.com/user-attachments/assets/0e0c9c3a-7643-4195-8010-eeb6e3487e73" />
+   <img width="1097" height="732" alt="Screenshot" src="https://github.com/user-attachments/assets/a3200e23-f8ca-488d-9470-db651484a152" />
+   <img width="1100" height="730" alt="Screenshot" src="https://github.com/user-attachments/assets/62ed25e2-320a-4c26-8a88-784b7d70713d" />
+    
+
+   
